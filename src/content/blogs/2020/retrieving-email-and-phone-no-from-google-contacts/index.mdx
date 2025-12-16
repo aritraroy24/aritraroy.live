@@ -17,6 +17,7 @@ _<span style="font-size:30px;">T</span>hough <a href="https://en.wikipedia.org/w
 Receiving the phone no and email id can be obtained from Google contact by using their API service. To access one’s google contact, we need that particular user’s permission via the API access level. Here ‘Gmail API’ comes to rescue us easily. Though Google provides two more API, aka <a href="https://developers.google.com/contacts/v3" target="_blank">Contact API version 3.0</a>(stopped working from June 15, 2021 ) and <a href="https://developers.google.com/gmail/api/quickstart/python#step_1_turn_on_the" target="_blank">People API</a>, from my point of view, the <a href="https://developers.google.com/gmail/api" target="_blank">‘Gmail API’</a> seems to be a lot easier to do the job.
 
 ## Requirements
+
 We’ve used python to fetch the phone no and email id from Google contacts. For this, the followings are required —
 
 - • <a href="https://www.python.org/downloads/" target="_blank">Python 3.x</a>
@@ -24,9 +25,12 @@ We’ve used python to fetch the phone no and email id from Google contacts. For
 - • A Google account with Gmail enabled
 
 ## Process
+
 #### _Step 1: Turning on the Gmail API_
+
 [1] Go to the link below to enable the Gmail API-
 [Link to enable Gmail API](https://developers.google.com/gmail/api/quickstart/python#enable_the_api)
+
 <br></br>
 
 <div><div>
@@ -68,6 +72,7 @@ We’ve used python to fetch the phone no and email id from Google contacts. For
 </div></div>
 
 #### _Step 2: Installing the Google Client Library_
+
 We have to use/install Google Client Library python library to access it. To install it via pip —
 
 ```python
@@ -84,9 +89,7 @@ pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-
 
 #### _Step 3: Setting up with code_
 
-<div class="biggerParagraph">
-  Sample code given by Google Client
-</div>
+<div class="biggerParagraph">Sample code given by Google Client</div>
 
 ```python title="SampleCode.py"
 from __future__ import print_function
@@ -172,7 +175,9 @@ After closing the window, if we take a look in the Windows PowerShell, we’ll b
 
 ![Powershell message after completing the authentication flow](./figures/powershell-message-after-completing-the-authentication-flow.webp)
 
-<sup>**Figure 8:** Powershell message after completing the authentication flow</sup>
+<sup>
+  **Figure 8:** Powershell message after completing the authentication flow
+</sup>
 
 </div></div>
 
@@ -182,15 +187,16 @@ Now, if we run the specific python file from Windows PowerShell, it’ll give a 
 
 ![Fetched different folder and contact headings printed on the Powershell screen](./figures/fetched-different-heading.webp)
 
-<sup>**Figure 9:** Fetched different folder and contact headings printed on the Powershell screen</sup>
+<sup>
+  **Figure 9:** Fetched different folder and contact headings printed on the
+  Powershell screen
+</sup>
 
 </div></div>
 
 Note that it has fetched different folder headings and contact headings only while using the sample code given by the ‘Gmail API Guide’.
 
-<div class="biggerParagraph">
-  Code to retrieve Email and Phone No.
-</div>
+<div class="biggerParagraph">Code to retrieve Email and Phone No.</div>
 
 ```python title="main.py"
 from __future__ import print_function
@@ -259,13 +265,17 @@ All the steps up to ‘authentication,’ i.e. previously described _process 1_,
 
 ![Fetched names, email ids, phone numbers associated with that specific Google account](./figures/fetched-contacts.webp)
 
-<sup>**Figure 10:** Fetched names, email ids, phone numbers associated with that specific Google account</sup>
+<sup>
+  **Figure 10:** Fetched names, email ids, phone numbers associated with that
+  specific Google account
+</sup>
 
 </div></div>
 
 Note that, All the names, email ids, and phone numbers have been retrieved from ‘Google Contacts’ associated with that Google account.
 
 ## Note
+
 - • [One can’t fetch all the emails and phone numbers from Google Contacts if he doesn’t take permission from the user via the API access level.](https://stackoverflow.com/questions/24883509/retrieve-all-contacts-from-gmail-using-python)
 - • It is an easy way to retrieve all the email ids and phone numbers from _‘Google contacts’_ without _‘Django’_.
 - • One can manipulate the results according to his choice whether to fetch only name-email id or name-phone number or name-both or anything by changing as per his requirement.
@@ -282,7 +292,7 @@ Thank you for reading.
 
 I hope you found this **_“Retrieving Email and Phone No. for a Desktop App from Google Contacts using Python and Gmail API”_** article helpful. Please share if you like and leave any comment to let me know your thoughts.
 
-You can connect with me on <i><b><a href="https://www.linkedin.com/in/aritraroy24/" target="_blank">LinkedIn</a></b></i>, <i><b><a href="https://twitter.com/royaritra24" target="_blank">Instagram</a></b></i>, <i><b><a href="https://twitter.com/aritraroy24" target="_blank">Twitter</a></b></i> or <i><b><a href="https://github.com/aritraroy24" target="_blank">GitHub</a></b></i>.
+You can connect with me on <i><b><a href="https://www.linkedin.com/in/aritraroy24/" target="_blank">LinkedIn</a></b></i>, <i><b><a href="https://www.instagram.com/royaritra24/" target="_blank">Instagram</a></b></i>, <i><b><a href="https://twitter.com/aritraroy24" target="_blank">Twitter</a></b></i> or <i><b><a href="https://github.com/aritraroy24" target="_blank">GitHub</a></b></i>.
 
 </div>
 

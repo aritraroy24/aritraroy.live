@@ -25,6 +25,14 @@ export default defineConfig({
       forward: ['dataLayer.push'],
     },
   }), compress()],
+  image: {
+    service: {
+      entrypoint: 'astro/assets/services/sharp',
+      config: {
+        limitInputPixels: false,
+      },
+    },
+  },
   markdown: {
     shikiConfig: {
       theme: 'min-dark',

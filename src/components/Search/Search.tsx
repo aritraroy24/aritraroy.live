@@ -12,11 +12,21 @@ import { formatDate } from "@js/utils";
 import "./styles/Search.scss"
 
 // type import
-import { getCollection } from "astro:content";
-type CollectionEntry = Awaited<ReturnType<typeof getCollection>>[number];
+// import { getCollection } from "astro:content";
+// type CollectionEntry = Awaited<ReturnType<typeof getCollection>>[number];
+type CollectionEntry = {
+    slug: string;
+    data: {
+        title: string;
+        description: string;
+        duration?: string;
+        pubDate?: Date;
+        [key: string]: any;
+    };
+};
 
 const options = {
-    keys: ['post.title', 'post.description', 'slug'],
+    keys: ['data.title', 'data.description', 'slug'],
     includeMatches: true,
     minMatchCharLength: 1,
     threshold: 0.3,
