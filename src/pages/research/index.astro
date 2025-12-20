@@ -12,29 +12,29 @@ import Socials from "@components/AstroComponents/Socials.astro";
 import "@assets/styles/posts.scss";
 
 // asset import
-import researchImage from "@images/content/projects/research.svg";
-import codingImage from "@images/content/projects/coding.svg";
+import publicationsImage from "@images/content/projects/research.svg";
+import softwareImage from "@images/content/projects/coding.svg";
 
-// defining page title and description for all publications page
+// defining page title and description
 const {
-  pageTitle = "Aritra Roy | All Projects",
-  pageDescription = "Discover a vast array of research projects and coding projects. Explore the world of technology and research.",
+  pageTitle = "Aritra Roy | Research",
+  pageDescription = "Explore my research publications and software/code contributions in computational materials science.",
   frontmatter,
   cover,
 } = Astro.props;
 
 const imgData = [
   {
-    src: researchImage,
-    alt: "Research Projects",
-    url: "research",
-    text: "Research",
+    src: publicationsImage,
+    alt: "Publications",
+    url: "publications",
+    text: "Publications",
   },
   {
-    src: codingImage,
-    alt: "Programming Projects",
-    url: "programming",
-    text: "Programming",
+    src: softwareImage,
+    alt: "Software/Code",
+    url: "software",
+    text: "Software/Code",
   },
 ];
 ---
@@ -43,13 +43,13 @@ const imgData = [
   <Header isHomePage={false} client:only="react" />
   <Socials />
   <div class="postsNavigationDiv">
-    <!-- publications  heading section -->
-    <h1 style="margin-bottom: 0;">All Projects</h1>
-    <!-- all publications -->
+    <!-- research heading section -->
+    <h1 style="margin-bottom: 0;">Research</h1>
+    <!-- all research sections -->
     <div class="allPostsContainer">
       {
         imgData.map((img: any) => (
-          <a class="projectSectionLinks" href={`/projects/${img.url}`}>
+          <a class="projectSectionLinks" href={`/research/${img.url}`}>
             <Image src={img.src} alt={img.alt} width={300} />
             <h3 style="margin-top: 10px;">{img.text}</h3>
           </a>

@@ -90,17 +90,17 @@ const Header: React.FC<NavbarProps> = ({ isHomePage }) => {
                                     <li onClick={() => handleIsActive(false)} className='projects-menu' >
                                         {isHomePage ? (
                                             <Link
-                                                href='/#project'
-                                                to='Projects'
+                                                href='/#publications'
+                                                to='Publications'
                                                 spy={true}
                                                 smooth={true}
                                                 ignoreCancelEvents={true}
                                                 duration={1200}>
-                                                <span>02.</span>Projects
+                                                <span>02.</span>Publications
                                             </Link>
                                         ) : (
-                                            <a href="/projects">
-                                                <span>02.</span>Projects
+                                            <a href="/publications">
+                                                <span>02.</span>Publications
                                             </a>
                                         )}
                                     </li>

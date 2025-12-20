@@ -34,7 +34,7 @@
         }
     }
 
-    .chemprojects-container {
+    .publications-container {
         // width: 100%;
         margin-top: 50px;
         display: -ms-grid;
@@ -73,7 +73,7 @@
 
 @media only screen and (max-width: 1150px) {
     .Projects {
-        .chemprojects-container {
+        .publications-container {
             padding: 30px 0 10px 0;
         }
     }
@@ -86,7 +86,7 @@
 
 @media only screen and (max-width: 900px) {
     .Projects {
-        .chemprojects-container {
+        .publications-container {
             padding: 30px 0 10px 0;
         }
     }
@@ -95,7 +95,7 @@
 @media only screen and (max-width: 730px) {
     .Projects {
         padding: 150px 40px 0 40px;
-        .chemprojects-container {
+        .publications-container {
             padding: 40px 0;
         }
     }

@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:api.crossref.org)",
+      "WebFetch(domain:export.arxiv.org)"
+    ]
+  }
+}

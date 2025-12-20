@@ -1,0 +1,341 @@
+// Publications Styles - SLIMES Lab Style
+
+.publications-loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+
+    p {
+        margin-top: 20px;
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 1rem;
+    }
+}
+
+.loader-spinner {
+    border: 3px solid rgba(96, 255, 217, 0.2);
+    border-top: 3px solid #60ffd9;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 50px;
+
+    p {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 1.1rem;
+        margin: 0;
+    }
+}
+
+// Grouped Publications Container
+.publications-list-grouped {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 60px 1fr; // Left column for numbers, right for everything else
+    gap: 0;
+
+    @media (min-width: 730px) and (max-width: 1350px) {
+        max-width: 70vw;
+    }
+}
+
+// Year Section is now just a container, not providing layout
+.year-section {
+    grid-column: 2; // Always in the right column
+    margin-bottom: 50px;
+    width: 100%;
+}
+
+.year-title {
+    font-size: 2rem;
+    font-weight: 300;
+    color: #ffffff;
+    margin: 0 0 30px 0;
+    padding-bottom: 15px;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid #60ffd9;
+}
+
+// Publications List for Year
+.publications-year-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+// Wrapper to hold number and card across the grid
+.publication-row {
+    display: contents; // Allows children to participate in the parent grid
+}
+
+.publication-number {
+    grid-column: 1; // Left column
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: rgba(96, 255, 217, 0.5);
+    text-align: right;
+    padding-right: 20px;
+    padding-top: 25px; // Align with title
+    font-family: "Courier New", monospace;
+}
+
+// Individual Publication Item
+.publication-item {
+    grid-column: 2; // Right column
+    padding: 25px;
+    border: 1px solid rgba(96, 255, 217, 0.3);
+    border-left: 3px solid #60ffd9;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.08);
+    transition: all 0.3s ease;
+    margin-bottom: 20px; // Spacing between items
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.12);
+        border-color: #60ffd9;
+    }
+}
+
+.publication-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.publication-title-line {
+    margin-bottom: 8px;
+
+    .publication-link {
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 1.1rem;
+        font-weight: 500;
+        line-height: 1.4;
+        transition: color 0.3s ease;
+
+        &:hover {
+            color: #60ffd9;
+        }
+    }
+}
+
+.publication-authors {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.5;
+    margin-bottom: 8px;
+
+    strong {
+        font-weight: 600;
+    }
+
+    .show-all-authors-btn {
+        background: none;
+        border: none;
+        color: rgba(96, 255, 217, 0.8);
+        font-size: 0.9rem;
+        cursor: pointer;
+        padding: 2px 6px;
+        transition: all 200ms ease-out;
+        border-radius: 4px;
+
+        &:hover {
+            color: #60ffd9;
+            background: #64ffdb18;
+        }
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    .authors-full-list {
+        display: none;
+        margin-top: 5px;
+    }
+
+    .authors-full-list.visible {
+        display: inline;
+    }
+}
+
+.publication-meta-line {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.6);
+    font-style: italic;
+    flex-wrap: wrap;
+
+    .publication-journal {
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    .publication-date {
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    .publication-arxiv {
+        color: inherit;
+        font-family: inherit;
+        font-style: normal;
+    }
+
+    .separator {
+        color: rgba(255, 255, 255, 0.3);
+    }
+}
+
+// Publication Actions (link and bibtex buttons)
+.publication-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 5px;
+}
+
+.link-btn,
+.bibtex-toggle-btn {
+    background: none;
+    border: 1px solid rgba(96, 255, 217, 0.3);
+    color: rgba(96, 255, 217, 0.8);
+    font-size: 0.9rem;
+    cursor: pointer;
+    padding: 5px 10px;
+    transition: all 200ms ease-out;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    border-radius: 4px;
+
+    &:hover {
+        color: #60ffd9;
+        background: #64ffdb18;
+        border-color: #64ffda;
+    }
+
+    &:focus {
+        outline: none;
+    }
+}
+
+.bibtex-arrow {
+    font-size: 0.7rem;
+    transition: transform 0.3s ease;
+}
+
+// BibTeX Container
+.bibtex-container {
+    margin-top: 15px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(96, 255, 217, 0.2);
+    border-radius: 4px;
+    padding: 15px;
+    position: relative;
+}
+
+.bibtex-content {
+    font-family: "Courier New", monospace;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0 0 10px 0;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+.copy-bibtex-btn {
+    background-color: #60ffd9;
+    color: #0a192f;
+    border: none;
+    padding: 6px 16px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+        background-color: #4dd9b8;
+        transform: translateY(-1px);
+    }
+
+    &:focus {
+        outline: 2px solid #60ffd9;
+        outline-offset: 2px;
+    }
+
+    &.copied {
+        background-color: #4caf50;
+    }
+}
+
+// No publications / Error messages
+.no-publications,
+.error-message {
+    text-align: center;
+    padding: 60px 20px;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1.1rem;
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+    .publications-list-grouped {
+        grid-template-columns: 40px 1fr;
+    }
+
+    .publication-number {
+        font-size: 1.2rem;
+        padding-right: 10px;
+    }
+
+    .year-title {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+    }
+
+    .publication-item {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .publications-list-grouped {
+        display: block; // Fallback to block for very small screens
+    }
+
+    .publication-number {
+        display: inline-block;
+        text-align: left;
+        padding: 0 0 10px 0;
+        font-size: 1.1rem;
+    }
+
+    .year-title {
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+        grid-column: 1 / span 2;
+    }
+
+    .publication-item {
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+}

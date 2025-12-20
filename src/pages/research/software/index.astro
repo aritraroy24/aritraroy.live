@@ -1,0 +1,148 @@
+---
+// layout import
+import Layout from "@layouts/Layout.astro";
+
+// component import
+import Header from "@components/AstroIslands/Common/Header";
+import Footer from "@components/AstroComponents/Footer.astro";
+import Socials from "@components/AstroComponents/Socials.astro";
+
+// defining page title and description
+const {
+  pageTitle = "Aritra Roy | Software & Code",
+  pageDescription = "Explore my software contributions and code repositories in computational materials science.",
+  frontmatter,
+  cover,
+} = Astro.props;
+---
+
+<Layout title={pageTitle} description={pageDescription} {frontmatter} {cover}>
+  <Header isHomePage={false} client:only="react" />
+  <Socials />
+  <div class="postsNavigationDiv">
+    <!-- software heading section -->
+    <h1 class="software-main-title">Software & Code</h1>
+    <p class="software-subtitle">
+      Explore my software contributions and code repositories
+    </p>
+
+    <!-- Software Content Container -->
+    <div class="software-container">
+      <div class="coming-soon">
+        <h2>Coming Soon</h2>
+        <p>
+          This section is currently under development. Check back soon for
+          software and code repositories.
+        </p>
+      </div>
+    </div>
+
+    <!-- Explore More Button -->
+    <div class="software-explore">
+      <a
+        href="https://github.com/YOUR_GITHUB_USERNAME"
+        class="btn btn-primary"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <i class="fab fa-github"></i> Explore More on GitHub
+      </a>
+    </div>
+  </div>
+  <Footer />
+</Layout>
+
+<style>
+  .postsNavigationDiv {
+    min-height: 50vh !important;
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .software-main-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #ffffff;
+  }
+
+  .software-subtitle {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.1rem;
+    margin-bottom: 50px;
+  }
+
+  .software-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+
+  .coming-soon {
+    text-align: center;
+    padding: 80px 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(96, 255, 217, 0.3);
+    border-radius: 8px;
+  }
+
+  .coming-soon h2 {
+    font-size: 2rem;
+    color: #60ffd9;
+    margin-bottom: 20px;
+  }
+
+  .coming-soon p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.1rem;
+  }
+
+  .software-explore {
+    text-align: center;
+    margin-top: 60px;
+    padding-bottom: 40px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 32px;
+    font-size: 1rem;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    font-weight: 600;
+  }
+
+  .btn-primary {
+    background-color: #60ffd9;
+    color: #0a192f;
+  }
+
+  .btn-primary:hover {
+    background-color: #4dd9b8;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(96, 255, 217, 0.3);
+  }
+
+  @media (max-width: 768px) {
+    .software-main-title {
+      font-size: 2rem;
+    }
+
+    .software-subtitle {
+      font-size: 1rem;
+    }
+
+    .coming-soon h2 {
+      font-size: 1.5rem;
+    }
+
+    .coming-soon p {
+      font-size: 1rem;
+    }
+  }
+</style>

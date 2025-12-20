@@ -1,0 +1,37 @@
+---
+// component import
+import Button from "@components/AstroComponents/Common/Button.astro";
+
+// style import
+import "./styles/Publications.scss";
+---
+
+<main class="Publications" id="publications" data-name="Publications">
+  <h2>
+    <span class="number-heading">02.</span>Publications
+  </h2>
+  <section class="publications-container">
+    <div class="section-header">
+      <p>Explore my latest research contributions and scholarly works</p>
+    </div>
+
+    <!-- Loading Indicator -->
+    <div id="publications-loader" class="publications-loader">
+      <div class="loader-spinner"></div>
+      <p>Loading publications...</p>
+    </div>
+
+    <!-- Publications Container -->
+    <div id="publications-container" class="publications-list-grouped">
+      <!-- Publications will be dynamically loaded from ORCID -->
+    </div>
+
+    <Button
+      text="Explore More Publications"
+      href="/publications"
+      customStyle="margin-top:30px;"
+    />
+  </section>
+</main>
+
+<script src="../../assets/js/publications.js"></script>
