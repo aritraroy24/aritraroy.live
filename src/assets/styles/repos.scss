@@ -35,9 +35,9 @@
 // Repositories Container
 .repos-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    grid-template-columns: repeat(3, 1fr); // 3 cards on large screens
     gap: 30px;
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 20px;
 
@@ -96,7 +96,7 @@
     }
 }
 
-.repo-homepage {
+.repo-github-link {
     color: rgba(255, 255, 255, 0.6);
     margin-left: 10px;
     display: flex;
@@ -165,11 +165,25 @@
 }
 
 // Responsive Design
-@media (max-width: 768px) {
+@media (min-width: 901px) and (max-width: 1550px) {
     .repos-container {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr); // 2 cards on medium-large screens
+        max-width: 80vw;
+    }
+}
+
+@media (max-width: 1400px) {
+    .repos-container {
+        grid-template-columns: repeat(2, 1fr); // 2 cards on medium-large screens
+    }
+}
+
+@media (max-width: 900px) {
+    .repos-container {
+        grid-template-columns: 1fr; // 1 card on tablets and smaller
         gap: 20px;
         padding: 15px;
+        max-width: 600px;
     }
 
     .repo-card {

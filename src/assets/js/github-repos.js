@@ -1,6 +1,33 @@
 // GitHub API Configuration
 const GITHUB_USERNAME = 'aritraroy24';
-const GITHUB_API_URL = `https://api.github.com/users/${GITHUB_USERNAME}/repos`;
+
+// Fetch all GitHub repositories (handles pagination)
+async function fetchAllGitHubRepos() {
+    let allRepos = [];
+    let page = 1;
+    let hasMore = true;
+
+    while (hasMore) {
+        const response = await fetch(
+            `https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100&page=${page}&type=all`
+        );
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch GitHub repositories');
+        }
+
+        const repos = await response.json();
+
+        if (repos.length === 0) {
+            hasMore = false;
+        } else {
+            allRepos = allRepos.concat(repos);
+            page++;
+        }
+    }
+
+    return allRepos;
+}
 
 // Fetch GitHub repositories
 async function fetchGitHubRepos() {
@@ -10,23 +37,26 @@ async function fetchGitHubRepos() {
     if (!loader || !container) return;
 
     try {
-        const response = await fetch(GITHUB_API_URL);
-
-        if (!response.ok) {
-            throw new Error('Failed to fetch GitHub repositories');
-        }
-
-        const repos = await response.json();
+        const repos = await fetchAllGitHubRepos();
 
         // Filter repositories that have "research" in their topics
         const researchRepos = repos.filter(repo =>
             repo.topics && repo.topics.includes('research')
         );
 
-        // Sort by updated date (most recent first)
-        const sortedRepos = researchRepos.sort((a, b) =>
-            new Date(b.updated_at) - new Date(a.updated_at)
-        );
+        console.log(`Found ${researchRepos.length} research repositories out of ${repos.length} total repos`);
+
+        // Sort by last push date (most recently modified first)
+        const sortedRepos = researchRepos.sort((a, b) => {
+            const dateA = new Date(a.pushed_at);
+            const dateB = new Date(b.pushed_at);
+            return dateB - dateA; // Descending order (newest first)
+        });
+
+        console.log('Repositories sorted by last push date:', sortedRepos.map(r => ({
+            name: r.name,
+            pushed_at: r.pushed_at
+        })));
 
         // Hide loader
         loader.style.display = 'none';
@@ -37,10 +67,10 @@ async function fetchGitHubRepos() {
         }
 
         // Render repository cards
-        sortedRepos.forEach(repo => {
-            const repoCard = createRepoCard(repo);
+        for (const repo of sortedRepos) {
+            const repoCard = await createRepoCard(repo);
             container.appendChild(repoCard);
-        });
+        }
 
     } catch (error) {
         console.error('Error fetching GitHub repositories:', error);
@@ -49,14 +79,38 @@ async function fetchGitHubRepos() {
     }
 }
 
+// Fetch primary language from languages_url if language is null
+async function fetchPrimaryLanguage(languagesUrl) {
+    try {
+        const response = await fetch(languagesUrl);
+        if (!response.ok) return null;
+
+        const languages = await response.json();
+        const languageKeys = Object.keys(languages);
+
+        // Return the first language (most used)
+        return languageKeys.length > 0 ? languageKeys[0] : null;
+    } catch (error) {
+        console.error('Error fetching language:', error);
+        return null;
+    }
+}
+
 // Create repository card
-function createRepoCard(repo) {
+async function createRepoCard(repo) {
     const card = document.createElement('div');
     card.className = 'repo-card';
 
     const name = repo.name || 'Unnamed Repository';
     const description = repo.description || 'No description available';
-    const language = repo.language || 'N/A';
+    let language = repo.language;
+
+    // Fetch language if it's null
+    if (!language && repo.languages_url) {
+        language = await fetchPrimaryLanguage(repo.languages_url);
+    }
+
+    language = language || 'N/A';
     const stars = repo.stargazers_count || 0;
     const forks = repo.forks_count || 0;
     const repoUrl = repo.html_url || '#';
@@ -73,11 +127,11 @@ function createRepoCard(repo) {
                         ${name}
                     </a>
                 </h3>
-                ${homepage ? `<a href="${homepage}" class="repo-homepage" target="_blank" rel="noopener noreferrer" title="View Documentation">
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                <a href="${repoUrl}" class="repo-github-link" target="_blank" rel="noopener noreferrer" title="View on GitHub">
+                    <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor">
                         <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
                     </svg>
-                </a>` : ''}
+                </a>
             </div>
             <p class="repo-description">${description}</p>
             <div class="repo-meta">
