@@ -60,7 +60,8 @@ async function geocodeWithPhoton(institutionName, countryCode) {
             return {
                 latitude: parseFloat(f.geometry.coordinates[1]),
                 longitude: parseFloat(f.geometry.coordinates[0]),
-                city: f.properties.city || f.properties.town || f.properties.name || null
+                city: f.properties.city || f.properties.town || f.properties.name || null,
+                country: f.properties.country || null
             };
         }
     } catch (e) { }
@@ -80,7 +81,8 @@ async function geocodeInstitution(name, countryCode) {
                 const res = {
                     latitude: parseFloat(data[0].lat),
                     longitude: parseFloat(data[0].lon),
-                    city: data[0].address?.city || data[0].address?.town || null
+                    city: data[0].address?.city || data[0].address?.town || null,
+                    country: data[0].address?.country || null
                 };
                 if (!isNaN(res.latitude)) return res;
             }
@@ -320,7 +322,7 @@ async function fetchCollaborators() {
                 const cached = masterCacheMap.get(id) || masterCacheMap.get(c.name);
                 if (cached?.latitude && cached.affiliation === affName) {
                     c.affiliation = affName;
-                    finalProcessed.push({ ...c, latitude: cached.latitude, longitude: cached.longitude, city: cached.city });
+                    finalProcessed.push({ ...c, latitude: cached.latitude, longitude: cached.longitude, city: cached.city, country: cached.country });
                     foundGeo = true;
                     break;
                 }

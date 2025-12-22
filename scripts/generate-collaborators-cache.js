@@ -36,7 +36,8 @@ async function geocodeWithPhoton(name, country) {
             return {
                 latitude: parseFloat(f.geometry.coordinates[1]),
                 longitude: parseFloat(f.geometry.coordinates[0]),
-                city: f.properties.city || f.properties.town || f.properties.name || null
+                city: f.properties.city || f.properties.town || f.properties.name || null,
+                country: f.properties.country || null
             };
         }
     } catch (e) { }
@@ -56,7 +57,8 @@ async function geocodeInstitution(name, country) {
                 const r = {
                     latitude: parseFloat(d[0].lat),
                     longitude: parseFloat(d[0].lon),
-                    city: d[0].address?.city || d[0].address?.town || null
+                    city: d[0].address?.city || d[0].address?.town || null,
+                    country: d[0].address?.country || null
                 };
                 if (!isNaN(r.latitude)) return r;
             }
@@ -273,7 +275,7 @@ async function generate() {
                 if (cached?.latitude && cached.affiliation === affName) {
                     console.log(`Using Cached: ${c.name}`);
                     c.affiliation = affName;
-                    Object.assign(c, { latitude: cached.latitude, longitude: cached.longitude, city: cached.city });
+                    Object.assign(c, { latitude: cached.latitude, longitude: cached.longitude, city: cached.city, country: cached.country });
                     foundGeo = true;
                     break;
                 }

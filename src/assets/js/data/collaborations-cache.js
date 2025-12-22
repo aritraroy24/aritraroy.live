@@ -31,7 +31,8 @@ const collaborators = [
     "affiliation": "HUN-REN Institute for Nuclear Research",
     "latitude": -4.30968865,
     "longitude": 15.30273214369263,
-    "city": "Kinshasa"
+    "city": "Kinshasa",
+    "country": "Democratic Republic of the Congo"
   },
   {
     "id": "https://openalex.org/A5003992365",
@@ -53,7 +54,8 @@ const collaborators = [
     "affiliation": "National Institute Of Technology Silchar",
     "latitude": 24.7552219,
     "longitude": 92.7874485,
-    "city": null
+    "city": null,
+    "country": "India"
   },
   {
     "id": "https://openalex.org/A5029311934",
@@ -75,7 +77,8 @@ const collaborators = [
     "affiliation": "National Institute Of Technology Silchar",
     "latitude": 24.7552219,
     "longitude": 92.7874485,
-    "city": null
+    "city": null,
+    "country": "India"
   },
   {
     "id": "https://openalex.org/A5101960351",
@@ -93,7 +96,8 @@ const collaborators = [
     "affiliation": "Indian Institute of Science Education and Research Kolkata",
     "latitude": 22.9636334,
     "longitude": 88.5258759,
-    "city": "Haringhata"
+    "city": "Haringhata",
+    "country": "India"
   },
   {
     "id": "https://openalex.org/A5082064131",
@@ -111,7 +115,8 @@ const collaborators = [
     "affiliation": "SRM Institute of Science and Technology",
     "latitude": 12.8234361,
     "longitude": 80.0450412,
-    "city": null
+    "city": null,
+    "country": "India"
   },
   {
     "id": "https://openalex.org/A5102757929",
@@ -129,7 +134,8 @@ const collaborators = [
     "affiliation": "University of Kent",
     "latitude": 51.2950874,
     "longitude": 1.0673313,
-    "city": "Canterbury"
+    "city": "Canterbury",
+    "country": "United Kingdom"
   },
   {
     "id": "https://openalex.org/A5006629330",
@@ -147,7 +153,8 @@ const collaborators = [
     "affiliation": "National Institute of Technology Tiruchirappalli",
     "latitude": 10.7633854,
     "longitude": 78.8150292,
-    "city": "Thuvakudi"
+    "city": "Thuvakudi",
+    "country": "India"
   },
   {
     "id": "https://openalex.org/A5061029699",
@@ -165,7 +172,8 @@ const collaborators = [
     "affiliation": "National Institute Of Technology Silchar",
     "latitude": 24.7552219,
     "longitude": 92.7874485,
-    "city": null
+    "city": null,
+    "country": "India"
   },
   {
     "id": "https://openalex.org/A5008733556",
@@ -183,7 +191,8 @@ const collaborators = [
     "affiliation": "Indian Institute of Technology Palakkad",
     "latitude": 10.8018655,
     "longitude": 76.8185065,
-    "city": null
+    "city": null,
+    "country": "India"
   },
   {
     "id": "https://openalex.org/A5091092718",
@@ -201,7 +210,8 @@ const collaborators = [
     "affiliation": "University of Würzburg",
     "latitude": 49.78060885,
     "longitude": 9.971636668405157,
-    "city": "Würzburg"
+    "city": "Würzburg",
+    "country": "Germany"
   },
   {
     "id": "https://openalex.org/A5011223450",
@@ -219,7 +229,8 @@ const collaborators = [
     "affiliation": "University of Würzburg",
     "latitude": 49.78060885,
     "longitude": 9.971636668405157,
-    "city": "Würzburg"
+    "city": "Würzburg",
+    "country": "Germany"
   },
   {
     "id": "https://openalex.org/A5109721293",
@@ -237,7 +248,8 @@ const collaborators = [
     "affiliation": "Institute of Inorganic Chemistry of the Slovak Academy of Sciences",
     "latitude": 48.3198619,
     "longitude": 18.369856291310015,
-    "city": "Vieska nad Žitavou"
+    "city": "Vieska nad Žitavou",
+    "country": "Slovakia"
   },
   {
     "id": "https://openalex.org/A5038029240",
@@ -255,7 +267,8 @@ const collaborators = [
     "affiliation": "University of Würzburg",
     "latitude": 49.78060885,
     "longitude": 9.971636668405157,
-    "city": "Würzburg"
+    "city": "Würzburg",
+    "country": "Germany"
   },
   {
     "id": "https://openalex.org/A5099022000",
@@ -273,7 +286,8 @@ const collaborators = [
     "affiliation": "ETH Zurich",
     "latitude": 47.413218,
     "longitude": 8.5374914,
-    "city": "Zurich"
+    "city": "Zurich",
+    "country": "Switzerland"
   },
   {
     "id": "https://openalex.org/A5114987465",
@@ -291,7 +305,8 @@ const collaborators = [
     "affiliation": "University of Missouri",
     "latitude": 38.9364147,
     "longitude": -92.329703,
-    "city": "Columbia"
+    "city": "Columbia",
+    "country": "United States"
   },
   {
     "id": "https://openalex.org/A5092171855",
@@ -309,7 +324,8 @@ const collaborators = [
     "affiliation": "McGill University",
     "latitude": 45.5068861,
     "longitude": -73.5787118,
-    "city": "Montreal"
+    "city": "Montreal",
+    "country": "Canada"
   },
   {
     "id": "https://openalex.org/A5070684693",
@@ -327,7 +343,8 @@ const collaborators = [
     "affiliation": "University of Rochester",
     "latitude": 43.129864,
     "longitude": -77.628784,
-    "city": "City of Rochester"
+    "city": "City of Rochester",
+    "country": "United States"
   },
   {
     "id": "https://openalex.org/A5000741143",
@@ -345,7 +362,8 @@ const collaborators = [
     "affiliation": "Superconductor Technologies (United States)",
     "latitude": 33.7741222,
     "longitude": -84.3843122,
-    "city": "Atlanta"
+    "city": "Atlanta",
+    "country": "United States"
   },
   {
     "id": "https://openalex.org/A5021656287",
@@ -363,7 +381,8 @@ const collaborators = [
     "affiliation": "Duke University",
     "latitude": 36.0001557,
     "longitude": -78.9442297,
-    "city": "Durham"
+    "city": "Durham",
+    "country": "United States"
   },
   {
     "id": "https://openalex.org/A5046104581",
@@ -381,7 +400,8 @@ const collaborators = [
     "affiliation": "Lawrence Berkeley National Laboratory",
     "latitude": 37.8769588,
     "longitude": -122.2456303,
-    "city": "Oakland"
+    "city": "Oakland",
+    "country": "United States"
   },
   {
     "id": "https://openalex.org/A5064747379",
@@ -399,7 +419,8 @@ const collaborators = [
     "affiliation": "Duke University",
     "latitude": 36.0001557,
     "longitude": -78.9442297,
-    "city": "Durham"
+    "city": "Durham",
+    "country": "United States"
   },
   {
     "id": "https://openalex.org/A5050297425",
@@ -417,7 +438,8 @@ const collaborators = [
     "affiliation": "University of Southern California",
     "latitude": 34.021869,
     "longitude": -118.2858579,
-    "city": "Los Angeles"
+    "city": "Los Angeles",
+    "country": "United States"
   },
   {
     "id": "https://openalex.org/A5025523923",
@@ -435,7 +457,8 @@ const collaborators = [
     "affiliation": "Humboldt-Universität zu Berlin",
     "latitude": 52.5183402,
     "longitude": 13.3929202,
-    "city": "Berlin"
+    "city": "Berlin",
+    "country": "Germany"
   },
   {
     "id": "https://openalex.org/A5074236095",
@@ -453,7 +476,8 @@ const collaborators = [
     "affiliation": "Biogen (Belgium)",
     "latitude": 50.6402809,
     "longitude": 4.6667145,
-    "city": "Belgium"
+    "city": "Belgium",
+    "country": "Belgium"
   },
   {
     "id": "https://openalex.org/A5025893719",
@@ -471,7 +495,8 @@ const collaborators = [
     "affiliation": "University of California, Los Angeles",
     "latitude": 34.0708777,
     "longitude": -118.4468503,
-    "city": "Veterans Administration"
+    "city": "Veterans Administration",
+    "country": "United States"
   },
   {
     "id": "https://openalex.org/A5084420654",
@@ -489,7 +514,8 @@ const collaborators = [
     "affiliation": "Friedrich Schiller University Jena",
     "latitude": 50.92526475,
     "longitude": 11.582889860119629,
-    "city": "Jena"
+    "city": "Jena",
+    "country": "Germany"
   },
   {
     "id": "https://openalex.org/A5058042607",
@@ -507,7 +533,8 @@ const collaborators = [
     "affiliation": "Argonne National Laboratory",
     "latitude": 41.709141,
     "longitude": -87.9786195,
-    "city": "Lemont"
+    "city": "Lemont",
+    "country": "United States"
   },
   {
     "id": "https://openalex.org/A5087105123",
@@ -525,7 +552,8 @@ const collaborators = [
     "affiliation": "Duke University",
     "latitude": 36.0001557,
     "longitude": -78.9442297,
-    "city": "Durham"
+    "city": "Durham",
+    "country": "United States"
   },
   {
     "id": "https://openalex.org/A5113345088",
@@ -543,7 +571,8 @@ const collaborators = [
     "affiliation": "BRAC University",
     "latitude": 23.7733146,
     "longitude": 90.424371,
-    "city": "Dhaka"
+    "city": "Dhaka",
+    "country": "Bangladesh"
   },
   {
     "id": "https://openalex.org/A5072435412",
@@ -561,7 +590,8 @@ const collaborators = [
     "affiliation": "Humboldt-Universität zu Berlin",
     "latitude": 52.5183402,
     "longitude": 13.3929202,
-    "city": "Berlin"
+    "city": "Berlin",
+    "country": "Germany"
   },
   {
     "id": "https://openalex.org/A5114987474",
@@ -579,7 +609,8 @@ const collaborators = [
     "affiliation": "École Polytechnique Fédérale de Lausanne",
     "latitude": 46.5186594,
     "longitude": 6.5665615,
-    "city": null
+    "city": null,
+    "country": "Switzerland"
   },
   {
     "id": "https://openalex.org/A5047174953",
@@ -597,7 +628,8 @@ const collaborators = [
     "affiliation": "Massachusetts Institute of Technology",
     "latitude": 42.3582529,
     "longitude": -71.0966272,
-    "city": "Cambridge"
+    "city": "Cambridge",
+    "country": "United States"
   },
   {
     "id": "https://openalex.org/A5114987476",
@@ -615,7 +647,8 @@ const collaborators = [
     "affiliation": "University of Amsterdam",
     "latitude": 52.3681334,
     "longitude": 4.8898042,
-    "city": "Amsterdam"
+    "city": "Amsterdam",
+    "country": "Netherlands"
   },
   {
     "id": "https://openalex.org/A5051256159",
@@ -633,7 +666,8 @@ const collaborators = [
     "affiliation": "Vector Institute",
     "latitude": 59.219549549999996,
     "longitude": 17.94005487275674,
-    "city": "Huddinge"
+    "city": "Huddinge",
+    "country": "Sweden"
   },
   {
     "id": "https://openalex.org/A5009772815",
@@ -651,7 +685,8 @@ const collaborators = [
     "affiliation": "Federal Institute For Materials Research and Testing",
     "latitude": 54.18287865,
     "longitude": 13.367471141544499,
-    "city": "Greifswald"
+    "city": "Greifswald",
+    "country": "Germany"
   },
   {
     "id": "https://openalex.org/A5000015957",
@@ -669,7 +704,8 @@ const collaborators = [
     "affiliation": "Massachusetts Institute of Technology",
     "latitude": 42.3582529,
     "longitude": -71.0966272,
-    "city": "Cambridge"
+    "city": "Cambridge",
+    "country": "United States"
   },
   {
     "id": "https://openalex.org/A5079720980",
@@ -687,7 +723,8 @@ const collaborators = [
     "affiliation": "KU Leuven",
     "latitude": 50.8057129,
     "longitude": 3.2915374,
-    "city": "Kortrijk"
+    "city": "Kortrijk",
+    "country": "Belgium"
   },
   {
     "id": "https://openalex.org/A5119473291",
@@ -705,7 +742,8 @@ const collaborators = [
     "affiliation": "Humboldt-Universität zu Berlin",
     "latitude": 52.5183402,
     "longitude": 13.3929202,
-    "city": "Berlin"
+    "city": "Berlin",
+    "country": "Germany"
   },
   {
     "id": "https://openalex.org/A5028051805",
@@ -723,7 +761,8 @@ const collaborators = [
     "affiliation": "École Polytechnique Fédérale de Lausanne",
     "latitude": 46.5186594,
     "longitude": 6.5665615,
-    "city": null
+    "city": null,
+    "country": "Switzerland"
   },
   {
     "id": "https://openalex.org/A5114987460",
@@ -741,7 +780,8 @@ const collaborators = [
     "affiliation": "Helmholtz-Zentrum Berlin für Materialien und Energie",
     "latitude": 52.4101077,
     "longitude": 13.1297316,
-    "city": "Berlin"
+    "city": "Berlin",
+    "country": "Germany"
   },
   {
     "id": "https://openalex.org/A5071149303",
@@ -759,7 +799,8 @@ const collaborators = [
     "affiliation": "Federal Institute For Materials Research and Testing",
     "latitude": 54.18287865,
     "longitude": 13.367471141544499,
-    "city": "Greifswald"
+    "city": "Greifswald",
+    "country": "Germany"
   },
   {
     "id": "https://openalex.org/A5100625845",
@@ -777,7 +818,8 @@ const collaborators = [
     "affiliation": "University of Shanghai for Science and Technology",
     "latitude": 31.2950161,
     "longitude": 121.5506739,
-    "city": "Yangpu District"
+    "city": "Yangpu District",
+    "country": "China"
   },
   {
     "id": "https://openalex.org/A5119870182",
@@ -795,7 +837,8 @@ const collaborators = [
     "affiliation": "University of Michigan",
     "latitude": 42.2942142,
     "longitude": -83.7100389,
-    "city": "Ann Arbor"
+    "city": "Ann Arbor",
+    "country": "United States"
   },
   {
     "id": "https://openalex.org/A5006956385",
@@ -813,7 +856,8 @@ const collaborators = [
     "affiliation": "University of Cologne",
     "latitude": 50.9280446,
     "longitude": 6.9281305,
-    "city": "Cologne"
+    "city": "Cologne",
+    "country": "Germany"
   },
   {
     "id": "https://openalex.org/A5085263890",
@@ -831,7 +875,8 @@ const collaborators = [
     "affiliation": "Rensselaer Polytechnic Institute",
     "latitude": 42.7298969,
     "longitude": -73.6796678,
-    "city": "City of Troy"
+    "city": "City of Troy",
+    "country": "United States"
   },
   {
     "id": "https://openalex.org/A5032231503",
@@ -849,7 +894,8 @@ const collaborators = [
     "affiliation": "Alex's Lemonade Stand Foundation",
     "latitude": 42.70866865,
     "longitude": -71.44352505,
-    "city": "Nashua"
+    "city": "Nashua",
+    "country": "United States"
   },
   {
     "id": "https://openalex.org/A5033890428",
@@ -867,7 +913,8 @@ const collaborators = [
     "affiliation": "University of Chicago",
     "latitude": 41.7913274,
     "longitude": -87.6008421,
-    "city": "Chicago"
+    "city": "Chicago",
+    "country": "United States"
   },
   {
     "id": "https://openalex.org/A5033826823",
@@ -885,7 +932,8 @@ const collaborators = [
     "affiliation": "Pandit Deendayal Petroleum University",
     "latitude": 23.1563544,
     "longitude": 72.6652774,
-    "city": null
+    "city": null,
+    "country": "India"
   },
   {
     "id": "https://openalex.org/A5042882491",
@@ -903,7 +951,8 @@ const collaborators = [
     "affiliation": "CIC biomaGUNE",
     "latitude": -10.5942278,
     "longitude": -38.3839063,
-    "city": "Cícero Dantas"
+    "city": "Cícero Dantas",
+    "country": "Brazil"
   },
   {
     "id": "https://openalex.org/A5003314340",
@@ -921,7 +970,8 @@ const collaborators = [
     "affiliation": "Amrita Vishwa Vidyapeetham",
     "latitude": 12.8938021,
     "longitude": 77.6759379,
-    "city": "Bengaluru"
+    "city": "Bengaluru",
+    "country": "India"
   },
   {
     "id": "https://openalex.org/A5033973396",
@@ -939,7 +989,8 @@ const collaborators = [
     "affiliation": "Pandit Deendayal Petroleum University",
     "latitude": 23.1563544,
     "longitude": 72.6652774,
-    "city": null
+    "city": null,
+    "country": "India"
   },
   {
     "id": "https://openalex.org/A5036862851",
@@ -957,7 +1008,8 @@ const collaborators = [
     "affiliation": "Farhangian University",
     "latitude": 38.0710706,
     "longitude": 46.2677989,
-    "city": "Tabriz"
+    "city": "Tabriz",
+    "country": "Iran"
   },
   {
     "id": "https://openalex.org/A5065370507",
@@ -975,7 +1027,8 @@ const collaborators = [
     "affiliation": "Universitat de Barcelona",
     "latitude": 41.3868596,
     "longitude": 2.1634784,
-    "city": "Barcelona"
+    "city": "Barcelona",
+    "country": "Spain"
   }
 ];
 
