@@ -2,7 +2,10 @@
   "permissions": {
     "allow": [
       "WebFetch(domain:api.crossref.org)",
-      "WebFetch(domain:export.arxiv.org)"
+      "WebFetch(domain:export.arxiv.org)",
+      "WebFetch(domain:api.openalex.org)",
+      "Bash(findstr:*)",
+      "Bash(powershell:*)"
     ]
   }
 }

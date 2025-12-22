@@ -1,0 +1,78 @@
+---
+// layout import
+import Layout from "@layouts/Layout.astro";
+
+// component import
+import Header from "@components/AstroIslands/Common/Header";
+import Footer from "@components/AstroComponents/Footer.astro";
+import Socials from "@components/AstroComponents/Socials.astro";
+
+// defining page title and description
+const {
+  pageTitle = "Aritra Roy | Collaborators",
+  pageDescription = "Explore my research collaborators and co-authors from around the world.",
+  frontmatter,
+  cover,
+} = Astro.props;
+
+import "../assets/styles/collaborators.scss";
+---
+
+<Layout title={pageTitle} description={pageDescription} {frontmatter} {cover}>
+  <Header isHomePage={false} client:only="react" />
+  <Socials />
+  <div class="postsNavigationDiv">
+    <!-- collaborators heading section -->
+    <h1 class="collaborators-main-title">Research Collaborators</h1>
+    <p class="collaborators-subtitle">
+      Co-authors and research partners from publications worldwide
+    </p>
+
+    <!-- Loading Indicator -->
+    <div id="collaborators-loader" class="collaborators-loader">
+      <div class="loader-spinner"></div>
+      <p>Loading collaborators...</p>
+    </div>
+
+    <!-- Collaborators Container -->
+    <div id="collaborators-container" class="collaborators-container">
+      <!-- Collaborator cards will be dynamically loaded from OpenAlex -->
+    </div>
+  </div>
+  <Footer />
+</Layout>
+
+<script src="../assets/js/collaborators.js"></script>
+
+<style>
+  .postsNavigationDiv {
+    min-height: 50vh !important;
+    padding: 40px 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .collaborators-main-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #ffffff;
+  }
+
+  .collaborators-subtitle {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.1rem;
+    margin-bottom: 50px;
+  }
+
+  @media (max-width: 768px) {
+    .collaborators-main-title {
+      font-size: 2rem;
+    }
+
+    .collaborators-subtitle {
+      font-size: 1rem;
+    }
+  }
+</style>
