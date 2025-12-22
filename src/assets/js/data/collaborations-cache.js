@@ -1,7 +1,7 @@
 const collaborators = [
   {
     "id": "https://openalex.org/A5082988419",
-    "name": "Felipe Fantuzzi",
+    "name": "None Felipe Fantuzzi",
     "orcid": "https://orcid.org/0000-0002-8200-8262",
     "openAlexAffiliation": "University of Kent",
     "latestPaperYear": 2025,
@@ -34,30 +34,8 @@ const collaborators = [
     "city": "Kinshasa"
   },
   {
-    "id": "https://openalex.org/A5101960351",
-    "name": "Dipankar Das",
-    "orcid": "https://orcid.org/0000-0001-7842-8179",
-    "openAlexAffiliation": "Unknown",
-    "latestPaperYear": 2024,
-    "collaborations": 2,
-    "dois": [
-      {
-        "doi": "https://doi.org/10.1039/d3sd00183k",
-        "title": "A simple copper(<scp>ii</scp>) dppy-based receptor for sensing of <scp>l</scp>-cysteine and <scp>l</scp>-histidine in aqueous acetonitrile medium"
-      },
-      {
-        "doi": "https://doi.org/10.1016/j.jphotochem.2024.116154",
-        "title": "A copper complex receptor for nanomolar sulfide sensing and applications in DNA/BSA binding"
-      }
-    ],
-    "affiliation": "Indian Institute of Science Education and Research Kolkata",
-    "latitude": 22.9636334,
-    "longitude": 88.5258759,
-    "city": "Haringhata"
-  },
-  {
     "id": "https://openalex.org/A5003992365",
-    "name": "Sourav Sutradhar",
+    "name": "Sutradhar, Sourav",
     "orcid": "https://orcid.org/0000-0002-3905-4394",
     "openAlexAffiliation": "Unknown",
     "latestPaperYear": 2024,
@@ -79,7 +57,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5029311934",
-    "name": "Biswa Nath Ghosh",
+    "name": "Ghosh, Biswa Nath",
     "orcid": "https://orcid.org/0000-0001-7203-7484",
     "openAlexAffiliation": "Unknown",
     "latestPaperYear": 2024,
@@ -100,8 +78,44 @@ const collaborators = [
     "city": null
   },
   {
+    "id": "https://openalex.org/A5101960351",
+    "name": "Dipankar Das",
+    "orcid": "https://orcid.org/0000-0001-7842-8179",
+    "openAlexAffiliation": "National Institute Of Technology Silchar",
+    "latestPaperYear": 2023,
+    "collaborations": 1,
+    "dois": [
+      {
+        "doi": "https://doi.org/10.1039/d3sd00183k",
+        "title": "A simple copper(<scp>ii</scp>) dppy-based receptor for sensing of <scp>l</scp>-cysteine and <scp>l</scp>-histidine in aqueous acetonitrile medium"
+      }
+    ],
+    "affiliation": "Indian Institute of Science Education and Research Kolkata",
+    "latitude": 22.9636334,
+    "longitude": 88.5258759,
+    "city": "Haringhata"
+  },
+  {
+    "id": "https://openalex.org/A5082064131",
+    "name": "None Dipankar Das",
+    "orcid": "https://orcid.org/0000-0001-9298-6871",
+    "openAlexAffiliation": "Unknown",
+    "latestPaperYear": 2024,
+    "collaborations": 1,
+    "dois": [
+      {
+        "doi": "https://doi.org/10.1016/j.jphotochem.2024.116154",
+        "title": "A copper complex receptor for nanomolar sulfide sensing and applications in DNA/BSA binding"
+      }
+    ],
+    "affiliation": "SRM Institute of Science and Technology",
+    "latitude": 12.8234361,
+    "longitude": 80.0450412,
+    "city": null
+  },
+  {
     "id": "https://openalex.org/A5102757929",
-    "name": "Cauê P. Souza",
+    "name": "Cauê Paula de Souza",
     "orcid": "https://orcid.org/0000-0001-5545-004X",
     "openAlexAffiliation": "Unknown",
     "latestPaperYear": 2024,
@@ -119,7 +133,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5006629330",
-    "name": "Somnath Mondal",
+    "name": "Sorbojit Mondal",
     "orcid": "https://orcid.org/0000-0002-5657-8077",
     "openAlexAffiliation": "Unknown",
     "latestPaperYear": 2024,
@@ -137,7 +151,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5061029699",
-    "name": "Parnashabari Sarkar",
+    "name": "Sarkar, Parnashabari",
     "orcid": null,
     "openAlexAffiliation": "Unknown",
     "latestPaperYear": 2024,
@@ -155,7 +169,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5008733556",
-    "name": "Debabrata Dhara",
+    "name": "Dhara, Debabrata",
     "orcid": "https://orcid.org/0000-0002-1792-2568",
     "openAlexAffiliation": "University of Würzburg",
     "latestPaperYear": 2024,
@@ -173,7 +187,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5091092718",
-    "name": "Lukas Endres",
+    "name": "None Lukas Endres",
     "orcid": "https://orcid.org/0000-0002-5523-3624",
     "openAlexAffiliation": "University of Würzburg",
     "latestPaperYear": 2024,
@@ -191,7 +205,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5011223450",
-    "name": "Rian D. Dewhurst",
+    "name": "Rian David Dewhurst",
     "orcid": "https://orcid.org/0000-0001-5978-811X",
     "openAlexAffiliation": "University of Würzburg",
     "latestPaperYear": 2024,
@@ -209,7 +223,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5109721293",
-    "name": "Rüdiger Bertermann",
+    "name": "Bertermann, Rüdiger",
     "orcid": null,
     "openAlexAffiliation": "University of Würzburg",
     "latestPaperYear": 2024,
@@ -227,7 +241,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5038029240",
-    "name": "Holger Braunschweig",
+    "name": "None Holger Braunschweig",
     "orcid": "https://orcid.org/0000-0001-9264-1726",
     "openAlexAffiliation": "University of Würzburg",
     "latestPaperYear": 2024,
@@ -245,7 +259,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5099022000",
-    "name": "Yoel Zimmermann",
+    "name": "Zimmermann, Yoel",
     "orcid": "https://orcid.org/0009-0003-1720-4368",
     "openAlexAffiliation": "ETH Zurich",
     "latestPaperYear": 2025,
@@ -263,7 +277,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5114987465",
-    "name": "Adib Bazgir",
+    "name": "Bazgir, Adib",
     "orcid": "https://orcid.org/0000-0001-6475-8505",
     "openAlexAffiliation": "University of Missouri",
     "latestPaperYear": 2025,
@@ -281,7 +295,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5092171855",
-    "name": "Alexander Al‐Feghali",
+    "name": "None Al-Feghali, Alexander",
     "orcid": "https://orcid.org/0009-0004-8377-7049",
     "openAlexAffiliation": "McGill University",
     "latestPaperYear": 2025,
@@ -299,7 +313,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5070684693",
-    "name": "Mehrad Ansari",
+    "name": "Mehrad Gholizadeh Ansari",
     "orcid": "https://orcid.org/0000-0001-5696-9193",
     "openAlexAffiliation": "Unknown",
     "latestPaperYear": 2025,
@@ -317,7 +331,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5000741143",
-    "name": "Joshua D. Bocarsly",
+    "name": "Joshua David Bocarsly",
     "orcid": "https://orcid.org/0000-0002-7523-152X",
     "openAlexAffiliation": "University of Houston",
     "latestPaperYear": 2025,
@@ -335,7 +349,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5021656287",
-    "name": "L. Catherine Brinson",
+    "name": "Cate Brinson",
     "orcid": "https://orcid.org/0000-0003-2551-1563",
     "openAlexAffiliation": "Duke University",
     "latestPaperYear": 2025,
@@ -353,7 +367,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5046104581",
-    "name": "Yuan Chiang",
+    "name": "Chiang, Yuan",
     "orcid": "https://orcid.org/0000-0002-4017-7084",
     "openAlexAffiliation": "Lawrence Berkeley National Laboratory",
     "latestPaperYear": 2025,
@@ -371,7 +385,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5064747379",
-    "name": "Defne Çırcı",
+    "name": "None Circi, Defne",
     "orcid": "https://orcid.org/0000-0002-5761-0198",
     "openAlexAffiliation": "Duke University",
     "latestPaperYear": 2025,
@@ -389,7 +403,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5050297425",
-    "name": "Min–Hsueh Chiu",
+    "name": "Chiu, Min-Hsueh",
     "orcid": "https://orcid.org/0000-0003-0637-7856",
     "openAlexAffiliation": "University of Southern California",
     "latestPaperYear": 2025,
@@ -407,7 +421,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5025523923",
-    "name": "Nathan Daelman",
+    "name": "Daelman, Nathan",
     "orcid": "https://orcid.org/0000-0002-7647-1816",
     "openAlexAffiliation": "Humboldt-Universität zu Berlin",
     "latestPaperYear": 2025,
@@ -425,7 +439,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5074236095",
-    "name": "Matthew L. Evans",
+    "name": "Matthew Evans",
     "orcid": "https://orcid.org/0000-0002-1182-9098",
     "openAlexAffiliation": "UCLouvain",
     "latestPaperYear": 2025,
@@ -443,7 +457,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5025893719",
-    "name": "Abhijeet Gangan",
+    "name": "Gangan, Abhijeet Sadashiv",
     "orcid": "https://orcid.org/0000-0002-8937-7984",
     "openAlexAffiliation": "University of California, Los Angeles",
     "latestPaperYear": 2025,
@@ -461,7 +475,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5084420654",
-    "name": "Janine George",
+    "name": "None George, Janine",
     "orcid": "https://orcid.org/0000-0001-8907-0336",
     "openAlexAffiliation": "Federal Institute For Materials Research and Testing",
     "latestPaperYear": 2025,
@@ -479,7 +493,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5058042607",
-    "name": "Hassan Harb",
+    "name": "Hassan Mohammad Harb",
     "orcid": "https://orcid.org/0000-0002-6016-3122",
     "openAlexAffiliation": "Argonne National Laboratory",
     "latestPaperYear": 2025,
@@ -497,7 +511,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5087105123",
-    "name": "Ghazal Khalighinejad",
+    "name": "Khalighinejad, Ghazal",
     "orcid": null,
     "openAlexAffiliation": "Duke University",
     "latestPaperYear": 2025,
@@ -515,7 +529,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5113345088",
-    "name": "Sartaaj Takrim Khan",
+    "name": "Sarvani Thabassum Khan",
     "orcid": "https://orcid.org/0000-0002-5720-9468",
     "openAlexAffiliation": "University of Toronto",
     "latestPaperYear": 2025,
@@ -533,7 +547,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5072435412",
-    "name": "Sascha Klawohn",
+    "name": "Klawohn, Sascha",
     "orcid": "https://orcid.org/0000-0003-4850-776X",
     "openAlexAffiliation": "Humboldt-Universität zu Berlin",
     "latestPaperYear": 2025,
@@ -551,7 +565,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5114987474",
-    "name": "Magdalena Lederbauer",
+    "name": "Lederbauer, Magdalena",
     "orcid": "https://orcid.org/0009-0008-0665-1839",
     "openAlexAffiliation": "ETH Zurich",
     "latestPaperYear": 2025,
@@ -569,7 +583,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5047174953",
-    "name": "Soroush Mahjoubi",
+    "name": "Mahjoubi, Soroush",
     "orcid": "https://orcid.org/0000-0001-8879-5431",
     "openAlexAffiliation": "Massachusetts Institute of Technology",
     "latestPaperYear": 2025,
@@ -587,7 +601,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5114987476",
-    "name": "Bernadette Mohr",
+    "name": "Mohr, Bernadette",
     "orcid": "https://orcid.org/0000-0003-0903-0073",
     "openAlexAffiliation": "Humboldt-Universität zu Berlin",
     "latestPaperYear": 2025,
@@ -605,7 +619,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5051256159",
-    "name": "Seyed Mohamad Moosavi",
+    "name": "None Moosavi, Seyed Mohamad",
     "orcid": "https://orcid.org/0000-0002-0357-5729",
     "openAlexAffiliation": "University of Toronto",
     "latestPaperYear": 2025,
@@ -641,7 +655,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5000015957",
-    "name": "Aleyna Beste Ozhan",
+    "name": "Ozhan, Aleyna Beste",
     "orcid": "https://orcid.org/0000-0002-0281-3860",
     "openAlexAffiliation": "Massachusetts Institute of Technology",
     "latestPaperYear": 2025,
@@ -659,7 +673,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5079720980",
-    "name": "Dieter Plessers",
+    "name": "Plessers, Dieter",
     "orcid": "https://orcid.org/0000-0001-8906-8447",
     "openAlexAffiliation": "KU Leuven",
     "latestPaperYear": 2025,
@@ -695,7 +709,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5028051805",
-    "name": "Philippe Schwaller",
+    "name": "None Schwaller, Philippe",
     "orcid": "https://orcid.org/0000-0003-3046-6576",
     "openAlexAffiliation": "École Polytechnique Fédérale de Lausanne",
     "latestPaperYear": 2025,
@@ -713,7 +727,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5114987460",
-    "name": "Carla Terboven",
+    "name": "Terboven, Carla",
     "orcid": null,
     "openAlexAffiliation": "Helmholtz-Zentrum Berlin für Materialien und Energie",
     "latestPaperYear": 2025,
@@ -731,7 +745,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5071149303",
-    "name": "Katharina Ueltzen",
+    "name": "Ueltzen, Katharina",
     "orcid": "https://orcid.org/0009-0003-2967-1182",
     "openAlexAffiliation": "Federal Institute For Materials Research and Testing",
     "latestPaperYear": 2025,
@@ -749,7 +763,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5100625845",
-    "name": "Yue Wu",
+    "name": "Yuan-Long Wu",
     "orcid": "https://orcid.org/0000-0003-2874-8267",
     "openAlexAffiliation": "Unknown",
     "latestPaperYear": 2025,
@@ -767,7 +781,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5119870182",
-    "name": "Shang Zhu",
+    "name": "Zhu, Shang",
     "orcid": "https://orcid.org/0000-0003-4632-955X",
     "openAlexAffiliation": "University of Michigan",
     "latestPaperYear": 2025,
@@ -785,7 +799,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5006956385",
-    "name": "Jan Janßen",
+    "name": "None Janssen, Jan",
     "orcid": "https://orcid.org/0000-0001-9948-7119",
     "openAlexAffiliation": "Max-Planck-Institut für Nachhaltige Materialien",
     "latestPaperYear": 2025,
@@ -803,7 +817,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5085263890",
-    "name": "Calvin Li",
+    "name": "Li, Calvin",
     "orcid": null,
     "openAlexAffiliation": "Unknown",
     "latestPaperYear": 2025,
@@ -821,7 +835,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5032231503",
-    "name": "Ian Foster",
+    "name": "None Foster, Ian",
     "orcid": "https://orcid.org/0000-0003-2129-5269",
     "openAlexAffiliation": "Argonne National Laboratory",
     "latestPaperYear": 2025,
@@ -839,7 +853,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5033890428",
-    "name": "Ben Blaiszik",
+    "name": "None Blaiszik, Ben",
     "orcid": "https://orcid.org/0000-0002-5326-4902",
     "openAlexAffiliation": "Argonne National Laboratory",
     "latestPaperYear": 2025,
@@ -857,7 +871,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5033826823",
-    "name": "Sudeshna Mondal",
+    "name": "Sudipto Kumar Mondal",
     "orcid": null,
     "openAlexAffiliation": "Pandit Deendayal Petroleum University",
     "latestPaperYear": 2025,
@@ -893,7 +907,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5003314340",
-    "name": "Amitava Choudhury",
+    "name": "Ankan Gobinda Choudhury",
     "orcid": "https://orcid.org/0000-0001-5496-7346",
     "openAlexAffiliation": "Pandit Deendayal Petroleum University",
     "latestPaperYear": 2025,
@@ -911,7 +925,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5033973396",
-    "name": "K. Mukherjee",
+    "name": "Kalisadhan Mukherjee",
     "orcid": "https://orcid.org/0000-0002-5431-4246",
     "openAlexAffiliation": "Pandit Deendayal Petroleum University",
     "latestPaperYear": 2025,
@@ -947,7 +961,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5065370507",
-    "name": "Pablo Gamallo",
+    "name": "None Pablo Gamallo",
     "orcid": "https://orcid.org/0000-0002-8531-8063",
     "openAlexAffiliation": "Universitat de Barcelona",
     "latestPaperYear": 2025,

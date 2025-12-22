@@ -65,8 +65,29 @@ async function geocodeInstitution(name, country) {
     return await geocodeWithPhoton(name, country);
 }
 
+function selectBestName(names) {
+    if (!names || names.length === 0) return null;
+    const cleanNames = [...new Set(names.filter(n => n && typeof n === 'string'))];
+    if (cleanNames.length === 0) return null;
+
+    const countInitials = (s) => {
+        if (!s) return 999;
+        const matches = s.match(/\b\w\b\.?/g) || [];
+        return matches.length;
+    };
+
+    return cleanNames.reduce((best, current) => {
+        const currentInitials = countInitials(current);
+        const bestInitials = countInitials(best);
+        if (currentInitials < bestInitials) return current;
+        if (currentInitials === bestInitials && current.length > best.length) return current;
+        return best;
+    }, cleanNames[0]);
+}
+
 async function determineLatestAffiliations(orcidUrl, oaAff, oaYear, openAlexAuthorId) {
     let candidates = [];
+    let bestNameFromOA = null;
     if (oaAff && oaAff !== 'Unknown') candidates.push({ name: oaAff, year: oaYear, isCurrent: false, priority: 1, countryCode: null });
 
     // Fetch from OpenAlex author profile for affiliations
@@ -77,6 +98,11 @@ async function determineLatestAffiliations(orcidUrl, oaAff, oaYear, openAlexAuth
             const authorRes = await fetch(authorApiUrl);
             if (authorRes.ok) {
                 const authorData = await authorRes.json();
+
+                // Get best name from OA alternatives
+                const allNames = [authorData.display_name, ...(authorData.display_name_alternatives || [])];
+                bestNameFromOA = selectBestName(allNames);
+
                 const affiliations = authorData.affiliations || [];
                 affiliations.forEach(aff => {
                     if (aff.institution?.display_name && aff.years?.length > 0) {
@@ -126,34 +152,39 @@ async function determineLatestAffiliations(orcidUrl, oaAff, oaYear, openAlexAuth
             }
         } catch (e) { }
     }
-    if (candidates.length === 0) return [{ name: oaAff, countryCode: null }];
+    
+    let uniqueAffiliations = [];
+    if (candidates.length === 0) {
+        uniqueAffiliations = [{ name: oaAff, countryCode: null }];
+    } else {
+        candidates.sort((a, b) => {
+            if (a.isCurrent && !b.isCurrent) return -1;
+            if (!a.isCurrent && b.isCurrent) return 1;
+            if (b.year !== a.year) return b.year - a.year;
+            return b.priority - a.priority;
+        });
 
+        // Return all candidates that match the top candidate's criteria
+        const top = candidates[0];
+        const topTied = candidates.filter(c =>
+            c.isCurrent === top.isCurrent &&
+            c.year === top.year
+        );
 
-    candidates.sort((a, b) => {
-        if (a.isCurrent && !b.isCurrent) return -1;
-        if (!a.isCurrent && b.isCurrent) return 1;
-        if (b.year !== a.year) return b.year - a.year;
-        return b.priority - a.priority;
-    });
-
-    // Return all candidates that match the top candidate's criteria
-    const top = candidates[0];
-    const topTied = candidates.filter(c =>
-        c.isCurrent === top.isCurrent &&
-        c.year === top.year
-    );
-
-    // Remove duplicates by institution name, keep first occurrence with country code
-    const seen = new Set();
-    const unique = [];
-    for (const c of topTied) {
-        if (!seen.has(c.name)) {
-            seen.add(c.name);
-            unique.push({ name: c.name, countryCode: c.countryCode });
+        // Remove duplicates by institution name, keep first occurrence with country code
+        const seen = new Set();
+        for (const c of topTied) {
+            if (!seen.has(c.name)) {
+                seen.add(c.name);
+                uniqueAffiliations.push({ name: c.name, countryCode: c.countryCode });
+            }
         }
     }
 
-    return unique;
+    return {
+        bestName: bestNameFromOA,
+        affiliations: uniqueAffiliations
+    };
 }
 
 async function fetchOrcidDois() {
@@ -177,7 +208,7 @@ async function loadExisting() {
     try {
         const c = fs.readFileSync(OUTPUT_FILE, 'utf8');
         const m = c.match(/const collaborators = ([\s\S]*?);/);
-        if (m) return new Map(JSON.parse(m[1]).map(x => [x.name, x]));
+        if (m) return new Map(JSON.parse(m[1]).map(x => [x.id || x.name, x]));
     } catch (e) { }
     return new Map();
 }
@@ -197,9 +228,12 @@ async function generate() {
             for (const auth of (w.authorships || [])) {
                 const a = auth.author;
                 if (!a || (a.orcid && a.orcid.includes(USER_ORCID))) continue;
+                
+                const authorId = a.id || a.orcid || a.display_name;
                 const inst = auth.institutions?.[0]?.display_name || 'Unknown';
-                if (colsMap.has(a.display_name)) {
-                    const e = colsMap.get(a.display_name);
+                
+                if (colsMap.has(authorId)) {
+                    const e = colsMap.get(authorId);
                     if (!e.dois.some(d => d.title === w.title)) {
                         e.collaborations++;
                         e.dois.push({ doi: w.doi || doi, title: w.title });
@@ -209,7 +243,7 @@ async function generate() {
                         e.openAlexAffiliation = inst;
                     }
                 } else {
-                    colsMap.set(a.display_name, {
+                    colsMap.set(authorId, {
                         id: a.id, name: a.display_name, orcid: a.orcid,
                         openAlexAffiliation: inst, latestPaperYear: yr,
                         collaborations: 1, dois: [{ doi: w.doi || doi, title: w.title }]
@@ -221,19 +255,23 @@ async function generate() {
         console.log(`👥 Found ${colsMap.size} unique collaborators`);
 
         const results = [];
-        for (const [name, c] of colsMap) {
-            const affiliationOptions = await determineLatestAffiliations(c.orcid, c.openAlexAffiliation, c.latestPaperYear, c.id);
+        for (const [id, c] of colsMap) {
+            const { bestName, affiliations: affiliationOptions } = await determineLatestAffiliations(c.orcid, c.openAlexAffiliation, c.latestPaperYear, c.id);
+            
+            if (bestName) {
+                c.name = bestName;
+            }
+
             if (!affiliationOptions || affiliationOptions.length === 0 || (affiliationOptions[0]?.name === 'Unknown' || affiliationOptions[0] === 'Unknown')) continue;
 
             let foundGeo = false;
-            let finalAffiliation = null;
 
             // Check cache for any of the affiliation options
             for (const affOpt of affiliationOptions) {
                 const affName = typeof affOpt === 'string' ? affOpt : affOpt.name;
-                const cached = existingMap.get(name);
+                const cached = existingMap.get(id) || existingMap.get(c.name);
                 if (cached?.latitude && cached.affiliation === affName) {
-                    console.log(`Using Cached: ${name}`);
+                    console.log(`Using Cached: ${c.name}`);
                     c.affiliation = affName;
                     Object.assign(c, { latitude: cached.latitude, longitude: cached.longitude, city: cached.city });
                     foundGeo = true;
@@ -243,7 +281,7 @@ async function generate() {
 
             // If not in cache, try geocoding all options
             if (!foundGeo) {
-                console.log(`👤 Processing: ${name}`);
+                console.log(`👤 Processing: ${c.name}`);
                 for (const affOpt of affiliationOptions) {
                     const affName = typeof affOpt === 'string' ? affOpt : affOpt.name;
                     const countryCode = typeof affOpt === 'object' ? affOpt.countryCode : null;

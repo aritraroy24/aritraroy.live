@@ -89,9 +89,30 @@ async function geocodeInstitution(name, countryCode) {
     return await geocodeWithPhoton(name, countryCode);
 }
 
+function selectBestName(names) {
+    if (!names || names.length === 0) return null;
+    const cleanNames = [...new Set(names.filter(n => n && typeof n === 'string'))];
+    if (cleanNames.length === 0) return null;
+
+    const countInitials = (s) => {
+        if (!s) return 999;
+        const matches = s.match(/\b\w\b\.?/g) || [];
+        return matches.length;
+    };
+
+    return cleanNames.reduce((best, current) => {
+        const currentInitials = countInitials(current);
+        const bestInitials = countInitials(best);
+        if (currentInitials < bestInitials) return current;
+        if (currentInitials === bestInitials && current.length > best.length) return current;
+        return best;
+    }, cleanNames[0]);
+}
+
 // Determine latest institution across all 4 sources
 async function determineLatestAffiliations(orcidUrl, openAlexAffiliation, openAlexYear, openAlexAuthorId) {
     let candidates = [];
+    let bestNameFromOA = null;
     if (openAlexAffiliation && openAlexAffiliation !== 'Unknown') {
         candidates.push({ name: openAlexAffiliation, year: parseInt(openAlexYear) || 0, isCurrent: false, priority: 1 });
     }
@@ -104,6 +125,11 @@ async function determineLatestAffiliations(orcidUrl, openAlexAffiliation, openAl
             const authorRes = await fetch(authorApiUrl);
             if (authorRes.ok) {
                 const authorData = await authorRes.json();
+
+                // Get best name from OA alternatives
+                const allNames = [authorData.display_name, ...(authorData.display_name_alternatives || [])];
+                bestNameFromOA = selectBestName(allNames);
+
                 const affiliations = authorData.affiliations || [];
                 affiliations.forEach(aff => {
                     if (aff.institution?.display_name && aff.years?.length > 0) {
@@ -155,31 +181,39 @@ async function determineLatestAffiliations(orcidUrl, openAlexAffiliation, openAl
             }
         } catch (e) { }
     }
-    if (candidates.length === 0) return [openAlexAffiliation];
-    candidates.sort((a, b) => {
-        if (a.isCurrent && !b.isCurrent) return -1;
-        if (!a.isCurrent && b.isCurrent) return 1;
-        if (b.year !== a.year) return b.year - a.year;
-        return b.priority - a.priority;
-    });
+    
+    let uniqueAffiliations = [];
+    if (candidates.length === 0) {
+        uniqueAffiliations = [openAlexAffiliation];
+    } else {
+        candidates.sort((a, b) => {
+            if (a.isCurrent && !b.isCurrent) return -1;
+            if (!a.isCurrent && b.isCurrent) return 1;
+            if (b.year !== a.year) return b.year - a.year;
+            return b.priority - a.priority;
+        });
 
-    // Return all candidates that match the top candidate's criteria
-    const top = candidates[0];
-    const topTied = candidates.filter(c =>
-        c.isCurrent === top.isCurrent &&
-        c.year === top.year
-    );
+        // Return all candidates that match the top candidate's criteria
+        const top = candidates[0];
+        const topTied = candidates.filter(c =>
+            c.isCurrent === top.isCurrent &&
+            c.year === top.year
+        );
 
-    // Remove duplicates by institution name, keep first occurrence with country code
-    const seen = new Set();
-    const unique = [];
-    for (const c of topTied) {
-        if (!seen.has(c.name)) {
-            seen.add(c.name);
-            unique.push({ name: c.name, countryCode: c.countryCode });
+        // Remove duplicates by institution name, keep first occurrence with country code
+        const seen = new Set();
+        for (const c of topTied) {
+            if (!seen.has(c.name)) {
+                seen.add(c.name);
+                uniqueAffiliations.push({ name: c.name, countryCode: c.countryCode });
+            }
         }
     }
-    return unique;
+
+    return {
+        bestName: bestNameFromOA,
+        affiliations: uniqueAffiliations
+    };
 }
 
 async function fetchOrcidDois() {
@@ -212,10 +246,10 @@ async function fetchCollaborators() {
         const localCols = localCacheData?.collaborators || [];
 
         const masterCacheMap = new Map();
-        staticCache.forEach(c => masterCacheMap.set(c.name, c));
+        staticCache.forEach(c => masterCacheMap.set(c.id || c.name, c));
         localCols.forEach(c => {
-            const ext = masterCacheMap.get(c.name);
-            if (!ext || (c.latitude && c.longitude)) masterCacheMap.set(c.name, c);
+            const ext = masterCacheMap.get(c.id || c.name);
+            if (!ext || (c.latitude && c.longitude)) masterCacheMap.set(c.id || c.name, c);
         });
 
         const THIRTY_DAYS = 30 * 24 * 60 * 60 * 1000;
@@ -244,9 +278,12 @@ async function fetchCollaborators() {
             for (const auth of (w.authorships || [])) {
                 const a = auth.author;
                 if (!a || (a.orcid && a.orcid.includes(USER_ORCID))) continue;
+                
+                const authorId = a.id || a.orcid || a.display_name;
                 const inst = auth.institutions?.[0]?.display_name || 'Unknown';
-                if (colsMap.has(a.display_name)) {
-                    const e = colsMap.get(a.display_name);
+                
+                if (colsMap.has(authorId)) {
+                    const e = colsMap.get(authorId);
                     if (!e.dois.some(d => d.title === w.title)) {
                         e.collaborations++;
                         e.dois.push({ doi: w.doi || doi, title: w.title });
@@ -256,7 +293,7 @@ async function fetchCollaborators() {
                         e.openAlexAffiliation = inst;
                     }
                 } else {
-                    colsMap.set(a.display_name, {
+                    colsMap.set(authorId, {
                         id: a.id, name: a.display_name, orcid: a.orcid,
                         openAlexAffiliation: inst, latestPaperYear: yr,
                         collaborations: 1, dois: [{ doi: w.doi || doi, title: w.title }]
@@ -266,8 +303,13 @@ async function fetchCollaborators() {
         }
 
         const finalProcessed = [];
-        for (const [name, c] of colsMap) {
-            const affiliationOptions = await determineLatestAffiliations(c.orcid, c.openAlexAffiliation, c.latestPaperYear, c.id);
+        for (const [id, c] of colsMap) {
+            const { bestName, affiliations: affiliationOptions } = await determineLatestAffiliations(c.orcid, c.openAlexAffiliation, c.latestPaperYear, c.id);
+            
+            if (bestName) {
+                c.name = bestName;
+            }
+
             if (!affiliationOptions || affiliationOptions.length === 0 || (affiliationOptions[0]?.name === 'Unknown' || affiliationOptions[0] === 'Unknown')) continue;
 
             let foundGeo = false;
@@ -275,7 +317,7 @@ async function fetchCollaborators() {
             // Check cache for any of the affiliation options
             for (const affOpt of affiliationOptions) {
                 const affName = typeof affOpt === 'string' ? affOpt : affOpt.name;
-                const cached = masterCacheMap.get(c.name);
+                const cached = masterCacheMap.get(id) || masterCacheMap.get(c.name);
                 if (cached?.latitude && cached.affiliation === affName) {
                     c.affiliation = affName;
                     finalProcessed.push({ ...c, latitude: cached.latitude, longitude: cached.longitude, city: cached.city });
