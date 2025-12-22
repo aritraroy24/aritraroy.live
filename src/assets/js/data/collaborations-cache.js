@@ -1,7 +1,7 @@
 const collaborators = [
   {
     "id": "https://openalex.org/A5082988419",
-    "name": "None Felipe Fantuzzi",
+    "name": "Fantuzzi, Felipe",
     "orcid": "https://orcid.org/0000-0002-8200-8262",
     "openAlexAffiliation": "University of Kent",
     "latestPaperYear": 2025,
@@ -38,7 +38,7 @@ const collaborators = [
     "id": "https://openalex.org/A5003992365",
     "name": "Sutradhar, Sourav",
     "orcid": "https://orcid.org/0000-0002-3905-4394",
-    "openAlexAffiliation": "Unknown",
+    "openAlexAffiliation": "National Institute Of Technology Silchar",
     "latestPaperYear": 2024,
     "collaborations": 2,
     "dois": [
@@ -54,14 +54,14 @@ const collaborators = [
     "affiliation": "National Institute Of Technology Silchar",
     "latitude": 24.7552219,
     "longitude": 92.7874485,
-    "city": null,
+    "city": "Silchar",
     "country": "India"
   },
   {
     "id": "https://openalex.org/A5029311934",
     "name": "Ghosh, Biswa Nath",
     "orcid": "https://orcid.org/0000-0001-7203-7484",
-    "openAlexAffiliation": "Unknown",
+    "openAlexAffiliation": "National Institute Of Technology Silchar",
     "latestPaperYear": 2024,
     "collaborations": 2,
     "dois": [
@@ -77,7 +77,7 @@ const collaborators = [
     "affiliation": "National Institute Of Technology Silchar",
     "latitude": 24.7552219,
     "longitude": 92.7874485,
-    "city": null,
+    "city": "Silchar",
     "country": "India"
   },
   {
@@ -101,7 +101,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5082064131",
-    "name": "None Dipankar Das",
+    "name": "Das, Dipankar",
     "orcid": "https://orcid.org/0000-0001-9298-6871",
     "openAlexAffiliation": "Unknown",
     "latestPaperYear": 2024,
@@ -115,7 +115,7 @@ const collaborators = [
     "affiliation": "SRM Institute of Science and Technology",
     "latitude": 12.8234361,
     "longitude": 80.0450412,
-    "city": null,
+    "city": "Kattankulathur",
     "country": "India"
   },
   {
@@ -139,7 +139,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5006629330",
-    "name": "Sorbojit Mondal",
+    "name": "Somnath Mondal",
     "orcid": "https://orcid.org/0000-0002-5657-8077",
     "openAlexAffiliation": "Unknown",
     "latestPaperYear": 2024,
@@ -150,10 +150,9 @@ const collaborators = [
         "title": "A copper complex receptor for nanomolar sulfide sensing and applications in DNA/BSA binding"
       }
     ],
-    "affiliation": "National Institute of Technology Tiruchirappalli",
-    "latitude": 10.7633854,
-    "longitude": 78.8150292,
-    "city": "Thuvakudi",
+    "affiliation": "National Institute Of Technology Silchar",
+    "latitude": 24.7552219,
+    "longitude": 92.7874485,
     "country": "India"
   },
   {
@@ -172,7 +171,7 @@ const collaborators = [
     "affiliation": "National Institute Of Technology Silchar",
     "latitude": 24.7552219,
     "longitude": 92.7874485,
-    "city": null,
+    "city": "Silchar",
     "country": "India"
   },
   {
@@ -191,12 +190,12 @@ const collaborators = [
     "affiliation": "Indian Institute of Technology Palakkad",
     "latitude": 10.8018655,
     "longitude": 76.8185065,
-    "city": null,
+    "city": "Palakkad",
     "country": "India"
   },
   {
     "id": "https://openalex.org/A5091092718",
-    "name": "None Lukas Endres",
+    "name": "Endres, Lukas",
     "orcid": "https://orcid.org/0000-0002-5523-3624",
     "openAlexAffiliation": "University of Würzburg",
     "latestPaperYear": 2024,
@@ -235,7 +234,7 @@ const collaborators = [
   {
     "id": "https://openalex.org/A5109721293",
     "name": "Bertermann, Rüdiger",
-    "orcid": null,
+    "orcid": "https://orcid.org/0009-0000-0976-139X",
     "openAlexAffiliation": "University of Würzburg",
     "latestPaperYear": 2024,
     "collaborations": 1,
@@ -253,7 +252,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5038029240",
-    "name": "None Holger Braunschweig",
+    "name": "Braunschweig, Holger",
     "orcid": "https://orcid.org/0000-0001-9264-1726",
     "openAlexAffiliation": "University of Würzburg",
     "latestPaperYear": 2024,
@@ -310,7 +309,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5092171855",
-    "name": "None Al-Feghali, Alexander",
+    "name": "Al-Feghali, Alexander",
     "orcid": "https://orcid.org/0009-0004-8377-7049",
     "openAlexAffiliation": "McGill University",
     "latestPaperYear": 2025,
@@ -405,7 +404,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5064747379",
-    "name": "None Circi, Defne",
+    "name": "Circi, Defne",
     "orcid": "https://orcid.org/0000-0002-5761-0198",
     "openAlexAffiliation": "Duke University",
     "latestPaperYear": 2025,
@@ -500,7 +499,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5084420654",
-    "name": "None George, Janine",
+    "name": "George, Janine",
     "orcid": "https://orcid.org/0000-0001-8907-0336",
     "openAlexAffiliation": "Federal Institute For Materials Research and Testing",
     "latestPaperYear": 2025,
@@ -539,7 +538,7 @@ const collaborators = [
   {
     "id": "https://openalex.org/A5087105123",
     "name": "Khalighinejad, Ghazal",
-    "orcid": null,
+    "orcid": "https://orcid.org/0009-0005-2476-8043",
     "openAlexAffiliation": "Duke University",
     "latestPaperYear": 2025,
     "collaborations": 1,
@@ -609,7 +608,7 @@ const collaborators = [
     "affiliation": "École Polytechnique Fédérale de Lausanne",
     "latitude": 46.5186594,
     "longitude": 6.5665615,
-    "city": null,
+    "city": "Lausanne",
     "country": "Switzerland"
   },
   {
@@ -652,7 +651,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5051256159",
-    "name": "None Moosavi, Seyed Mohamad",
+    "name": "Seyed Mohamad Reza Moosavi",
     "orcid": "https://orcid.org/0000-0002-0357-5729",
     "openAlexAffiliation": "University of Toronto",
     "latestPaperYear": 2025,
@@ -747,7 +746,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5028051805",
-    "name": "None Schwaller, Philippe",
+    "name": "Schwaller, Philippe",
     "orcid": "https://orcid.org/0000-0003-3046-6576",
     "openAlexAffiliation": "École Polytechnique Fédérale de Lausanne",
     "latestPaperYear": 2025,
@@ -761,13 +760,13 @@ const collaborators = [
     "affiliation": "École Polytechnique Fédérale de Lausanne",
     "latitude": 46.5186594,
     "longitude": 6.5665615,
-    "city": null,
+    "city": "Lausanne",
     "country": "Switzerland"
   },
   {
     "id": "https://openalex.org/A5114987460",
     "name": "Terboven, Carla",
-    "orcid": null,
+    "orcid": "https://orcid.org/0009-0004-3786-0773",
     "openAlexAffiliation": "Helmholtz-Zentrum Berlin für Materialien und Energie",
     "latestPaperYear": 2025,
     "collaborations": 1,
@@ -842,7 +841,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5006956385",
-    "name": "None Janssen, Jan",
+    "name": "Janssen, Jan",
     "orcid": "https://orcid.org/0000-0001-9948-7119",
     "openAlexAffiliation": "Max-Planck-Institut für Nachhaltige Materialien",
     "latestPaperYear": 2025,
@@ -880,7 +879,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5032231503",
-    "name": "None Foster, Ian",
+    "name": "Foster, Ian",
     "orcid": "https://orcid.org/0000-0003-2129-5269",
     "openAlexAffiliation": "Argonne National Laboratory",
     "latestPaperYear": 2025,
@@ -899,7 +898,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5033890428",
-    "name": "None Blaiszik, Ben",
+    "name": "Benjamin Blaiszik",
     "orcid": "https://orcid.org/0000-0002-5326-4902",
     "openAlexAffiliation": "Argonne National Laboratory",
     "latestPaperYear": 2025,
@@ -918,7 +917,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5033826823",
-    "name": "Sudipto Kumar Mondal",
+    "name": "Suman Mondal",
     "orcid": null,
     "openAlexAffiliation": "Pandit Deendayal Petroleum University",
     "latestPaperYear": 2025,
@@ -932,7 +931,7 @@ const collaborators = [
     "affiliation": "Pandit Deendayal Petroleum University",
     "latitude": 23.1563544,
     "longitude": 72.6652774,
-    "city": null,
+    "city": "Gandhinagar",
     "country": "India"
   },
   {
@@ -989,7 +988,7 @@ const collaborators = [
     "affiliation": "Pandit Deendayal Petroleum University",
     "latitude": 23.1563544,
     "longitude": 72.6652774,
-    "city": null,
+    "city": "Gandhinagar",
     "country": "India"
   },
   {
@@ -1013,7 +1012,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5065370507",
-    "name": "None Pablo Gamallo",
+    "name": "Pablo Gamallo",
     "orcid": "https://orcid.org/0000-0002-8531-8063",
     "openAlexAffiliation": "Universitat de Barcelona",
     "latestPaperYear": 2025,

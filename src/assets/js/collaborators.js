@@ -93,7 +93,8 @@ async function geocodeInstitution(name, countryCode) {
 
 function selectBestName(names) {
     if (!names || names.length === 0) return null;
-    const cleanNames = [...new Set(names.filter(n => n && typeof n === 'string'))];
+    const cleanNames = [...new Set(names.filter(n => n && typeof n === 'string' && !n.startsWith('None ')))]
+        .map(n => n.trim());
     if (cleanNames.length === 0) return null;
 
     const countInitials = (s) => {
@@ -306,6 +307,20 @@ async function fetchCollaborators() {
 
         const finalProcessed = [];
         for (const [id, c] of colsMap) {
+            // Check cache first to avoid expensive API calls
+            const cached = masterCacheMap.get(id) || masterCacheMap.get(c.name);
+            
+            if (cached && cached.affiliation && cached.affiliation !== 'Unknown') {
+                c.name = cached.name;
+                c.affiliation = cached.affiliation;
+                c.latitude = cached.latitude;
+                c.longitude = cached.longitude;
+                c.city = cached.city;
+                c.country = cached.country;
+                finalProcessed.push(c);
+                continue;
+            }
+
             const { bestName, affiliations: affiliationOptions } = await determineLatestAffiliations(c.orcid, c.openAlexAffiliation, c.latestPaperYear, c.id);
             
             if (bestName) {
@@ -316,41 +331,26 @@ async function fetchCollaborators() {
 
             let foundGeo = false;
 
-            // Check cache for any of the affiliation options
+            // Try geocoding all options
             for (const affOpt of affiliationOptions) {
                 const affName = typeof affOpt === 'string' ? affOpt : affOpt.name;
-                const cached = masterCacheMap.get(id) || masterCacheMap.get(c.name);
-                if (cached?.latitude && cached.affiliation === affName) {
+                const countryCode = typeof affOpt === 'object' ? affOpt.countryCode : null;
+                const geo = await geocodeInstitution(affName, countryCode);
+                if (geo && geo.latitude && geo.longitude) {
                     c.affiliation = affName;
-                    finalProcessed.push({ ...c, latitude: cached.latitude, longitude: cached.longitude, city: cached.city, country: cached.country });
+                    Object.assign(c, geo);
                     foundGeo = true;
                     break;
                 }
             }
 
-            // If not in cache, try geocoding all options
-            if (!foundGeo) {
-                for (const affOpt of affiliationOptions) {
-                    const affName = typeof affOpt === 'string' ? affOpt : affOpt.name;
-                    const countryCode = typeof affOpt === 'object' ? affOpt.countryCode : null;
-                    const geo = await geocodeInstitution(affName, countryCode);
-                    if (geo && geo.latitude && geo.longitude) {
-                        c.affiliation = affName;
-                        Object.assign(c, geo);
-                        foundGeo = true;
-                        break;
-                    }
-                }
-
-                // If no geocoding succeeded but we have affiliations, use the first one
-                if (!foundGeo && affiliationOptions.length > 0) {
-                    const affName = typeof affiliationOptions[0] === 'string' ? affiliationOptions[0] : affiliationOptions[0].name;
-                    c.affiliation = affName;
-                }
-
-                // Push to results only if not found in cache
-                if (c.affiliation) finalProcessed.push(c);
+            // If no geocoding succeeded but we have affiliations, use the first one
+            if (!foundGeo && affiliationOptions.length > 0) {
+                const affName = typeof affiliationOptions[0] === 'string' ? affiliationOptions[0] : affiliationOptions[0].name;
+                c.affiliation = affName;
             }
+
+            if (c.affiliation) finalProcessed.push(c);
         }
 
         const sorted = finalProcessed.sort((a, b) => b.collaborations - a.collaborations);

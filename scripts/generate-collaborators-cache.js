@@ -69,7 +69,8 @@ async function geocodeInstitution(name, country) {
 
 function selectBestName(names) {
     if (!names || names.length === 0) return null;
-    const cleanNames = [...new Set(names.filter(n => n && typeof n === 'string'))];
+    const cleanNames = [...new Set(names.filter(n => n && typeof n === 'string' && !n.startsWith('None ')))]
+        .map(n => n.trim());
     if (cleanNames.length === 0) return null;
 
     const countInitials = (s) => {
@@ -126,8 +127,6 @@ async function determineLatestAffiliations(orcidUrl, oaAff, oaYear, openAlexAuth
         } catch (e) {
             console.log(`  ⚠️  Error fetching OpenAlex author profile: ${e.message}`);
         }
-    } else {
-        console.log(`  ⚠️  No OpenAlex author ID provided`);
     }
 
     if (orcidUrl) {
@@ -154,7 +153,7 @@ async function determineLatestAffiliations(orcidUrl, oaAff, oaYear, openAlexAuth
             }
         } catch (e) { }
     }
-    
+
     let uniqueAffiliations = [];
     if (candidates.length === 0) {
         uniqueAffiliations = [{ name: oaAff, countryCode: null }];
@@ -189,20 +188,42 @@ async function determineLatestAffiliations(orcidUrl, oaAff, oaYear, openAlexAuth
     };
 }
 
-async function fetchOrcidDois() {
+async function fetchOrcidWorksDetailed() {
     try {
         const res = await fetch(ORCID_WORKS_API, { headers: { 'Accept': 'application/json' } });
-        if (!res.ok) return new Set();
+        if (!res.ok) return new Map();
         const d = await res.json();
-        const Dois = new Set();
-        (d.group || []).forEach(g => (g['work-summary'] || []).forEach(s => (s['external-ids']?.['external-id'] || []).forEach(id => {
-            if (id['external-id-type'] === 'doi') {
-                const doiVal = id['external-id-value'].toLowerCase().replace(/^https?:\/\/(dx\.)?doi\.org\//, '').trim();
-                Dois.add(doiVal);
-            }
-        })));
-        return Dois;
-    } catch (e) { return new Set(); }
+        const worksMap = new Map();
+
+        const groups = d.group || [];
+        for (const g of groups) {
+            const summary = g['work-summary']?.[0];
+            if (!summary) continue;
+
+            const putCode = summary['put-code'];
+            const extIds = summary['external-ids']?.['external-id'] || [];
+            const doiObj = extIds.find(id => id['external-id-type'] === 'doi');
+            if (!doiObj) continue;
+
+            const doi = doiObj['external-id-value'].toLowerCase().replace(/^https?:\/\/(dx\.)?doi\.org\//, '').trim();
+            worksMap.set(doi, { putCode, title: summary.title?.title?.value });
+        }
+        return worksMap;
+    } catch (e) { return new Map(); }
+}
+
+async function fetchContributorsFromOrcid(putCode) {
+    try {
+        const res = await fetch(`https://pub.orcid.org/v3.0/${USER_ORCID}/work/${putCode}`, {
+            headers: { 'Accept': 'application/json' }
+        });
+        if (!res.ok) return [];
+        const data = await res.json();
+        return (data.contributors?.contributor || []).map(c => ({
+            display_name: c['credit-name']?.value,
+            orcid: c['contributor-orcid'] ? `https://orcid.org/${c['contributor-orcid'].path}` : null
+        })).filter(c => c.display_name);
+    } catch (e) { return []; }
 }
 
 async function loadExisting() {
@@ -218,8 +239,14 @@ async function loadExisting() {
 async function generate() {
     console.log('🚀 Generating Cache...');
     try {
-        const [oaRes, orcidDois, existingMap] = await Promise.all([fetch(WORKS_API_URL), fetchOrcidDois(), loadExisting()]);
+        const [oaRes, orcidWorksDetailed, existingMap] = await Promise.all([
+            fetch(WORKS_API_URL),
+            fetchOrcidWorksDetailed(),
+            loadExisting()
+        ]);
         if (!oaRes.ok) throw new Error('OpenAlex Response not OK');
+
+        const orcidDois = new Set(orcidWorksDetailed.keys());
         const works = (await oaRes.json()).results || [];
         const colsMap = new Map();
 
@@ -227,13 +254,44 @@ async function generate() {
             const yr = w.publication_year || 0;
             const doi = w.doi?.toLowerCase().replace(/^https?:\/\/(dx\.)?doi\.org\//, '').trim();
             if (orcidDois.size > 0 && (!doi || !orcidDois.has(doi))) continue;
-            for (const auth of (w.authorships || [])) {
-                const a = auth.author;
-                if (!a || (a.orcid && a.orcid.includes(USER_ORCID))) continue;
-                
+
+            // Get authors from OpenAlex
+            let authors = (w.authorships || []).map(auth => ({
+                id: auth.author.id,
+                display_name: auth.author.display_name,
+                orcid: auth.author.orcid,
+                institution: auth.institutions?.[0]?.display_name || 'Unknown'
+            }));
+
+            // Check if we should supplement from ORCID (if OpenAlex has very few authors or we suspect missing ones)
+            // Or just always merge to be safe
+            if (doi && orcidWorksDetailed.has(doi)) {
+                const detailed = orcidWorksDetailed.get(doi);
+                const orcidAuthors = await fetchContributorsFromOrcid(detailed.putCode);
+
+                for (const oa of orcidAuthors) {
+                    const exists = authors.some(a =>
+                        (a.orcid && oa.orcid && a.orcid.includes(oa.orcid.split('/').pop())) ||
+                        a.display_name.toLowerCase() === oa.display_name.toLowerCase()
+                    );
+                    if (!exists) {
+                        authors.push({
+                            id: null, // We don't have OA ID for these
+                            display_name: oa.display_name,
+                            orcid: oa.orcid,
+                            institution: 'Unknown' // ORCID doesn't easily give institution in work contributors
+                        });
+                    }
+                }
+            }
+
+            for (const a of authors) {
+                if (a.orcid && a.orcid.includes(USER_ORCID)) continue;
+                if (a.display_name.toLowerCase().includes('aritra roy')) continue; // Self filter
+
                 const authorId = a.id || a.orcid || a.display_name;
-                const inst = auth.institutions?.[0]?.display_name || 'Unknown';
-                
+                const inst = a.institution;
+
                 if (colsMap.has(authorId)) {
                     const e = colsMap.get(authorId);
                     if (!e.dois.some(d => d.title === w.title)) {
@@ -242,7 +300,7 @@ async function generate() {
                     }
                     if (yr > e.latestPaperYear) {
                         e.latestPaperYear = yr;
-                        e.openAlexAffiliation = inst;
+                        if (inst !== 'Unknown') e.openAlexAffiliation = inst;
                     }
                 } else {
                     colsMap.set(authorId, {
@@ -258,8 +316,24 @@ async function generate() {
 
         const results = [];
         for (const [id, c] of colsMap) {
+            // Check cache first to avoid expensive API calls
+            const cached = existingMap.get(id) || existingMap.get(c.name);
+
+            if (cached && cached.affiliation && cached.affiliation !== 'Unknown') {
+                console.log(`Using Cached Metadata: ${cached.name}`);
+                // Reuse cached metadata but keep fresh stats from colsMap
+                c.name = cached.name;
+                c.affiliation = cached.affiliation;
+                c.latitude = cached.latitude;
+                c.longitude = cached.longitude;
+                c.city = cached.city;
+                c.country = cached.country;
+                results.push(c);
+                continue;
+            }
+
             const { bestName, affiliations: affiliationOptions } = await determineLatestAffiliations(c.orcid, c.openAlexAffiliation, c.latestPaperYear, c.id);
-            
+
             if (bestName) {
                 c.name = bestName;
             }
@@ -268,41 +342,26 @@ async function generate() {
 
             let foundGeo = false;
 
-            // Check cache for any of the affiliation options
+            // Try geocoding all options
+            console.log(`👤 Processing New Collaborator: ${c.name}`);
             for (const affOpt of affiliationOptions) {
                 const affName = typeof affOpt === 'string' ? affOpt : affOpt.name;
-                const cached = existingMap.get(id) || existingMap.get(c.name);
-                if (cached?.latitude && cached.affiliation === affName) {
-                    console.log(`Using Cached: ${c.name}`);
+                const countryCode = typeof affOpt === 'object' ? affOpt.countryCode : null;
+                const geo = await geocodeInstitution(affName, countryCode);
+                if (geo && geo.latitude && geo.longitude) {
                     c.affiliation = affName;
-                    Object.assign(c, { latitude: cached.latitude, longitude: cached.longitude, city: cached.city, country: cached.country });
+                    Object.assign(c, geo);
+                    console.log(`  📍 Institution: ${affName} [${geo.latitude}, ${geo.longitude}]`);
                     foundGeo = true;
                     break;
                 }
             }
 
-            // If not in cache, try geocoding all options
-            if (!foundGeo) {
-                console.log(`👤 Processing: ${c.name}`);
-                for (const affOpt of affiliationOptions) {
-                    const affName = typeof affOpt === 'string' ? affOpt : affOpt.name;
-                    const countryCode = typeof affOpt === 'object' ? affOpt.countryCode : null;
-                    const geo = await geocodeInstitution(affName, countryCode);
-                    if (geo && geo.latitude && geo.longitude) {
-                        c.affiliation = affName;
-                        Object.assign(c, geo);
-                        console.log(`  📍 Institution: ${affName} [${geo.latitude}, ${geo.longitude}]`);
-                        foundGeo = true;
-                        break;
-                    }
-                }
-
-                // If no geocoding succeeded but we have affiliations, use the first one
-                if (!foundGeo && affiliationOptions.length > 0) {
-                    const affName = typeof affiliationOptions[0] === 'string' ? affiliationOptions[0] : affiliationOptions[0].name;
-                    c.affiliation = affName;
-                    console.log(`  ⚠️  Using without coordinates: ${c.affiliation}`);
-                }
+            // If no geocoding succeeded but we have affiliations, use the first one
+            if (!foundGeo && affiliationOptions.length > 0) {
+                const affName = typeof affiliationOptions[0] === 'string' ? affiliationOptions[0] : affiliationOptions[0].name;
+                c.affiliation = affName;
+                console.log(`  ⚠️  Using without coordinates: ${c.affiliation}`);
             }
 
             if (c.affiliation) results.push(c);
