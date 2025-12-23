@@ -127,7 +127,29 @@ const CollaboratorsGlobe: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [clickedLocation, setClickedLocation] = useState<LocationGroup | null>(null);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+  const [hasInitializedPOV, setHasInitializedPOV] = useState(false);
   const locations = useMemo(() => groupCollaboratorsByLocation(collaborators as Collaborator[]), []);
+
+  React.useEffect(() => {
+    if (globeEl.current && dimensions.width > 0 && !hasInitializedPOV) {
+      // Set initial position to London (51.4979199, -0.1043342)
+      globeEl.current.pointOfView({
+        lat: 41.3926387,
+        lng: 2.0577881,
+        altitude: 2
+      });
+
+      // Allow maximum zoom-in capacity
+      const controls = globeEl.current.controls();
+      if (controls) {
+        controls.minDistance = 101; // Just above the globe surface (radius 100)
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.05;
+      }
+
+      setHasInitializedPOV(true);
+    }
+  }, [dimensions.width, hasInitializedPOV]);
 
   React.useEffect(() => {
     if (!containerRef.current) return;
@@ -165,12 +187,13 @@ const CollaboratorsGlobe: React.FC = () => {
         {dimensions.width > 0 && dimensions.height > 0 && (
           <Globe
             ref={globeEl}
+            minAltitude={0.01}
             backgroundColor="rgba(0,0,0,0)"
-            globeImageUrl="//unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
-            bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
+            globeImageUrl="//cdn.jsdelivr.net/npm/three-globe/example/img/earth-night.jpg"
+            bumpImageUrl="//cdn.jsdelivr.net/npm/three-globe/example/img/earth-topology.png"
             showAtmosphere={true}
             atmosphereColor={BORDER_COLOR}
-            atmosphereAltitude={0.2}
+            atmosphereAltitude={0.15}
 
             labelsData={locations}
             labelLat={(d: any) => d.lat}
@@ -178,8 +201,8 @@ const CollaboratorsGlobe: React.FC = () => {
             labelText={() => ''}
             labelIncludeDot={true}
             labelDotRadius={(d: any) => {
-              const baseSize = 1;
-              const scaleFactor = 0.5;
+              const baseSize = 0.5;
+              const scaleFactor = 0.25;
               return baseSize + d.totalPublications * scaleFactor;
             }}
             labelColor={() => PIN_COLOR}

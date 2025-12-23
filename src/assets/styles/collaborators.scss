@@ -1,5 +1,26 @@
 // Collaborators Styles
 
+.postsNavigationDiv {
+    min-height: 50vh !important;
+    padding: 40px 20px;
+    max-width: 1800px;
+    margin: 0 auto;
+}
+
+.collaborators-main-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+.collaborators-subtitle {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.1rem;
+    margin-bottom: 50px;
+}
+
 .collaborators-loader {
     display: flex;
     flex-direction: column;
@@ -155,6 +176,17 @@
     }
 }
 
+.stats-grid-vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 15px;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+    border-top: 1px solid rgba(100, 255, 218, 0.2);
+    padding-top: 12px;
+}
+
 .collaboration-count {
     display: flex;
     align-items: center;
@@ -172,14 +204,44 @@
     grid-column: 1 / -1;
 }
 
+.collaborators-cards-only {
+    display: none;
+}
+
 // Responsive Design
-@media (max-width: 767px) {
+@media (max-width: 768px) {
+    .collaborators-main-title {
+        font-size: 2rem;
+    }
+
+    .collaborators-subtitle {
+        font-size: 1rem;
+    }
+
+    .globe-text {
+        display: none;
+    }
+
+    .globe-container-only {
+        display: none;
+    }
+
+    .collaborators-cards-only {
+        display: block;
+    }
+
     .collaborators-container {
         grid-template-columns: 1fr; // Always 1 card per row below 768px
         gap: 20px;
         padding: 15px;
         width: 80vw;
         max-width: 600px;
+    }
+
+    @media (max-width: 650px) {
+        .collaborators-main-title {
+            margin-top: 60px;
+        }
     }
 }
 
