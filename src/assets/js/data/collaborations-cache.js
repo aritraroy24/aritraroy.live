@@ -1,7 +1,11 @@
+// Auto-generated collaborator data
+// Last updated: 2025-12-23T15:49:58.691Z
+const generationDate = '2025-12-23T15:49:58.691Z';
+
 const collaborators = [
   {
     "id": "https://openalex.org/A5082988419",
-    "name": "Fantuzzi, Felipe",
+    "name": "Felipe Fantuzzi",
     "orcid": "https://orcid.org/0000-0002-8200-8262",
     "openAlexAffiliation": "University of Kent",
     "latestPaperYear": 2025,
@@ -28,15 +32,16 @@ const collaborators = [
         "title": "Engineering high-capacity hydrogen storage in pristine Ca <sub>12</sub> O <sub>12</sub> nanocages <i>via</i> cooperative adsorption"
       }
     ],
-    "affiliation": "University of Kent",
-    "latitude": 51.2966,
-    "longitude": 1.0692,
-    "city": "Canterbury",
-    "country": "United Kingdom"
+    "affiliation": "HUN-REN Institute for Nuclear Research",
+    "latitude": -4.30968865,
+    "longitude": 15.30273214369263,
+    "city": "Kinshasa",
+    "country": "Democratic Republic of the Congo",
+    "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5003992365",
-    "name": "Sutradhar, Sourav",
+    "name": "Sourav Sutradhar",
     "orcid": "https://orcid.org/0000-0002-3905-4394",
     "openAlexAffiliation": "National Institute Of Technology Silchar",
     "latestPaperYear": 2024,
@@ -54,12 +59,13 @@ const collaborators = [
     "affiliation": "National Institute Of Technology Silchar",
     "latitude": 24.7552219,
     "longitude": 92.7874485,
-    "city": "Silchar",
-    "country": "India"
+    "city": null,
+    "country": "India",
+    "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5029311934",
-    "name": "Ghosh, Biswa Nath",
+    "name": "Biswa Nath Ghosh",
     "orcid": "https://orcid.org/0000-0001-7203-7484",
     "openAlexAffiliation": "National Institute Of Technology Silchar",
     "latestPaperYear": 2024,
@@ -77,8 +83,9 @@ const collaborators = [
     "affiliation": "National Institute Of Technology Silchar",
     "latitude": 24.7552219,
     "longitude": 92.7874485,
-    "city": "Silchar",
-    "country": "India"
+    "city": null,
+    "country": "India",
+    "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5101960351",
@@ -97,11 +104,12 @@ const collaborators = [
     "latitude": 22.9636334,
     "longitude": 88.5258759,
     "city": "Haringhata",
-    "country": "India"
+    "country": "India",
+    "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5082064131",
-    "name": "Das, Dipankar",
+    "name": "Dipankar Das",
     "orcid": "https://orcid.org/0000-0001-9298-6871",
     "openAlexAffiliation": "Unknown",
     "latestPaperYear": 2024,
@@ -115,8 +123,9 @@ const collaborators = [
     "affiliation": "SRM Institute of Science and Technology",
     "latitude": 12.8234361,
     "longitude": 80.0450412,
-    "city": "Kattankulathur",
-    "country": "India"
+    "city": null,
+    "country": "India",
+    "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5102757929",
@@ -135,7 +144,8 @@ const collaborators = [
     "latitude": 51.2950874,
     "longitude": 1.0673313,
     "city": "Canterbury",
-    "country": "United Kingdom"
+    "country": "United Kingdom",
+    "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5006629330",
@@ -150,14 +160,16 @@ const collaborators = [
         "title": "A copper complex receptor for nanomolar sulfide sensing and applications in DNA/BSA binding"
       }
     ],
-    "affiliation": "National Institute Of Technology Silchar",
-    "latitude": 24.7552219,
-    "longitude": 92.7874485,
-    "country": "India"
+    "affiliation": "National Institute of Technology Tiruchirappalli",
+    "latitude": 10.7633854,
+    "longitude": 78.8150292,
+    "city": "Thuvakudi",
+    "country": "India",
+    "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5061029699",
-    "name": "Sarkar, Parnashabari",
+    "name": "Parnashabari Sarkar",
     "orcid": null,
     "openAlexAffiliation": "Unknown",
     "latestPaperYear": 2024,
@@ -171,12 +183,13 @@ const collaborators = [
     "affiliation": "National Institute Of Technology Silchar",
     "latitude": 24.7552219,
     "longitude": 92.7874485,
-    "city": "Silchar",
-    "country": "India"
+    "city": null,
+    "country": "India",
+    "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5008733556",
-    "name": "Dhara, Debabrata",
+    "name": "Debabrata Dhara",
     "orcid": "https://orcid.org/0000-0002-1792-2568",
     "openAlexAffiliation": "University of Würzburg",
     "latestPaperYear": 2024,
@@ -190,12 +203,13 @@ const collaborators = [
     "affiliation": "Indian Institute of Technology Palakkad",
     "latitude": 10.8018655,
     "longitude": 76.8185065,
-    "city": "Palakkad",
-    "country": "India"
+    "city": null,
+    "country": "India",
+    "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5091092718",
-    "name": "Endres, Lukas",
+    "name": "Lukas Endres",
     "orcid": "https://orcid.org/0000-0002-5523-3624",
     "openAlexAffiliation": "University of Würzburg",
     "latestPaperYear": 2024,
@@ -210,7 +224,8 @@ const collaborators = [
     "latitude": 49.78060885,
     "longitude": 9.971636668405157,
     "city": "Würzburg",
-    "country": "Germany"
+    "country": "Germany",
+    "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5011223450",
@@ -229,12 +244,13 @@ const collaborators = [
     "latitude": 49.78060885,
     "longitude": 9.971636668405157,
     "city": "Würzburg",
-    "country": "Germany"
+    "country": "Germany",
+    "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5109721293",
-    "name": "Bertermann, Rüdiger",
-    "orcid": "https://orcid.org/0009-0000-0976-139X",
+    "name": "Rudiger Bertermann",
+    "orcid": null,
     "openAlexAffiliation": "University of Würzburg",
     "latestPaperYear": 2024,
     "collaborations": 1,
@@ -248,11 +264,12 @@ const collaborators = [
     "latitude": 48.3198619,
     "longitude": 18.369856291310015,
     "city": "Vieska nad Žitavou",
-    "country": "Slovakia"
+    "country": "Slovakia",
+    "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5038029240",
-    "name": "Braunschweig, Holger",
+    "name": "Holger Braunschweig",
     "orcid": "https://orcid.org/0000-0001-9264-1726",
     "openAlexAffiliation": "University of Würzburg",
     "latestPaperYear": 2024,
@@ -267,11 +284,12 @@ const collaborators = [
     "latitude": 49.78060885,
     "longitude": 9.971636668405157,
     "city": "Würzburg",
-    "country": "Germany"
+    "country": "Germany",
+    "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5099022000",
-    "name": "Zimmermann, Yoel",
+    "name": "Yoel Zimmermann",
     "orcid": "https://orcid.org/0009-0003-1720-4368",
     "openAlexAffiliation": "ETH Zurich",
     "latestPaperYear": 2025,
@@ -286,11 +304,12 @@ const collaborators = [
     "latitude": 47.413218,
     "longitude": 8.5374914,
     "city": "Zurich",
-    "country": "Switzerland"
+    "country": "Switzerland",
+    "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5114987465",
-    "name": "Bazgir, Adib",
+    "name": "Adib Bazgir",
     "orcid": "https://orcid.org/0000-0001-6475-8505",
     "openAlexAffiliation": "University of Missouri",
     "latestPaperYear": 2025,
@@ -305,11 +324,12 @@ const collaborators = [
     "latitude": 38.9364147,
     "longitude": -92.329703,
     "city": "Columbia",
-    "country": "United States"
+    "country": "United States",
+    "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5092171855",
-    "name": "Al-Feghali, Alexander",
+    "name": "Alexander Al‐Feghali",
     "orcid": "https://orcid.org/0009-0004-8377-7049",
     "openAlexAffiliation": "McGill University",
     "latestPaperYear": 2025,
@@ -324,7 +344,8 @@ const collaborators = [
     "latitude": 45.5068861,
     "longitude": -73.5787118,
     "city": "Montreal",
-    "country": "Canada"
+    "country": "Canada",
+    "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5070684693",
@@ -343,7 +364,8 @@ const collaborators = [
     "latitude": 43.129864,
     "longitude": -77.628784,
     "city": "City of Rochester",
-    "country": "United States"
+    "country": "United States",
+    "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5000741143",
@@ -362,7 +384,8 @@ const collaborators = [
     "latitude": 33.7741222,
     "longitude": -84.3843122,
     "city": "Atlanta",
-    "country": "United States"
+    "country": "United States",
+    "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5021656287",
@@ -381,11 +404,12 @@ const collaborators = [
     "latitude": 36.0001557,
     "longitude": -78.9442297,
     "city": "Durham",
-    "country": "United States"
+    "country": "United States",
+    "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5046104581",
-    "name": "Chiang, Yuan",
+    "name": "Yuan Chiang",
     "orcid": "https://orcid.org/0000-0002-4017-7084",
     "openAlexAffiliation": "Lawrence Berkeley National Laboratory",
     "latestPaperYear": 2025,
@@ -400,11 +424,12 @@ const collaborators = [
     "latitude": 37.8769588,
     "longitude": -122.2456303,
     "city": "Oakland",
-    "country": "United States"
+    "country": "United States",
+    "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5064747379",
-    "name": "Circi, Defne",
+    "name": "Defne Çırcı",
     "orcid": "https://orcid.org/0000-0002-5761-0198",
     "openAlexAffiliation": "Duke University",
     "latestPaperYear": 2025,
@@ -419,11 +444,12 @@ const collaborators = [
     "latitude": 36.0001557,
     "longitude": -78.9442297,
     "city": "Durham",
-    "country": "United States"
+    "country": "United States",
+    "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5050297425",
-    "name": "Chiu, Min-Hsueh",
+    "name": "Min–Hsueh Chiu",
     "orcid": "https://orcid.org/0000-0003-0637-7856",
     "openAlexAffiliation": "University of Southern California",
     "latestPaperYear": 2025,
@@ -438,11 +464,12 @@ const collaborators = [
     "latitude": 34.021869,
     "longitude": -118.2858579,
     "city": "Los Angeles",
-    "country": "United States"
+    "country": "United States",
+    "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5025523923",
-    "name": "Daelman, Nathan",
+    "name": "Nathan Daelman",
     "orcid": "https://orcid.org/0000-0002-7647-1816",
     "openAlexAffiliation": "Humboldt-Universität zu Berlin",
     "latestPaperYear": 2025,
@@ -457,7 +484,8 @@ const collaborators = [
     "latitude": 52.5183402,
     "longitude": 13.3929202,
     "city": "Berlin",
-    "country": "Germany"
+    "country": "Germany",
+    "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5074236095",
@@ -476,11 +504,12 @@ const collaborators = [
     "latitude": 50.6402809,
     "longitude": 4.6667145,
     "city": "Belgium",
-    "country": "Belgium"
+    "country": "Belgium",
+    "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5025893719",
-    "name": "Gangan, Abhijeet Sadashiv",
+    "name": "Abhijeet Sadashiv Gangan",
     "orcid": "https://orcid.org/0000-0002-8937-7984",
     "openAlexAffiliation": "University of California, Los Angeles",
     "latestPaperYear": 2025,
@@ -495,11 +524,12 @@ const collaborators = [
     "latitude": 34.0708777,
     "longitude": -118.4468503,
     "city": "Veterans Administration",
-    "country": "United States"
+    "country": "United States",
+    "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5084420654",
-    "name": "George, Janine",
+    "name": "Janine George",
     "orcid": "https://orcid.org/0000-0001-8907-0336",
     "openAlexAffiliation": "Federal Institute For Materials Research and Testing",
     "latestPaperYear": 2025,
@@ -510,11 +540,12 @@ const collaborators = [
         "title": "32 examples of LLM applications in materials science and chemistry: towards automation, assistants, agents, and accelerated scientific discovery"
       }
     ],
-    "affiliation": "Federal Institute For Materials Research and Testing",
-    "latitude": 54.18287865,
-    "longitude": 13.367471141544499,
-    "city": "Greifswald",
-    "country": "Germany"
+    "affiliation": "Friedrich Schiller University Jena",
+    "latitude": 50.92526475,
+    "longitude": 11.582889860119629,
+    "city": "Jena",
+    "country": "Germany",
+    "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5058042607",
@@ -533,12 +564,13 @@ const collaborators = [
     "latitude": 41.709141,
     "longitude": -87.9786195,
     "city": "Lemont",
-    "country": "United States"
+    "country": "United States",
+    "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5087105123",
-    "name": "Khalighinejad, Ghazal",
-    "orcid": "https://orcid.org/0009-0005-2476-8043",
+    "name": "Ghazal Khalighinejad",
+    "orcid": null,
     "openAlexAffiliation": "Duke University",
     "latestPaperYear": 2025,
     "collaborations": 1,
@@ -552,12 +584,13 @@ const collaborators = [
     "latitude": 36.0001557,
     "longitude": -78.9442297,
     "city": "Durham",
-    "country": "United States"
+    "country": "United States",
+    "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5113345088",
-    "name": "Sartaaj Takrim Khan",
-    "orcid": "https://orcid.org/0009-0009-2131-9700",
+    "name": "Sheeba Khan",
+    "orcid": "https://orcid.org/0000-0002-5720-9468",
     "openAlexAffiliation": "University of Toronto",
     "latestPaperYear": 2025,
     "collaborations": 1,
@@ -567,15 +600,16 @@ const collaborators = [
         "title": "32 examples of LLM applications in materials science and chemistry: towards automation, assistants, agents, and accelerated scientific discovery"
       }
     ],
-    "affiliation": "University of Toronto",
-    "latitude": 43.6628917,
-    "longitude": -79.3956564,
-    "city": "Toronto",
-    "country": "Canada"
+    "affiliation": "BRAC University",
+    "latitude": 23.7733146,
+    "longitude": 90.424371,
+    "city": "Dhaka",
+    "country": "Bangladesh",
+    "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5072435412",
-    "name": "Klawohn, Sascha",
+    "name": "Sascha Klawohn",
     "orcid": "https://orcid.org/0000-0003-4850-776X",
     "openAlexAffiliation": "Humboldt-Universität zu Berlin",
     "latestPaperYear": 2025,
@@ -590,11 +624,12 @@ const collaborators = [
     "latitude": 52.5183402,
     "longitude": 13.3929202,
     "city": "Berlin",
-    "country": "Germany"
+    "country": "Germany",
+    "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5114987474",
-    "name": "Lederbauer, Magdalena",
+    "name": "Magdalena Lederbauer",
     "orcid": "https://orcid.org/0009-0008-0665-1839",
     "openAlexAffiliation": "ETH Zurich",
     "latestPaperYear": 2025,
@@ -608,12 +643,13 @@ const collaborators = [
     "affiliation": "École Polytechnique Fédérale de Lausanne",
     "latitude": 46.5186594,
     "longitude": 6.5665615,
-    "city": "Lausanne",
-    "country": "Switzerland"
+    "city": null,
+    "country": "Switzerland",
+    "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5047174953",
-    "name": "Mahjoubi, Soroush",
+    "name": "Soroush Mahjoubi",
     "orcid": "https://orcid.org/0000-0001-8879-5431",
     "openAlexAffiliation": "Massachusetts Institute of Technology",
     "latestPaperYear": 2025,
@@ -628,11 +664,12 @@ const collaborators = [
     "latitude": 42.3582529,
     "longitude": -71.0966272,
     "city": "Cambridge",
-    "country": "United States"
+    "country": "United States",
+    "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5114987476",
-    "name": "Mohr, Bernadette",
+    "name": "Bernadette Mohr",
     "orcid": "https://orcid.org/0000-0003-0903-0073",
     "openAlexAffiliation": "Humboldt-Universität zu Berlin",
     "latestPaperYear": 2025,
@@ -647,11 +684,12 @@ const collaborators = [
     "latitude": 52.3681334,
     "longitude": 4.8898042,
     "city": "Amsterdam",
-    "country": "Netherlands"
+    "country": "Netherlands",
+    "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5051256159",
-    "name": "Seyed Mohamad Reza Moosavi",
+    "name": "Seyed Mohamad Moosavi",
     "orcid": "https://orcid.org/0000-0002-0357-5729",
     "openAlexAffiliation": "University of Toronto",
     "latestPaperYear": 2025,
@@ -666,7 +704,8 @@ const collaborators = [
     "latitude": 59.219549549999996,
     "longitude": 17.94005487275674,
     "city": "Huddinge",
-    "country": "Sweden"
+    "country": "Sweden",
+    "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5009772815",
@@ -685,11 +724,12 @@ const collaborators = [
     "latitude": 54.18287865,
     "longitude": 13.367471141544499,
     "city": "Greifswald",
-    "country": "Germany"
+    "country": "Germany",
+    "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5000015957",
-    "name": "Ozhan, Aleyna Beste",
+    "name": "Aleyna Beste Ozhan",
     "orcid": "https://orcid.org/0000-0002-0281-3860",
     "openAlexAffiliation": "Massachusetts Institute of Technology",
     "latestPaperYear": 2025,
@@ -704,11 +744,12 @@ const collaborators = [
     "latitude": 42.3582529,
     "longitude": -71.0966272,
     "city": "Cambridge",
-    "country": "United States"
+    "country": "United States",
+    "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5079720980",
-    "name": "Plessers, Dieter",
+    "name": "Dieter Plessers",
     "orcid": "https://orcid.org/0000-0001-8906-8447",
     "openAlexAffiliation": "KU Leuven",
     "latestPaperYear": 2025,
@@ -723,7 +764,8 @@ const collaborators = [
     "latitude": 50.8057129,
     "longitude": 3.2915374,
     "city": "Kortrijk",
-    "country": "Belgium"
+    "country": "Belgium",
+    "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5119473291",
@@ -742,11 +784,12 @@ const collaborators = [
     "latitude": 52.5183402,
     "longitude": 13.3929202,
     "city": "Berlin",
-    "country": "Germany"
+    "country": "Germany",
+    "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5028051805",
-    "name": "Schwaller, Philippe",
+    "name": "Philippe Schwaller",
     "orcid": "https://orcid.org/0000-0003-3046-6576",
     "openAlexAffiliation": "École Polytechnique Fédérale de Lausanne",
     "latestPaperYear": 2025,
@@ -760,13 +803,14 @@ const collaborators = [
     "affiliation": "École Polytechnique Fédérale de Lausanne",
     "latitude": 46.5186594,
     "longitude": 6.5665615,
-    "city": "Lausanne",
-    "country": "Switzerland"
+    "city": null,
+    "country": "Switzerland",
+    "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5114987460",
-    "name": "Terboven, Carla",
-    "orcid": "https://orcid.org/0009-0004-3786-0773",
+    "name": "Carla Terboven",
+    "orcid": null,
     "openAlexAffiliation": "Helmholtz-Zentrum Berlin für Materialien und Energie",
     "latestPaperYear": 2025,
     "collaborations": 1,
@@ -780,11 +824,12 @@ const collaborators = [
     "latitude": 52.4101077,
     "longitude": 13.1297316,
     "city": "Berlin",
-    "country": "Germany"
+    "country": "Germany",
+    "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5071149303",
-    "name": "Ueltzen, Katharina",
+    "name": "Katharina Ueltzen",
     "orcid": "https://orcid.org/0009-0003-2967-1182",
     "openAlexAffiliation": "Federal Institute For Materials Research and Testing",
     "latestPaperYear": 2025,
@@ -799,11 +844,12 @@ const collaborators = [
     "latitude": 54.18287865,
     "longitude": 13.367471141544499,
     "city": "Greifswald",
-    "country": "Germany"
+    "country": "Germany",
+    "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5100625845",
-    "name": "Yuan-Long Wu",
+    "name": "Yue Wu",
     "orcid": "https://orcid.org/0000-0003-2874-8267",
     "openAlexAffiliation": "Unknown",
     "latestPaperYear": 2025,
@@ -818,11 +864,12 @@ const collaborators = [
     "latitude": 31.2950161,
     "longitude": 121.5506739,
     "city": "Yangpu District",
-    "country": "China"
+    "country": "China",
+    "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5119870182",
-    "name": "Zhu, Shang",
+    "name": "Shang Zhu",
     "orcid": "https://orcid.org/0000-0003-4632-955X",
     "openAlexAffiliation": "University of Michigan",
     "latestPaperYear": 2025,
@@ -837,11 +884,12 @@ const collaborators = [
     "latitude": 42.2942142,
     "longitude": -83.7100389,
     "city": "Ann Arbor",
-    "country": "United States"
+    "country": "United States",
+    "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5006956385",
-    "name": "Janssen, Jan",
+    "name": "Jan Janssen",
     "orcid": "https://orcid.org/0000-0001-9948-7119",
     "openAlexAffiliation": "Max-Planck-Institut für Nachhaltige Materialien",
     "latestPaperYear": 2025,
@@ -856,11 +904,12 @@ const collaborators = [
     "latitude": 50.9280446,
     "longitude": 6.9281305,
     "city": "Cologne",
-    "country": "Germany"
+    "country": "Germany",
+    "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5085263890",
-    "name": "Li, Calvin",
+    "name": "Calvin Li",
     "orcid": null,
     "openAlexAffiliation": "Unknown",
     "latestPaperYear": 2025,
@@ -875,11 +924,12 @@ const collaborators = [
     "latitude": 42.7298969,
     "longitude": -73.6796678,
     "city": "City of Troy",
-    "country": "United States"
+    "country": "United States",
+    "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5032231503",
-    "name": "Foster, Ian",
+    "name": "Ian Foster",
     "orcid": "https://orcid.org/0000-0003-2129-5269",
     "openAlexAffiliation": "Argonne National Laboratory",
     "latestPaperYear": 2025,
@@ -894,7 +944,8 @@ const collaborators = [
     "latitude": 42.70866865,
     "longitude": -71.44352505,
     "city": "Nashua",
-    "country": "United States"
+    "country": "United States",
+    "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5033890428",
@@ -913,11 +964,12 @@ const collaborators = [
     "latitude": 41.7913274,
     "longitude": -87.6008421,
     "city": "Chicago",
-    "country": "United States"
+    "country": "United States",
+    "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5033826823",
-    "name": "Suman Mondal",
+    "name": "Sudeshna Mondal",
     "orcid": null,
     "openAlexAffiliation": "Pandit Deendayal Petroleum University",
     "latestPaperYear": 2025,
@@ -931,8 +983,9 @@ const collaborators = [
     "affiliation": "Pandit Deendayal Petroleum University",
     "latitude": 23.1563544,
     "longitude": 72.6652774,
-    "city": "Gandhinagar",
-    "country": "India"
+    "city": null,
+    "country": "India",
+    "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5042882491",
@@ -951,12 +1004,13 @@ const collaborators = [
     "latitude": -10.5942278,
     "longitude": -38.3839063,
     "city": "Cícero Dantas",
-    "country": "Brazil"
+    "country": "Brazil",
+    "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5003314340",
     "name": "Amitava Choudhury",
-    "orcid": null,
+    "orcid": "https://orcid.org/0000-0001-5496-7346",
     "openAlexAffiliation": "Pandit Deendayal Petroleum University",
     "latestPaperYear": 2025,
     "collaborations": 1,
@@ -966,11 +1020,12 @@ const collaborators = [
         "title": "Pristine Nanostructured α-Ni(OH) <sub>2</sub> as a Nonenzymatic Electrochemical Strip Sensor for Trace Detection of Phenolic Compounds"
       }
     ],
-    "affiliation": "Pandit Deendayal Energy University",
-    "latitude": 23.1563544,
-    "longitude": 72.6652774,
-    "city": "Gandhinagar",
-    "country": "India"
+    "affiliation": "Amrita Vishwa Vidyapeetham",
+    "latitude": 12.8938021,
+    "longitude": 77.6759379,
+    "city": "Bengaluru",
+    "country": "India",
+    "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5033973396",
@@ -988,8 +1043,9 @@ const collaborators = [
     "affiliation": "Pandit Deendayal Petroleum University",
     "latitude": 23.1563544,
     "longitude": 72.6652774,
-    "city": "Gandhinagar",
-    "country": "India"
+    "city": null,
+    "country": "India",
+    "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5036862851",
@@ -1008,7 +1064,8 @@ const collaborators = [
     "latitude": 38.0710706,
     "longitude": 46.2677989,
     "city": "Tabriz",
-    "country": "Iran"
+    "country": "Iran",
+    "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5065370507",
@@ -1027,8 +1084,10 @@ const collaborators = [
     "latitude": 41.3868596,
     "longitude": 2.1634784,
     "city": "Barcelona",
-    "country": "Spain"
+    "country": "Spain",
+    "updatedManually": false
   }
 ];
 
+export { generationDate };
 export default collaborators;

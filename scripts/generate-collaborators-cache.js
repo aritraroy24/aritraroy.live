@@ -67,25 +67,91 @@ async function geocodeInstitution(name, country) {
     return await geocodeWithPhoton(name, country);
 }
 
+function formatNameOrder(name) {
+    if (!name || typeof name !== 'string') return name;
+
+    // Check if name is in "Last, First Middle" format (contains comma)
+    if (name.includes(',')) {
+        const parts = name.split(',').map(p => p.trim());
+        if (parts.length === 2) {
+            // Reverse: "Last, First Middle" -> "First Middle Last"
+            return `${parts[1]} ${parts[0]}`;
+        }
+    }
+
+    // Already in correct format or no comma found
+    return name;
+}
+
 function selectBestName(names) {
     if (!names || names.length === 0) return null;
     const cleanNames = [...new Set(names.filter(n => n && typeof n === 'string' && !n.startsWith('None ')))]
-        .map(n => n.trim());
+        .map(n => formatNameOrder(n.trim()));
     if (cleanNames.length === 0) return null;
+    if (cleanNames.length === 1) return cleanNames[0];
 
-    const countInitials = (s) => {
-        if (!s) return 999;
-        const matches = s.match(/\b\w\b\.?/g) || [];
-        return matches.length;
+    const hasInitials = (name) => {
+        // Check if name has single letter words followed by optional period (initials)
+        return /\b\w\b\.?/.test(name);
     };
 
-    return cleanNames.reduce((best, current) => {
-        const currentInitials = countInitials(current);
-        const bestInitials = countInitials(best);
-        if (currentInitials < bestInitials) return current;
-        if (currentInitials === bestInitials && current.length > best.length) return current;
-        return best;
-    }, cleanNames[0]);
+    const expandInitials = (nameWithInitials, candidateNames) => {
+        // Try to find a full form for a name with initials
+        const parts = nameWithInitials.split(/\s+/);
+
+        for (const candidate of candidateNames) {
+            if (candidate === nameWithInitials) continue;
+            if (hasInitials(candidate)) continue; // Skip if candidate also has initials
+
+            const candidateParts = candidate.split(/\s+/);
+            if (candidateParts.length !== parts.length) continue;
+
+            // Check if all parts match (either full word or initial)
+            let matches = true;
+            for (let i = 0; i < parts.length; i++) {
+                const part = parts[i].replace('.', '');
+                const candidatePart = candidateParts[i];
+
+                // If it's a single letter (initial), check if it matches first letter of candidate
+                if (part.length === 1) {
+                    if (part.toUpperCase() !== candidatePart.charAt(0).toUpperCase()) {
+                        matches = false;
+                        break;
+                    }
+                } else {
+                    // If it's not an initial, must match exactly
+                    if (part.toLowerCase() !== candidatePart.toLowerCase()) {
+                        matches = false;
+                        break;
+                    }
+                }
+            }
+
+            if (matches) return candidate;
+        }
+
+        return null;
+    };
+
+    // First pass: try to expand names with initials
+    for (const name of cleanNames) {
+        if (hasInitials(name)) {
+            const expanded = expandInitials(name, cleanNames);
+            if (expanded) return expanded;
+        }
+    }
+
+    // If no expansion found, prefer names without initials
+    const namesWithoutInitials = cleanNames.filter(n => !hasInitials(n));
+    if (namesWithoutInitials.length > 0) {
+        // Return the longest name without initials
+        return namesWithoutInitials.reduce((longest, current) =>
+            current.length > longest.length ? current : longest
+        );
+    }
+
+    // If all names have initials, just return the first one
+    return cleanNames[0];
 }
 
 async function determineLatestAffiliations(orcidUrl, oaAff, oaYear, openAlexAuthorId) {
@@ -220,29 +286,74 @@ async function fetchContributorsFromOrcid(putCode) {
         if (!res.ok) return [];
         const data = await res.json();
         return (data.contributors?.contributor || []).map(c => ({
-            display_name: c['credit-name']?.value,
+            display_name: formatNameOrder(c['credit-name']?.value),
             orcid: c['contributor-orcid'] ? `https://orcid.org/${c['contributor-orcid'].path}` : null
         })).filter(c => c.display_name);
     } catch (e) { return []; }
 }
 
 async function loadExisting() {
-    if (!fs.existsSync(OUTPUT_FILE)) return new Map();
+    if (!fs.existsSync(OUTPUT_FILE)) return { map: new Map(), generationDate: null };
     try {
         const c = fs.readFileSync(OUTPUT_FILE, 'utf8');
+
+        // Extract generation date
+        const dateMatch = c.match(/const generationDate = ['"]([^'"]+)['"]/);
+        const generationDate = dateMatch ? dateMatch[1] : null;
+
+        // Extract collaborators array
         const m = c.match(/const collaborators = ([\s\S]*?);/);
-        if (m) return new Map(JSON.parse(m[1]).map(x => [x.id || x.name, x]));
-    } catch (e) { }
-    return new Map();
+        if (m) {
+            const items = JSON.parse(m[1]);
+            return {
+                map: new Map(items.map(x => [x.id || x.name, x])),
+                generationDate
+            };
+        }
+    } catch (e) {
+        console.log(`⚠️  Error loading existing cache: ${e.message}`);
+    }
+    return { map: new Map(), generationDate: null };
 }
 
-async function generate() {
+async function generate(forceMode = false) {
     console.log('🚀 Generating Cache...');
     try {
-        const [oaRes, orcidWorksDetailed, existingMap] = await Promise.all([
+        const existingData = await loadExisting();
+        const existingMap = existingData.map;
+        const lastGeneration = existingData.generationDate;
+
+        // Check if we should do a full update
+        const now = new Date();
+        const daysSinceLastGen = lastGeneration
+            ? (now - new Date(lastGeneration)) / (24 * 60 * 60 * 1000)
+            : Infinity;
+
+        // Determine update mode
+        let shouldFullUpdate = false;
+        let shouldSkipUpdate = false;
+
+        if (forceMode) {
+            // Manual run - always do full update
+            console.log('🔧 Manual mode: Forcing full regeneration');
+            shouldFullUpdate = true;
+        } else {
+            // Auto mode (prebuild)
+            if (!lastGeneration) {
+                console.log('📅 No previous generation found - performing full update');
+                shouldFullUpdate = true;
+            } else if (daysSinceLastGen > 30) {
+                console.log(`📅 Last generation was ${Math.round(daysSinceLastGen)} days ago - performing full update for non-manual entries`);
+                shouldFullUpdate = true;
+            } else {
+                console.log(`📅 Last generation was ${Math.round(daysSinceLastGen)} days ago - updating publication counts only`);
+                shouldFullUpdate = false;
+            }
+        }
+
+        const [oaRes, orcidWorksDetailed] = await Promise.all([
             fetch(WORKS_API_URL),
-            fetchOrcidWorksDetailed(),
-            loadExisting()
+            fetchOrcidWorksDetailed()
         ]);
         if (!oaRes.ok) throw new Error('OpenAlex Response not OK');
 
@@ -258,7 +369,7 @@ async function generate() {
             // Get authors from OpenAlex
             let authors = (w.authorships || []).map(auth => ({
                 id: auth.author.id,
-                display_name: auth.author.display_name,
+                display_name: formatNameOrder(auth.author.display_name),
                 orcid: auth.author.orcid,
                 institution: auth.institutions?.[0]?.display_name || 'Unknown'
             }));
@@ -320,16 +431,26 @@ async function generate() {
             const cached = existingMap.get(id) || existingMap.get(c.name);
 
             if (cached && cached.affiliation && cached.affiliation !== 'Unknown') {
-                console.log(`Using Cached Metadata: ${cached.name}`);
-                // Reuse cached metadata but keep fresh stats from colsMap
-                c.name = cached.name;
-                c.affiliation = cached.affiliation;
-                c.latitude = cached.latitude;
-                c.longitude = cached.longitude;
-                c.city = cached.city;
-                c.country = cached.country;
-                results.push(c);
-                continue;
+                // Determine if we should do a full update for this entry
+                const isManuallyUpdated = cached.updatedManually === true;
+                const needsFullUpdate = shouldFullUpdate && !isManuallyUpdated;
+
+                if (needsFullUpdate) {
+                    console.log(`🔄 Full Update for: ${cached.name} (auto-managed)`);
+                    // Will fetch fresh data below
+                } else {
+                    console.log(`📋 Using Cached Metadata: ${cached.name}${isManuallyUpdated ? ' (manually maintained)' : ''}`);
+                    // Reuse cached metadata but keep fresh stats from colsMap
+                    c.name = cached.name;
+                    c.affiliation = cached.affiliation;
+                    c.latitude = cached.latitude;
+                    c.longitude = cached.longitude;
+                    c.city = cached.city;
+                    c.country = cached.country;
+                    c.updatedManually = isManuallyUpdated; // Preserve the flag
+                    results.push(c);
+                    continue;
+                }
             }
 
             const { bestName, affiliations: affiliationOptions } = await determineLatestAffiliations(c.orcid, c.openAlexAffiliation, c.latestPaperYear, c.id);
@@ -364,14 +485,32 @@ async function generate() {
                 console.log(`  ⚠️  Using without coordinates: ${c.affiliation}`);
             }
 
-            if (c.affiliation) results.push(c);
+            if (c.affiliation) {
+                // Add updatedManually flag for new/updated entries (default: false)
+                c.updatedManually = false;
+                results.push(c);
+            }
         }
 
         const sorted = results.sort((a, b) => b.collaborations - a.collaborations);
-        const fileContent = `const collaborators = ${JSON.stringify(sorted, null, 2)};\n\nexport default collaborators;`;
+        const currentDate = new Date().toISOString();
+        const fileContent = `// Auto-generated collaborator data
+// Last updated: ${currentDate}
+const generationDate = '${currentDate}';
+
+const collaborators = ${JSON.stringify(sorted, null, 2)};
+
+export { generationDate };
+export default collaborators;
+`;
         fs.writeFileSync(OUTPUT_FILE, fileContent);
         console.log(`✅ Done! Saved ${sorted.length} collaborators to ${OUTPUT_FILE}`);
+        console.log(`📅 Generation date: ${currentDate}`);
     } catch (e) { console.error('❌ Error:', e); }
 }
 
-generate();
+// Check command line arguments
+const args = process.argv.slice(2);
+const forceMode = args.includes('--force') || args.includes('-f');
+
+generate(forceMode);

@@ -1,4 +1,4 @@
-import collaboratorsDataStatic from './data/collaborations-cache.js';
+import collaboratorsDataStatic, { generationDate } from './data/collaborations-cache.js';
 
 // OpenAlex API Configuration
 const USER_ORCID = '0000-0003-0243-9124';
@@ -29,7 +29,8 @@ function saveToLocalStorage(collaborators) {
     try {
         const cacheData = {
             version: "1.0",
-            lastUpdated: new Date().toISOString(),
+            generationDate: generationDate, // Use static cache generation date
+            lastUpdated: new Date().toISOString(), // Keep for runtime fetch tracking
             collaborators: collaborators
         };
         localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(cacheData));
@@ -252,12 +253,19 @@ async function fetchCollaborators() {
         staticCache.forEach(c => masterCacheMap.set(c.id || c.name, c));
         localCols.forEach(c => {
             const ext = masterCacheMap.get(c.id || c.name);
-            if (!ext || (c.latitude && c.longitude)) masterCacheMap.set(c.id || c.name, c);
+            if (!ext || (c.latitude && c.longitude)) {
+                // Preserve updatedManually flag from static cache if it exists
+                if (ext && ext.updatedManually !== undefined) {
+                    c.updatedManually = ext.updatedManually;
+                }
+                masterCacheMap.set(c.id || c.name, c);
+            }
         });
 
         const THIRTY_DAYS = 30 * 24 * 60 * 60 * 1000;
-        const lastUpd = localCacheData ? new Date(localCacheData.lastUpdated).getTime() : 0;
-        const expired = (Date.now() - lastUpd) > THIRTY_DAYS;
+        // Use static cache generation date to determine if data is stale
+        const cacheGenTime = generationDate ? new Date(generationDate).getTime() : 0;
+        const expired = (Date.now() - cacheGenTime) > THIRTY_DAYS;
 
         if (!expired && localCacheData && localCols.length > 0) {
             const list = Array.from(masterCacheMap.values()).sort((a, b) => b.collaborations - a.collaborations);

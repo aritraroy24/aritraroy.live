@@ -9,7 +9,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "generate-collaborators": "node scripts/generate-collaborators-cache.js"
+    "generate-collaborators": "node scripts/generate-collaborators-cache.js --force"
   },
   "dependencies": {
     "@astrojs/markdown-remark": "^6.3.10",
