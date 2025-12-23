@@ -195,19 +195,47 @@ const CollaboratorsGlobe: React.FC = () => {
             atmosphereColor={BORDER_COLOR}
             atmosphereAltitude={0.15}
 
-            labelsData={locations}
-            labelLat={(d: any) => d.lat}
-            labelLng={(d: any) => d.lng}
-            labelText={() => ''}
-            labelIncludeDot={true}
-            labelDotRadius={(d: any) => {
-              const baseSize = 0.5;
-              const scaleFactor = 0.25;
-              return baseSize + d.totalPublications * scaleFactor;
+            htmlElementsData={locations}
+            htmlLat={(d: any) => d.lat}
+            htmlLng={(d: any) => d.lng}
+            htmlAltitude={0.001}
+            htmlElement={(d: any) => {
+              const el = document.createElement('div');
+              const baseSize = 10;
+              const scaleFactor = 5;
+              const size = baseSize + Math.sqrt(d.totalPublications) * scaleFactor;
+
+              el.innerHTML = `
+                <div class="map-pointer" style="
+                  width: ${size}px;
+                  height: ${size}px;
+                  background: ${PIN_COLOR};
+                  border: 2px solid rgba(254, 62, 85, 0.9);
+                  border-radius: 50% 50% 50% 0;
+                  transform: rotate(-45deg);
+                  box-shadow: 0 0 10px ${PIN_COLOR};
+                  cursor: pointer;
+                  position: relative;
+                ">
+                  <div style="
+                    width: ${size * 0.3}px;
+                    height: ${size * 0.3}px;
+                    background: rgba(255, 255, 255, 0.8);
+                    border-radius: 50%;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%) rotate(45deg);
+                  "></div>
+                </div>
+              `;
+
+              el.style.pointerEvents = 'auto';
+              el.style.cursor = 'pointer';
+              el.onclick = () => setClickedLocation(d);
+
+              return el;
             }}
-            labelColor={() => PIN_COLOR}
-            labelDotOrientation={() => 'bottom'}
-            onLabelClick={(label: any) => setClickedLocation(label)}
 
             width={dimensions.width}
             height={dimensions.height}
