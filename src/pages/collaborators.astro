@@ -6,6 +6,11 @@ import Layout from "@layouts/Layout.astro";
 import Header from "@components/AstroIslands/Common/Header";
 import Footer from "@components/AstroComponents/Footer.astro";
 import Socials from "@components/AstroComponents/Socials.astro";
+import CollaboratorsGlobe from "@components/AstroIslands/CollaboratorsGlobe";
+import { Icon } from "astro-icon/components";
+
+// Import collaborators data
+import collaborators from "../assets/js/data/collaborations-cache.js";
 
 // defining page title and description
 const {
@@ -25,30 +30,70 @@ import "../assets/styles/collaborators.scss";
     <!-- collaborators heading section -->
     <h1 class="collaborators-main-title">Research Collaborators</h1>
     <p class="collaborators-subtitle">
-      Co-authors and research partners from publications worldwide
+      Explore co-authors and research partners on an interactive 3D globe
     </p>
 
-    <!-- Loading Indicator -->
-    <div id="collaborators-loader" class="collaborators-loader">
-      <div class="loader-spinner"></div>
-      <p>Loading collaborators...</p>
+    <!-- Collaborators Globe -->
+    <div class="globe-container-only">
+      <CollaboratorsGlobe client:only="react" />
     </div>
 
-    <!-- Collaborators Container -->
-    <div id="collaborators-container" class="collaborators-container">
-      <!-- Collaborator cards will be dynamically loaded from OpenAlex -->
+    <div class="collaborators-cards-only" id="collaborators-list">
+      <div class="collaborators-container">
+        {
+          collaborators.map((collab) => (
+            <div class="collaborator-card">
+              <div class="collaborator-content">
+                <div class="collaborator-header">
+                  <h3 class="collaborator-name">{collab.name}</h3>
+                  <div class="collaborator-links">
+                    {collab.orcid && (
+                      <a
+                        href={collab.orcid}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="orcid-link"
+                        title="ORCID"
+                      >
+                        <Icon name="socials/orcid" title="ORCID" />
+                      </a>
+                    )}
+                  </div>
+                </div>
+                <div class="collaborator-info">
+                  <p class="collaborator-affiliation">
+                    <Icon name="others/institute" class="institute-icon" />
+                    {collab.affiliation}
+                  </p>
+                  <p class="collaborator-location">
+                    <Icon name="others/map-marker" />
+                    {collab.city ? `${collab.city}, ` : ""}
+                    {collab.country}
+                  </p>
+                  <div class="stats-grid-vertical">
+                    <div class="collaboration-count">
+                      Publications: {collab.collaborations}
+                    </div>
+                    <div class="latest-year">
+                      Latest Year of Publication: {collab.latestPaperYear}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
     </div>
   </div>
   <Footer />
 </Layout>
 
-<script src="../assets/js/collaborators.js"></script>
-
 <style>
   .postsNavigationDiv {
     min-height: 50vh !important;
     padding: 40px 20px;
-    max-width: 1400px;
+    max-width: 1800px;
     margin: 0 auto;
   }
 
@@ -66,6 +111,21 @@ import "../assets/styles/collaborators.scss";
     margin-bottom: 50px;
   }
 
+  .collaborators-cards-only {
+    display: none;
+  }
+
+  .stats-grid-vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 15px;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+    border-top: 1px solid rgba(100, 255, 218, 0.2);
+    padding-top: 12px;
+  }
+
   @media (max-width: 768px) {
     .collaborators-main-title {
       font-size: 2rem;
@@ -73,6 +133,14 @@ import "../assets/styles/collaborators.scss";
 
     .collaborators-subtitle {
       font-size: 1rem;
+    }
+
+    .globe-container-only {
+      display: none;
+    }
+
+    .collaborators-cards-only {
+      display: block;
     }
   }
 </style>

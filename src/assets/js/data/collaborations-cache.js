@@ -28,11 +28,11 @@ const collaborators = [
         "title": "Engineering high-capacity hydrogen storage in pristine Ca <sub>12</sub> O <sub>12</sub> nanocages <i>via</i> cooperative adsorption"
       }
     ],
-    "affiliation": "HUN-REN Institute for Nuclear Research",
-    "latitude": -4.30968865,
-    "longitude": 15.30273214369263,
-    "city": "Kinshasa",
-    "country": "Democratic Republic of the Congo"
+    "affiliation": "University of Kent",
+    "latitude": 51.2966,
+    "longitude": 1.0692,
+    "city": "Canterbury",
+    "country": "United Kingdom"
   },
   {
     "id": "https://openalex.org/A5003992365",
@@ -510,10 +510,10 @@ const collaborators = [
         "title": "32 examples of LLM applications in materials science and chemistry: towards automation, assistants, agents, and accelerated scientific discovery"
       }
     ],
-    "affiliation": "Friedrich Schiller University Jena",
-    "latitude": 50.92526475,
-    "longitude": 11.582889860119629,
-    "city": "Jena",
+    "affiliation": "Federal Institute For Materials Research and Testing",
+    "latitude": 54.18287865,
+    "longitude": 13.367471141544499,
+    "city": "Greifswald",
     "country": "Germany"
   },
   {
@@ -556,8 +556,8 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5113345088",
-    "name": "Sarvani Thabassum Khan",
-    "orcid": "https://orcid.org/0000-0002-5720-9468",
+    "name": "Sartaaj Takrim Khan",
+    "orcid": "https://orcid.org/0009-0009-2131-9700",
     "openAlexAffiliation": "University of Toronto",
     "latestPaperYear": 2025,
     "collaborations": 1,
@@ -567,11 +567,11 @@ const collaborators = [
         "title": "32 examples of LLM applications in materials science and chemistry: towards automation, assistants, agents, and accelerated scientific discovery"
       }
     ],
-    "affiliation": "BRAC University",
-    "latitude": 23.7733146,
-    "longitude": 90.424371,
-    "city": "Dhaka",
-    "country": "Bangladesh"
+    "affiliation": "University of Toronto",
+    "latitude": 43.6628917,
+    "longitude": -79.3956564,
+    "city": "Toronto",
+    "country": "Canada"
   },
   {
     "id": "https://openalex.org/A5072435412",
@@ -955,8 +955,8 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5003314340",
-    "name": "Ankan Gobinda Choudhury",
-    "orcid": "https://orcid.org/0000-0001-5496-7346",
+    "name": "Amitava Choudhury",
+    "orcid": null,
     "openAlexAffiliation": "Pandit Deendayal Petroleum University",
     "latestPaperYear": 2025,
     "collaborations": 1,
@@ -966,10 +966,10 @@ const collaborators = [
         "title": "Pristine Nanostructured α-Ni(OH) <sub>2</sub> as a Nonenzymatic Electrochemical Strip Sensor for Trace Detection of Phenolic Compounds"
       }
     ],
-    "affiliation": "Amrita Vishwa Vidyapeetham",
-    "latitude": 12.8938021,
-    "longitude": 77.6759379,
-    "city": "Bengaluru",
+    "affiliation": "Pandit Deendayal Energy University",
+    "latitude": 23.1563544,
+    "longitude": 72.6652774,
+    "city": "Gandhinagar",
     "country": "India"
   },
   {
