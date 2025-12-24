@@ -73,12 +73,12 @@ import "./styles/Testimonial.scss";
     resetTimer();
   }
   function startSlideshow() {
-    slideInterval = setInterval(function () {
+    slideInterval = window.setInterval(function () {
       plusSlides(1);
     }, 5000);
   }
   function resetTimer() {
-    clearInterval(slideInterval);
+    window.clearInterval(slideInterval);
     startSlideshow();
   }
   startSlideshow();

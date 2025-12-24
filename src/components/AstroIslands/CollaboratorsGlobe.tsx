@@ -1,5 +1,5 @@
 import React, { useRef, useState, useMemo } from 'react';
-import Globe from 'react-globe.gl';
+import Globe, { type GlobeMethods } from 'react-globe.gl';
 import { FaUniversity, FaMapMarkerAlt, FaOrcid } from 'react-icons/fa';
 import collaborators, { generationDate } from '../../assets/js/data/collaborations-cache.js';
 import './styles/CollaboratorsGlobe.scss';
@@ -151,7 +151,7 @@ const CollaboratorCard: React.FC<CollaboratorCardProps> = ({ location, onClose }
 };
 
 const CollaboratorsGlobe: React.FC = () => {
-  const globeEl = useRef<any>();
+  const globeEl = useRef<GlobeMethods>(undefined);
   const containerRef = useRef<HTMLDivElement>(null);
   const [clickedLocation, setClickedLocation] = useState<LocationGroup | null>(null);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
@@ -232,7 +232,6 @@ const CollaboratorsGlobe: React.FC = () => {
         {dimensions.width > 0 && dimensions.height > 0 && (
           <Globe
             ref={globeEl}
-            minAltitude={0.01}
             backgroundColor="rgba(0,0,0,0)"
             globeImageUrl="/globe/earth-night.jpg"
             bumpImageUrl="/globe/earth-topology.png"
