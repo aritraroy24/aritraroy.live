@@ -207,36 +207,42 @@ const programmingTools = [
             },
             {
                 id: 5,
+                url: 'https://www.docker.com/',
+                iconName: 'programmingTools/tools/docker',
+                title: 'Docker'
+            },
+            {
+                id: 6,
                 url: 'https://colab.google/',
                 iconName: 'programmingTools/tools/googlecolab',
                 title: 'Colab'
             },
             {
-                id: 6,
+                id: 7,
                 url: 'https://docs.conda.io/en/latest/',
                 iconName: 'programmingTools/tools/conda',
                 title: 'Conda'
             },
             {
-                id: 7,
+                id: 8,
                 url: 'https://www.apachefriends.org/download.html',
                 iconName: 'programmingTools/tools/xampp',
                 title: 'XAMPP'
             },
             {
-                id: 8,
+                id: 9,
                 url: 'https://learn.microsoft.com/en-us/powershell/scripting/install/install-powershell-on-windows?view=powershell-7.5',
                 iconName: 'programmingTools/tools/powershell',
                 title: 'PowerShell'
             },
             {
-                id: 9,
+                id: 10,
                 url: 'https://www.netlify.com/',
                 iconName: 'programmingTools/tools/netlify',
                 title: 'Netlify'
             },
             {
-                id: 10,
+                id: 11,
                 url: 'https://www.hostinger.com/',
                 iconName: 'programmingTools/tools/hostinger',
                 title: 'Hostinger'
