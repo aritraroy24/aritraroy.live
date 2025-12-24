@@ -1,5 +1,5 @@
 .post-content {
-  padding: 0 30vw;
+  padding: 0 15vw;
   text-align: left;
   margin-bottom: 50px;
   .biggerParagraph {
@@ -160,6 +160,12 @@ code {
 }
 .ec-line {
   padding-inline: 0 !important;
+  .code {
+    margin-bottom: unset !important;
+    text-align: left !important;
+    display: block !important;
+    padding-inline-start: 0 !important;
+  }
 }
 .ec-oxbgc {
   margin-bottom: 20px !important;
@@ -180,7 +186,6 @@ code {
 
 @media only screen and (max-width: 1500px) {
   .post-content {
-    padding: 0 25vw;
     div div div {
       div {
         width: 50vw;
@@ -201,7 +206,6 @@ code {
 }
 @media only screen and (max-width: 1050px) {
   .post-content {
-    padding: 0 20vw;
     .refLeft {
       flex: 100%;
     }
