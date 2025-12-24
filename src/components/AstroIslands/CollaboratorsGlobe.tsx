@@ -234,8 +234,8 @@ const CollaboratorsGlobe: React.FC = () => {
             ref={globeEl}
             minAltitude={0.01}
             backgroundColor="rgba(0,0,0,0)"
-            globeImageUrl="//cdn.jsdelivr.net/npm/three-globe/example/img/earth-night.jpg"
-            bumpImageUrl="//cdn.jsdelivr.net/npm/three-globe/example/img/earth-topology.png"
+            globeImageUrl="/globe/earth-night.jpg"
+            bumpImageUrl="/globe/earth-topology.png"
             showAtmosphere={true}
             atmosphereColor={BORDER_COLOR}
             atmosphereAltitude={0.15}
