@@ -4,14 +4,14 @@ import Layout from "@layouts/Layout.astro";
 
 // component import
 import Header from "@components/AstroIslands/Common/Header";
-import Hero from "@components/AstroComponents/Hero.astro";
+import Portfolio from "@components/AstroComponents/Portfolio.astro";
 import Socials from "@components/AstroComponents/Socials.astro";
 import Footer from "@components/AstroComponents/Footer.astro";
 
 // title & description value to pass to the layout
 const {
-  pageTitle = "Aritra Roy | Computational Materials Scientist",
-  pageDescription = "I'm a Theoretical Computational Materials Scientist & Algorithm Enthusiast from India. I have expertise in theory, software handling, & problem-solving skill.",
+  pageTitle = "Portfolio | Aritra Roy",
+  pageDescription = "Explore my portfolio of computational materials science projects and achievements.",
   frontmatter,
   cover,
 } = Astro.props;
@@ -20,6 +20,6 @@ const {
 <Layout title={pageTitle} description={pageDescription} {frontmatter} {cover}>
   <Header client:only="react" />
   <Socials />
-  <Hero />
+  <Portfolio />
   <Footer />
 </Layout>

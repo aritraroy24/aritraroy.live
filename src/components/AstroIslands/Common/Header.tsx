@@ -1,7 +1,6 @@
 // library import
 import React, { useState, useEffect } from 'react';
 import { Fade } from "react-awesome-reveal";
-import { Link } from 'react-scroll';
 import Headroom from 'react-headroom';
 import { FaSearch } from 'react-icons/fa'
 
@@ -9,14 +8,9 @@ import { FaSearch } from 'react-icons/fa'
 import './styles/Header.scss';
 
 // asset import
-// import NavLogo from '@images/NavLogo.webp'
 import NavLogo from '@images/NavLogo.webp'
 
-interface NavbarProps {
-    isHomePage?: boolean;
-}
-
-const Header: React.FC<NavbarProps> = ({ isHomePage }) => {
+const Header: React.FC = () => {
     const [isActive, handleIsActive] = useState(false);
     useEffect(() => {
         const preloader = document.getElementById('preloader');
@@ -38,7 +32,7 @@ const Header: React.FC<NavbarProps> = ({ isHomePage }) => {
             <div className='nav-wrapper'>
                 <Headroom disableInlineStyles>
                     <Fade triggerOnce>
-                        <nav className={isHomePage ? 'homeNavContainer' : 'otherNavContainer'}>
+                        <nav className='navContainer'>
                             <div
                                 className={`hamburger-menu ${isActive &&
                                     'hamburger-menu-active'}`}
@@ -48,112 +42,28 @@ const Header: React.FC<NavbarProps> = ({ isHomePage }) => {
                                 <div className='bar-3'></div>
                             </div>
                             <div className='logo'>
-                                {isHomePage ? (
-                                    <div
-                                        onClick={() =>
-                                            window.scrollTo({
-                                                top: 0,
-                                                behavior: 'smooth'
-                                            })
-                                        }
-                                    >
-                                        <img src={NavLogo.src} alt="NavLogo" className='homeNavLogo' />
-                                    </div>
-                                ) : (
-                                    <a href="/">
-                                        <img src={NavLogo.src} alt="NavLogo" className='otherNavLogo' />
-                                    </a>
-                                )}
+                                <a href="/">
+                                    <img src={NavLogo.src} alt="NavLogo" className='navLogo' />
+                                </a>
                             </div>
                             <Fade direction='down' cascade delay={300} triggerOnce>
                                 <ul
                                     className={`navigation-ul ${isActive &&
                                         'navigation-ul-active'}`}>
                                     <li onClick={() => handleIsActive(false)}>
-                                        {isHomePage ? (
-                                            <Link
-                                                href='/#about'
-                                                activeClass='active-scroll'
-                                                to='AboutMe'
-                                                spy={true}
-                                                smooth={true}
-                                                ignoreCancelEvents={true}
-                                                duration={1200}>
-                                                <span>01.</span>About
-                                            </Link>
-                                        ) : (
-                                            <a href="/#about">
-                                                <span>01.</span>About
-                                            </a>
-                                        )}
-                                    </li>
-                                    <li onClick={() => handleIsActive(false)} className='projects-menu' >
-                                        {isHomePage ? (
-                                            <Link
-                                                href='/#publications'
-                                                to='Publications'
-                                                spy={true}
-                                                smooth={true}
-                                                ignoreCancelEvents={true}
-                                                duration={1200}>
-                                                <span>02.</span>Publications
-                                            </Link>
-                                        ) : (
-                                            <a href="/publications">
-                                                <span>02.</span>Publications
-                                            </a>
-                                        )}
-                                    </li>
-                                    <li onClick={() => handleIsActive(false)}>
-                                        {isHomePage ? (
-                                            <Link
-                                                href='/#portfolio'
-                                                to='Portfolio'
-                                                spy={true}
-                                                smooth={true}
-                                                ignoreCancelEvents={true}
-                                                duration={1200}>
-                                                <span>03.</span>Portfolio
-                                            </Link>
-                                        ) : (
-                                            <a href="/#portfolio">
-                                                <span>03.</span>Portfolio
-                                            </a>
-                                        )}
+                                        <a href="/about">About</a>
                                     </li>
                                     <li onClick={() => handleIsActive(false)} className='projects-menu'>
-                                        {isHomePage ? (
-                                            <Link
-                                                href='/#tutorial'
-                                                to='Tutorials'
-                                                spy={true}
-                                                smooth={true}
-                                                ignoreCancelEvents={true}
-                                                duration={1200}>
-                                                <span>04.</span>Tutorial
-                                            </Link>
-                                        ) : (
-                                            <a href="/tutorial">
-                                                <span>04.</span>Tutorial
-                                            </a>
-                                        )}
+                                        <a href="/research">Research</a>
                                     </li>
                                     <li onClick={() => handleIsActive(false)}>
-                                        {isHomePage ? (
-                                            <Link
-                                                href='/#contact'
-                                                to='Contact'
-                                                spy={true}
-                                                smooth={true}
-                                                ignoreCancelEvents={true}
-                                                duration={1200}>
-                                                <span>05.</span>Contact
-                                            </Link>
-                                        ) : (
-                                            <a href="/#contact">
-                                                <span>05.</span>Contact
-                                            </a>
-                                        )}
+                                        <a href="/portfolio">Portfolio</a>
+                                    </li>
+                                    <li onClick={() => handleIsActive(false)} className='projects-menu'>
+                                        <a href="/tutorial">Tutorials</a>
+                                    </li>
+                                    <li onClick={() => handleIsActive(false)}>
+                                        <a href="/contact">Contact</a>
                                     </li>
                                     <li>
                                         <a href='/search' title='Search Posts'>

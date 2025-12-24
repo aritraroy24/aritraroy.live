@@ -19,7 +19,7 @@ import "../../../assets/styles/repos.scss";
 ---
 
 <Layout title={pageTitle} description={pageDescription} {frontmatter} {cover}>
-  <Header isHomePage={false} client:only="react" />
+  <Header client:only="react" />
   <Socials />
   <div class="postsNavigationDiv">
     <!-- software heading section -->
@@ -44,35 +44,3 @@ import "../../../assets/styles/repos.scss";
 
 <script src="../../../assets/js/github-repos.js"></script>
 
-<style>
-  .postsNavigationDiv {
-    min-height: 50vh !important;
-    padding: 40px 20px;
-    max-width: 1400px;
-    margin: 0 auto;
-  }
-
-  .software-main-title {
-    text-align: center;
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-    color: #ffffff;
-  }
-
-  .software-subtitle {
-    text-align: center;
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 1.1rem;
-    margin-bottom: 50px;
-  }
-
-  @media (max-width: 768px) {
-    .software-main-title {
-      font-size: 2rem;
-    }
-
-    .software-subtitle {
-      font-size: 1rem;
-    }
-  }
-</style>

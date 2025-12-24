@@ -10,7 +10,7 @@
   transition: all 200ms ease-out;
   border-radius: 4px;
   text-align: center;
-  h4:hover {
+  h2:hover {
     color: var(--green) !important;
   }
 
@@ -86,7 +86,7 @@
   .researchCard {
     width: 250px;
     margin: 20px 10px;
-    h4 {
+    h2 {
       font-size: 15px;
     }
   }

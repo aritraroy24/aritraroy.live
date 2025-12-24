@@ -2,32 +2,76 @@
   position: fixed !important;
 }
 
+.Research,
+.Tutorials,
 .postsNavigationDiv {
-  min-height: 100vh;
-  padding: 0 220px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 80px;
-  margin-bottom: 40px;
+  justify-content: flex-start;
+  padding: 150px 220px 0 220px;
+  margin-top: -150px;
+  margin-bottom: 150px;
+
   h1 {
+    color: rgba(255, 255, 255, 0.932);
+    margin-bottom: 5px;
+    font-family: "Overpass", Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 30px;
+    position: relative;
+    margin-top: 60px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 200ms ease-out;
     text-align: center;
-    margin-bottom: 30px;
   }
+
+  h2 {
+    color: rgba(255, 255, 255, 0.932);
+    margin-bottom: 5px;
+    font-family: "Overpass", Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 24px;
+    transition: all 200ms ease-out;
+  }
+
+  p {
+    font-weight: 400;
+    font-size: 17px;
+    width: 100%;
+    font-family: "Overpass", Verdana, Geneva, Tahoma, sans-serif;
+    color: #e4f3ff;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    transition: all 200ms ease-out;
+  }
+
   .highlightedText {
     color: var(--red);
   }
+
   .allPostsContainer {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     margin: 20px 0;
+    width: 100%;
+
     .projectSectionLinks {
       display: flex;
       flex-direction: column;
       align-items: center;
       margin: 30px 50px 10px 50px;
+      text-decoration: none;
+
+      p {
+        text-align: center;
+        margin-top: 10px;
+      }
     }
+
     .noDataFoundContainer {
       display: flex;
       flex-direction: column;
@@ -37,51 +81,93 @@
   }
 }
 
+// Special overrides for postsNavigationDiv to maintain min-height if needed
+.postsNavigationDiv {
+  min-height: 100vh;
+}
+
 @media only screen and (max-width: 1250px) {
+  .Research,
+  .Tutorials,
   .postsNavigationDiv {
-    padding: 0 120px;
+    padding: 150px 120px 0 120px;
   }
 }
+
 @media only screen and (max-width: 1050px) {
+  .Research,
+  .Tutorials,
   .postsNavigationDiv {
-    padding: 0 80px;
+    padding: 150px 80px 0 80px;
   }
 }
+
+@media only screen and (max-width: 900px) {
+  .allPostsContainer {
+    .projectSectionLinks {
+      margin: 30px 20px 10px 20px !important;
+    }
+  }
+}
+
 @media only screen and (max-width: 730px) {
+  .Research,
+  .Tutorials,
   .postsNavigationDiv {
-    margin-top: 120px;
-    padding: 0 40px;
+    padding: 150px 40px 0 40px;
     h1 {
       margin-top: 50px;
       font-size: 30px;
     }
   }
 }
-@media only screen and (max-width: 450px) {
+
+@media only screen and (max-width: 650px) {
+  .Research,
+  .Tutorials,
   .postsNavigationDiv {
     h1 {
-      margin-top: 50px;
+      margin-top: 120px;
+    }
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .Research,
+  .Tutorials,
+  .postsNavigationDiv {
+    padding: 150px 22px 0 22px;
+    h1 {
       font-size: 25px;
+    }
+    p {
+      font-size: 14px;
     }
     .allPostsContainer {
       .projectSectionLinks {
         img {
-          width: 70vw;
-        }
-        h3 {
-          font-size: 20px;
+          width: 70vw !important;
+          height: auto;
         }
       }
     }
   }
 }
+
 @media only screen and (max-width: 420px) {
-  .postsNavigationDiv {
-    padding: 0 22px;
-  }
   .allPostsContainer {
     .projectSectionLinks {
-      margin: 0 !important;
+      margin: 20px 0 !important;
+    }
+  }
+}
+
+@media only screen and (max-width: 330px) {
+  .Research,
+  .Tutorials,
+  .postsNavigationDiv {
+    h1 {
+      font-size: 19px;
     }
   }
 }

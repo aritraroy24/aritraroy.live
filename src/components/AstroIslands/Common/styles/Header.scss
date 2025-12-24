@@ -49,10 +49,7 @@
   transition: all 200ms ease-out;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.199);
 }
-.homeNavContainer {
-  display: block;
-}
-.otherNavContainer {
+.navContainer {
   display: flex;
 }
 
@@ -145,16 +142,11 @@
     cursor: pointer;
   }
 }
-.homeNavLogo {
-  height: 45px;
-  position: absolute;
-  margin: 10px 0px 10px 55px;
-}
-.otherNavLogo {
+.navLogo {
   height: 45px;
   width: auto;
   position: absolute;
-  margin: -8px 0px 10px 55px;
+  margin: -6px 0px 10px 55px;
 }
 
 #searchIcon {
@@ -173,7 +165,7 @@
 }
 
 @media only screen and (max-width: 1130px) {
-  .otherNavContainer {
+  .navContainer {
     position: fixed;
     .hamburger-menu {
       position: fixed;
@@ -273,11 +265,8 @@
 }
 
 @media only screen and (max-width: 730px) {
-  .homeNavLogo {
-    margin: 10px 0px 10px 35px;
-  }
-  .otherNavLogo {
-    margin: -8px 0px 10px 35px;
+  .navLogo {
+    margin: -4px 0px 10px 35px;
   }
 }
 

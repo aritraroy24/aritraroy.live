@@ -6,30 +6,14 @@
     justify-content: center;
     padding: 150px 220px 0 220px;
     margin-top: -150px;
-    margin-bottom: 150px;
-    .number-heading {
-        font-family: "Overpass Mono", Verdana, Geneva, Tahoma, sans-serif;
-        font-size: 22px;
-        color: #64ffda;
-        margin-right: -3px;
-        padding-right: 10px;
-        padding-top: 4px;
-    }
 
-    h2 {
+    h1 {
         color: rgba(255, 255, 255, 0.932);
         margin-bottom: 5px;
         font-family: "Overpass", Verdana, Geneva, Tahoma, sans-serif;
         font-size: 30px;
         position: relative;
-        top: -15px;
-
-        span {
-            font-family: "Overpass Mono", Verdana, Geneva, Tahoma, sans-serif;
-            font-size: 22px;
-            color: #64ffda;
-            margin-right: -3px;
-        }
+        margin-top: 60px;
     }
 
     .portfolio-container {
@@ -45,7 +29,7 @@
         justify-items: center;
         padding: 20px 0 0 0;
 
-        .section-heading h4 {
+        .section-heading h2 {
             color: var(--green);
             font-size: 22px;
         }
@@ -61,26 +45,31 @@
         padding: 150px 40px 0 40px;
     }
 }
+@media only screen and (max-width: 650px) {
+    .Portfolio {
+        h1 {
+            margin-top: 120px;
+        }
+    }
+}
 @media only screen and (max-width: 450px) {
     .Portfolio {
         padding: 150px 22px 0 22px;
-        h2 {
+        h1 {
             font-size: 25px;
         }
     }
 }
 @media only screen and (max-width: 420px) {
     .Portfolio {
-        h2 {
+        h1 {
             font-size: 25px;
-            top: 20px;
         }
     }
 }
 @media only screen and (max-width: 330px) {
     .Portfolio {
-        h2,
-        .number-heading {
+        h1 {
             font-size: 19px;
         }
         h4 {

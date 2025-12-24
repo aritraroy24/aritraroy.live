@@ -544,9 +544,12 @@ async function fetchCollaborators() {
 }
 
 function renderCollaborators(list, container, loader) {
-    loader.style.display = 'none';
+    const fragment = document.createDocumentFragment();
+    list.forEach(c => fragment.appendChild(createCollaboratorCard(c)));
+    
     container.innerHTML = '';
-    list.forEach(c => container.appendChild(createCollaboratorCard(c)));
+    container.appendChild(fragment);
+    loader.style.display = 'none';
 }
 
 function createCollaboratorCard(c) {
@@ -565,7 +568,7 @@ function createCollaboratorCard(c) {
     card.innerHTML = `
         <div class="collaborator-content">
             <div class="collaborator-header">
-                <h3 class="collaborator-name">${c.name}</h3>
+                <h2 class="collaborator-name">${c.name}</h2>
                 <div class="collaborator-links">
                     ${c.orcid ? `<a href="${c.orcid}" target="_blank" class="orcid-link"><svg width="16" height="16" viewBox="0 0 256 256"><path fill="currentColor" d="M256,128c0,70.7-57.3,128-128,128C57.3,256,0,198.7,0,128C0,57.3,57.3,0,128,0C198.7,0,256,57.3,256,128z"/><path fill="#fff" d="M86.3,186.2H70.9V79.1h15.4v48.4V186.2z"/><path fill="#fff" d="M108.9,79.1h41.6c39.6,0,57,28.3,57,53.6c0,27.5-21.5,53.6-56.8,53.6h-41.8V79.1z M124.3,172.4h24.5c34.9,0,42.9-26.5,42.9-39.7c0-21.5-13.7-39.7-43.7-39.7h-23.7V172.4z"/><circle fill="#fff" cx="78.2" cy="59" r="10"/></svg></a>` : ''}
                 </div>

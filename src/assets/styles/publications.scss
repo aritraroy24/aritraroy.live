@@ -1,5 +1,44 @@
 // Publications Styles - SLIMES Lab Style
 
+.postsNavigationDiv {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 150px 220px 0 220px;
+  margin-top: -150px;
+  margin-bottom: 150px;
+  min-height: 100vh;
+}
+
+.publications-main-title {
+  color: rgba(255, 255, 255, 0.932);
+  margin-bottom: 5px;
+  font-family: "Overpass", Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 30px;
+  position: relative;
+  margin-top: 60px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 200ms ease-out;
+  text-align: center;
+}
+
+.publications-subtitle {
+  font-weight: 400;
+  font-size: 17px;
+  width: 100%;
+  font-family: "Overpass", Verdana, Geneva, Tahoma, sans-serif;
+  color: #e4f3ff;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  transition: all 200ms ease-out;
+  text-align: center;
+}
+
 .publications-loader {
     display: flex;
     flex-direction: column;
@@ -296,6 +335,18 @@
 }
 
 // Responsive Design
+@media only screen and (max-width: 1250px) {
+  .postsNavigationDiv {
+    padding: 150px 120px 0 120px;
+  }
+}
+
+@media only screen and (max-width: 1050px) {
+  .postsNavigationDiv {
+    padding: 150px 80px 0 80px;
+  }
+}
+
 @media (max-width: 768px) {
     .publications-list-grouped {
         grid-template-columns: 40px 1fr;
@@ -314,6 +365,42 @@
     .publication-item {
         padding: 20px;
     }
+}
+
+@media only screen and (max-width: 730px) {
+  .postsNavigationDiv {
+    padding: 150px 40px 0 40px;
+    h1,
+    .publications-main-title {
+      margin-top: 50px;
+      font-size: 30px;
+    }
+    .publications-subtitle {
+      font-size: 1rem;
+    }
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  .postsNavigationDiv {
+    h1,
+    .publications-main-title {
+      margin-top: 120px;
+    }
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .postsNavigationDiv {
+    padding: 150px 22px 0 22px;
+    h1,
+    .publications-main-title {
+      font-size: 25px;
+    }
+    .publications-subtitle {
+      font-size: 14px;
+    }
+  }
 }
 
 @media (max-width: 480px) {
@@ -338,4 +425,13 @@
         padding: 15px;
         margin-bottom: 15px;
     }
+}
+
+@media only screen and (max-width: 330px) {
+  .postsNavigationDiv {
+    h1,
+    .publications-main-title {
+      font-size: 19px;
+    }
+  }
 }

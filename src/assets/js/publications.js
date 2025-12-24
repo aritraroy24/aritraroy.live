@@ -57,45 +57,60 @@ async function fetchPublications() {
             work._displayNumber = totalCount - index;
         });
 
-        // Hide loader
-        loader.style.display = 'none';
-
         if (publicationsToShow.length === 0) {
+            loader.style.display = 'none';
             container.innerHTML = '<p class="no-publications">No publications found.</p>';
             return;
         }
 
-        // Group publications by year
+        // Process all publications in parallel to fetch metadata
+        const processedPublications = await Promise.all(
+            publicationsToShow.map(async (work) => {
+                const item = await createPublicationItem(work);
+                return {
+                    year: work['publication-date']?.year?.value?.toString() || 'Unknown',
+                    displayNumber: work._displayNumber,
+                    item: item
+                };
+            })
+        );
+
+        // Group processed publications by year
         const groupedPublications = {};
-        publicationsToShow.forEach((work) => {
-            const year = work['publication-date']?.year?.value?.toString() || 'Unknown';
-            if (!groupedPublications[year]) {
-                groupedPublications[year] = [];
+        processedPublications.forEach((pub) => {
+            if (!groupedPublications[pub.year]) {
+                groupedPublications[pub.year] = [];
             }
-            groupedPublications[year].push(work);
+            groupedPublications[pub.year].push(pub);
         });
 
-        // Render grouped publications
-        for (const year of Object.keys(groupedPublications).sort((a, b) => Number(b) - Number(a))) {
+        const fragment = document.createDocumentFragment();
+        const sortedYears = Object.keys(groupedPublications).sort((a, b) => Number(b) - Number(a));
+
+        // Render grouped publications to fragment
+        for (const year of sortedYears) {
             // Render Year Heading (Right Column)
-            const yearTitle = document.createElement('h3');
+            const yearTitle = document.createElement('h2');
             yearTitle.className = 'year-title';
             yearTitle.textContent = year;
             yearTitle.style.gridColumn = "2";
-            container.appendChild(yearTitle);
+            fragment.appendChild(yearTitle);
 
             // Render Items for this year
-            for (const work of groupedPublications[year]) {
+            for (const pub of groupedPublications[year]) {
                 const numberDiv = document.createElement('div');
                 numberDiv.className = 'publication-number';
-                numberDiv.textContent = (work._displayNumber || '') + '.';
+                numberDiv.textContent = (pub.displayNumber || '') + '.';
                 
-                const item = await createPublicationItem(work);
-                
-                container.appendChild(numberDiv);
-                container.appendChild(item);
+                fragment.appendChild(numberDiv);
+                fragment.appendChild(pub.item);
             }
         }
+
+        // Hide loader and render all at once
+        loader.style.display = 'none';
+        container.innerHTML = '';
+        container.appendChild(fragment);
 
         // Initialize collapse functionality
         initializeCollapseButtons();

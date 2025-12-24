@@ -47,27 +47,22 @@ const imgData = [
 ---
 
 <Layout title={pageTitle} description={pageDescription} {frontmatter} {cover}>
-  <Header isHomePage={false} client:only="react" />
+  <Header client:only="react" />
   <Socials />
-  <div class="postsNavigationDiv">
+  <main class="Research" id="research" data-name="Research">
     <!-- research heading section -->
-    <h1 style="margin-bottom: 0;">Research</h1>
+    <h1>Research</h1>
     <!-- all research sections -->
     <div class="allPostsContainer">
       {
         imgData.map((img: any) => (
           <a class="projectSectionLinks" href={img.url}>
             <Image src={img.src} alt={img.alt} width={300} />
-            <h3 style="margin-top: 10px;">{img.text}</h3>
+            <p>{img.text}</p>
           </a>
         ))
       }
     </div>
-  </div>
+  </main>
   <Footer />
 </Layout>
-<style>
-  .postsNavigationDiv {
-    min-height: 50vh !important;
-  }
-</style>

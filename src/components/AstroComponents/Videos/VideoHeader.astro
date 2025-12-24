@@ -16,7 +16,7 @@ const { tags, title, videoId, duration, pubDate } = Astro.props;
 ---
 
 <>
-  <Header isHomePage={false} client:only="react" />
+  <Header client:only="react" />
   <header class="videoHeaderContainer">
     <BackButton
       text="Back"

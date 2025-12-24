@@ -1,5 +1,44 @@
 // Repository Cards Styles
 
+.postsNavigationDiv {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 150px 220px 0 220px;
+  margin-top: -150px;
+  margin-bottom: 150px;
+  min-height: 100vh;
+}
+
+.software-main-title {
+  color: rgba(255, 255, 255, 0.932);
+  margin-bottom: 5px;
+  font-family: "Overpass", Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 30px;
+  position: relative;
+  margin-top: 60px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 200ms ease-out;
+  text-align: center;
+}
+
+.software-subtitle {
+  font-weight: 400;
+  font-size: 17px;
+  width: 100%;
+  font-family: "Overpass", Verdana, Geneva, Tahoma, sans-serif;
+  color: #e4f3ff;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  transition: all 200ms ease-out;
+  text-align: center;
+}
+
 .repos-loader {
     display: flex;
     flex-direction: column;
@@ -80,9 +119,10 @@
 }
 
 .repo-name {
-    font-size: 1.3rem;
+    font-size: 1.15rem;
     font-weight: 600;
-    margin: 0;
+    margin-top: 0;
+    margin-bottom: 0;
     flex: 1;
 
     a {
@@ -165,6 +205,18 @@
 }
 
 // Responsive Design
+@media only screen and (max-width: 1250px) {
+  .postsNavigationDiv {
+    padding: 150px 120px 0 120px;
+  }
+}
+
+@media only screen and (max-width: 1050px) {
+  .postsNavigationDiv {
+    padding: 150px 80px 0 80px;
+  }
+}
+
 @media (min-width: 901px) and (max-width: 1550px) {
     .repos-container {
         grid-template-columns: repeat(2, 1fr); // 2 cards on medium-large screens
@@ -176,6 +228,29 @@
     .repos-container {
         grid-template-columns: repeat(2, 1fr); // 2 cards on medium-large screens
     }
+}
+
+@media only screen and (max-width: 730px) {
+  .postsNavigationDiv {
+    padding: 150px 40px 0 40px;
+    h1,
+    .software-main-title {
+      margin-top: 50px;
+      font-size: 30px;
+    }
+    .software-subtitle {
+      font-size: 1rem;
+    }
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  .postsNavigationDiv {
+    h1,
+    .software-main-title {
+      margin-top: 120px;
+    }
+  }
 }
 
 @media (max-width: 900px) {
@@ -200,6 +275,19 @@
     }
 }
 
+@media only screen and (max-width: 450px) {
+  .postsNavigationDiv {
+    padding: 150px 22px 0 22px;
+    h1,
+    .software-main-title {
+      font-size: 25px;
+    }
+    .software-subtitle {
+      font-size: 14px;
+    }
+  }
+}
+
 @media (max-width: 480px) {
     .repos-container {
         padding: 10px;
@@ -220,4 +308,13 @@
     .repo-meta {
         font-size: 0.85rem;
     }
+}
+
+@media only screen and (max-width: 330px) {
+  .postsNavigationDiv {
+    h1,
+    .software-main-title {
+      font-size: 19px;
+    }
+  }
 }

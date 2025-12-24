@@ -21,6 +21,7 @@
 html {
   box-sizing: border-box;
   width: 100%;
+  overscroll-behavior: none;
   --navy: #011b43;
   --blue: #71afff;
   --green: #64ffda;
@@ -177,6 +178,7 @@ body {
   margin: 0;
   width: 100%;
   min-height: 100%;
+  overscroll-behavior: none;
   overflow-x: hidden;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
@@ -379,5 +381,78 @@ ol {
 @media only screen and (max-width: 480px) {
   body {
     font-size: var(--font-size-lg);
+  }
+}
+
+// Standardized font sizes for all pages (excluding homepage)
+// Using About section as reference
+.AboutMe,
+.Contact,
+.Portfolio,
+.Tutorials,
+.Publications,
+.postsNavigationDiv,
+.SinglePage {
+  h1 {
+    font-size: 30px;
+    margin-top: 60px;
+    color: rgba(255, 255, 255, 0.932);
+    font-family: "Overpass", Verdana, Geneva, Tahoma, sans-serif;
+    transition: all 200ms ease-out;
+  }
+
+  p {
+    font-size: 17px;
+    margin-bottom: 20px;
+    font-weight: 400;
+    font-family: "Overpass", Verdana, Geneva, Tahoma, sans-serif;
+    color: #e4f3ff;
+    line-height: 1.6;
+    transition: all 200ms ease-out;
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  .AboutMe,
+  .Contact,
+  .Portfolio,
+  .Tutorials,
+  .Publications,
+  .postsNavigationDiv,
+  .SinglePage {
+    h1 {
+      margin-top: 120px;
+    }
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .AboutMe,
+  .Contact,
+  .Portfolio,
+  .Tutorials,
+  .Publications,
+  .postsNavigationDiv,
+  .SinglePage {
+    h1 {
+      font-size: 25px;
+    }
+    p {
+      font-size: 14px;
+    }
+  }
+}
+
+@media only screen and (max-width: 330px) {
+  .AboutMe,
+  .Contact,
+  .Portfolio,
+  .Tutorials,
+  .Publications,
+  .postsNavigationDiv,
+  .SinglePage {
+    h1 {
+      font-size: 19px;
+    }
   }
 }

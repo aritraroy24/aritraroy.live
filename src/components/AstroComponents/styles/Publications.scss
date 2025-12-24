@@ -9,29 +9,12 @@
     margin-top: -150px;
     margin-bottom: 150px;
 
-    .number-heading {
-        font-family: "Overpass Mono", Verdana, Geneva, Tahoma, sans-serif;
-        font-size: 22px;
-        color: #64ffda;
-        margin-right: -3px;
-        padding-right: 10px;
-        padding-top: 4px;
-    }
-
     h2 {
         color: rgba(255, 255, 255, 0.932);
         margin-bottom: 5px;
         font-family: "Overpass", Verdana, Geneva, Tahoma, sans-serif;
         font-size: 30px;
         position: relative;
-        top: -15px;
-
-        span {
-            font-family: "Overpass Mono", Verdana, Geneva, Tahoma, sans-serif;
-            font-size: 22px;
-            color: #64ffda;
-            margin-right: -3px;
-        }
     }
 
     .publications-container {
@@ -131,8 +114,7 @@
 }
 @media only screen and (max-width: 330px) {
     .Projects {
-        h2,
-        .number-heading {
+        h2 {
             font-size: 19px;
         }
         .chemProjectsDiv {

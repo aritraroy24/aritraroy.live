@@ -25,7 +25,7 @@ const formattedStaticDate = `${String(date.getDate()).padStart(2, '0')}-${String
 ---
 
 <Layout title={pageTitle} description={pageDescription}>
-  <Header isHomePage={false} client:only="react" />
+  <Header client:only="react" />
   <Socials />
   <div class="postsNavigationDiv">
     <h1 class="collaborators-main-title">Raw Collaboration Data</h1>
