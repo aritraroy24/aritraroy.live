@@ -158,14 +158,31 @@ const CollaboratorsGlobe: React.FC = () => {
   const [hasInitializedPOV, setHasInitializedPOV] = useState(false);
   const locations = useMemo(() => groupCollaboratorsByLocation(collaborators as Collaborator[]), []);
 
+  const INITIAL_POV = { lat: 41.3926387, lng: 2.0577881, altitude: 2 };
+
+  React.useEffect(() => {
+    if (globeEl.current) {
+      if (clickedLocation) {
+        const isSmallScreen = window.innerWidth <= 1080;
+        // On small screens, point the camera even further south of the pin
+        // so that the pin itself appears higher towards the top-center
+        const latOffset = isSmallScreen ? 35 : 0;
+        
+        globeEl.current.pointOfView({
+          lat: Math.max(-90, clickedLocation.lat - latOffset),
+          lng: clickedLocation.lng,
+          altitude: 1.8 
+        }, 1000);
+      } else if (hasInitializedPOV) {
+        globeEl.current.pointOfView(INITIAL_POV, 1000);
+      }
+    }
+  }, [clickedLocation, hasInitializedPOV]);
+
   React.useEffect(() => {
     if (globeEl.current && dimensions.width > 0 && !hasInitializedPOV) {
-      // Set initial position to London (51.4979199, -0.1043342)
-      globeEl.current.pointOfView({
-        lat: 41.3926387,
-        lng: 2.0577881,
-        altitude: 2
-      });
+      // Set initial position
+      globeEl.current.pointOfView(INITIAL_POV);
 
       // Allow maximum zoom-in capacity
       const controls = globeEl.current.controls();
@@ -210,7 +227,7 @@ const CollaboratorsGlobe: React.FC = () => {
   }, []);
 
   return (
-    <div className="globe-outer-container">
+    <div className={`globe-outer-container ${clickedLocation ? 'is-active' : ''}`}>
       <div className="globe-wrapper" ref={containerRef}>
         {dimensions.width > 0 && dimensions.height > 0 && (
           <Globe
@@ -229,21 +246,30 @@ const CollaboratorsGlobe: React.FC = () => {
             htmlAltitude={0.001}
             htmlElement={(d: any) => {
               const el = document.createElement('div');
+              const isActive = clickedLocation && 
+                               Math.abs(clickedLocation.lat - d.lat) < 0.01 && 
+                               Math.abs(clickedLocation.lng - d.lng) < 0.01;
+              
               const baseSize = 10;
               const scaleFactor = 5;
-              const size = baseSize + Math.sqrt(d.totalPublications) * scaleFactor;
+              let size = baseSize + Math.sqrt(d.totalPublications) * scaleFactor;
+              
+              if (isActive) {
+                size *= 1.5; // Make active pin bigger
+              }
 
               el.innerHTML = `
-                <div class="map-pointer" style="
+                <div class="map-pointer ${isActive ? 'is-active-pin' : ''}" style="
                   width: ${size}px;
                   height: ${size}px;
-                  background: ${PIN_COLOR};
-                  border: 2px solid rgba(254, 62, 85, 0.9);
+                  background: ${isActive ? '#64ffda' : PIN_COLOR};
+                  border: 2px solid ${isActive ? '#fff' : 'rgba(254, 62, 85, 0.9)'};
                   border-radius: 50% 50% 50% 0;
                   transform: rotate(-45deg);
-                  box-shadow: 0 0 10px ${PIN_COLOR};
+                  box-shadow: 0 0 ${isActive ? '25px #64ffda' : '10px ' + PIN_COLOR};
                   cursor: pointer;
                   position: relative;
+                  transition: all 0.5s ease;
                 ">
                   <div style="
                     width: ${size * 0.3}px;
@@ -269,14 +295,14 @@ const CollaboratorsGlobe: React.FC = () => {
             height={dimensions.height}
           />
         )}
+      </div>
 
+      <div className={`card-wrapper ${clickedLocation ? 'show' : ''}`}>
         {clickedLocation && (
-          <div className="card-wrapper">
-            <CollaboratorCard
-              location={clickedLocation}
-              onClose={() => setClickedLocation(null)}
-            />
-          </div>
+          <CollaboratorCard
+            location={clickedLocation}
+            onClose={() => setClickedLocation(null)}
+          />
         )}
       </div>
     </div>
