@@ -14,11 +14,12 @@ import "@assets/styles/posts.scss";
 // asset import
 import publicationsImage from "@images/content/projects/research.svg";
 import softwareImage from "@images/content/projects/coding.svg";
+import collaboratorsImage from "@images/content/projects/collaboration.svg";
 
 // defining page title and description
 const {
   pageTitle = "Aritra Roy | Research",
-  pageDescription = "Explore my research publications and software/code contributions in computational materials science.",
+  pageDescription = "Explore my research publications, software/code contributions, and collaborators in computational materials science.",
   frontmatter,
   cover,
 } = Astro.props;
@@ -27,14 +28,20 @@ const imgData = [
   {
     src: publicationsImage,
     alt: "Publications",
-    url: "publications",
+    url: "/research/publications",
     text: "Publications",
   },
   {
     src: softwareImage,
     alt: "Software/Code",
-    url: "software",
+    url: "/research/software",
     text: "Software/Code",
+  },
+  {
+    src: collaboratorsImage,
+    alt: "Collaborators",
+    url: "/research/collaborators",
+    text: "Collaborators",
   },
 ];
 ---
@@ -49,7 +56,7 @@ const imgData = [
     <div class="allPostsContainer">
       {
         imgData.map((img: any) => (
-          <a class="projectSectionLinks" href={`/research/${img.url}`}>
+          <a class="projectSectionLinks" href={img.url}>
             <Image src={img.src} alt={img.alt} width={300} />
             <h3 style="margin-top: 10px;">{img.text}</h3>
           </a>

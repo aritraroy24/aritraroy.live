@@ -9,7 +9,7 @@ import Socials from "@components/AstroComponents/Socials.astro";
 import { Code } from 'astro:components';
 
 // Import collaborators data
-import collaborators, { generationDate } from "../../assets/js/data/collaborations-cache.js";
+import collaborators, { generationDate } from "../../../assets/js/data/collaborations-cache.js";
 
 // defining page title and description
 const {
@@ -17,7 +17,7 @@ const {
   pageDescription = "Raw JSON data of research collaborators and co-authors.",
 } = Astro.props;
 
-import "../../assets/styles/collaborators.scss";
+import "../../../assets/styles/collaborators.scss";
 
 const rawJson = JSON.stringify(collaborators, null, 2);
 const date = new Date(generationDate);

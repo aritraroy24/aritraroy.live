@@ -11,7 +11,7 @@ import CollaboratorsGlobe from "@components/AstroIslands/CollaboratorsGlobe";
 import { Icon } from "astro-icon/components";
 
 // Import collaborators data
-import collaborators from "../../assets/js/data/collaborations-cache.js";
+import collaborators from "../../../assets/js/data/collaborations-cache.js";
 
 // defining page title and description
 const {
@@ -21,7 +21,7 @@ const {
   cover,
 } = Astro.props;
 
-import "../../assets/styles/collaborators.scss";
+import "../../../assets/styles/collaborators.scss";
 ---
 
 <Layout title={pageTitle} description={pageDescription} {frontmatter} {cover}>
@@ -42,7 +42,7 @@ import "../../assets/styles/collaborators.scss";
     </div>
 
     <div class="explore-raw-data-btn desktop-only">
-      <Button href="/collaborators/raw" text="Explore Raw Data" />
+      <Button href="/research/collaborators/raw" text="Explore Raw Data" />
     </div>
 
     <div class="collaborators-cards-only" id="collaborators-list">
@@ -102,7 +102,7 @@ import "../../assets/styles/collaborators.scss";
         }
       </div>
       <div class="explore-raw-data-btn">
-        <Button href="/collaborators/raw" text="Explore Raw Data" />
+        <Button href="/research/collaborators/raw" text="Explore Raw Data" />
       </div>
     </div>
   </div>
