@@ -6,11 +6,12 @@ import Layout from "@layouts/Layout.astro";
 import Header from "@components/AstroIslands/Common/Header";
 import Footer from "@components/AstroComponents/Footer.astro";
 import Socials from "@components/AstroComponents/Socials.astro";
+import Button from "@components/AstroComponents/Common/Button.astro";
 import CollaboratorsGlobe from "@components/AstroIslands/CollaboratorsGlobe";
 import { Icon } from "astro-icon/components";
 
 // Import collaborators data
-import collaborators from "../assets/js/data/collaborations-cache.js";
+import collaborators from "../../assets/js/data/collaborations-cache.js";
 
 // defining page title and description
 const {
@@ -20,7 +21,7 @@ const {
   cover,
 } = Astro.props;
 
-import "../assets/styles/collaborators.scss";
+import "../../assets/styles/collaborators.scss";
 ---
 
 <Layout title={pageTitle} description={pageDescription} {frontmatter} {cover}>
@@ -38,6 +39,10 @@ import "../assets/styles/collaborators.scss";
     <!-- Collaborators Globe -->
     <div class="globe-container-only">
       <CollaboratorsGlobe client:only="react" />
+    </div>
+
+    <div class="explore-raw-data-btn desktop-only">
+      <Button href="/collaborators/raw" text="Explore Raw Data" />
     </div>
 
     <div class="collaborators-cards-only" id="collaborators-list">
@@ -96,7 +101,28 @@ import "../assets/styles/collaborators.scss";
           })
         }
       </div>
+      <div class="explore-raw-data-btn">
+        <Button href="/collaborators/raw" text="Explore Raw Data" />
+      </div>
     </div>
   </div>
   <Footer />
 </Layout>
+
+<style lang="scss">
+  .explore-raw-data-btn {
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+
+    &.desktop-only {
+      margin-top: 1rem;
+      margin-bottom: 3rem;
+
+      @media (max-width: 768px) {
+        display: none;
+      }
+    }
+  }
+</style>
