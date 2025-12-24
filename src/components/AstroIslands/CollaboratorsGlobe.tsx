@@ -7,17 +7,23 @@ import './styles/CollaboratorsGlobe.scss';
 const PIN_COLOR = 'rgba(254, 62, 85, 0.7)';
 const BORDER_COLOR = '#64ffda';
 
-interface Collaborator {
+interface AffiliationData {
   name: string;
-  affiliation: string;
   city?: string;
   country?: string;
   latitude?: number;
   longitude?: number;
+}
+
+interface Collaborator {
+  id: string;
+  name: string;
+  orcid?: string;
   collaborations: number;
   latestPaperYear?: number;
-  orcid?: string;
-  id?: string;
+  collaborationAffiliation: AffiliationData;
+  currentAffiliation: AffiliationData;
+  updatedManually: boolean;
 }
 
 interface LocationGroup {
@@ -37,14 +43,19 @@ interface CollaboratorCardProps {
 const groupCollaboratorsByLocation = (data: Collaborator[]): LocationGroup[] => {
   const groups: Record<string, LocationGroup> = {};
   data.forEach((c) => {
-    if (c.latitude && c.longitude) {
-      const key = `${c.latitude.toFixed(2)},${c.longitude.toFixed(2)}`;
+    // Try collaboration affiliation first for coordinates, then current affiliation
+    const loc = (c.collaborationAffiliation?.latitude && c.collaborationAffiliation?.longitude)
+      ? c.collaborationAffiliation
+      : (c.currentAffiliation?.latitude && c.currentAffiliation?.longitude ? c.currentAffiliation : null);
+
+    if (loc?.latitude && loc?.longitude) {
+      const key = `${loc.latitude.toFixed(2)},${loc.longitude.toFixed(2)}`;
       if (!groups[key]) {
         groups[key] = {
-          lat: c.latitude,
-          lng: c.longitude,
-          city: c.city,
-          country: c.country,
+          lat: loc.latitude,
+          lng: loc.longitude,
+          city: loc.city,
+          country: loc.country,
           members: [],
           totalPublications: 0,
         };
@@ -61,7 +72,15 @@ const CollaboratorCard: React.FC<CollaboratorCardProps> = ({ location, onClose }
 
   const members = location.members;
   const isMultiple = members.length > 1;
-  const affiliation = members[0]?.affiliation || '';
+
+  const getDisplayAffiliation = (member: Collaborator) => {
+    const coll = member.collaborationAffiliation;
+    const curr = member.currentAffiliation;
+    if (coll?.name && coll?.latitude && coll?.longitude) return coll;
+    return curr || coll;
+  };
+
+  const headerAffiliation = getDisplayAffiliation(members[0])?.name || '';
 
   return (
     <div className="globe-card-wrapper">
@@ -71,50 +90,59 @@ const CollaboratorCard: React.FC<CollaboratorCardProps> = ({ location, onClose }
           {isMultiple && (
             <div className="card-header">
               <h2 className="institute-count">
-                {members.length} Collaborators from {affiliation}
+                {members.length} Collaborators from {headerAffiliation}
               </h2>
               <p className="location-header">
                 <FaMapMarkerAlt />
-                {location.city ? `${location.city}, ` : ''}{location.country || ''}
+                {location.city ? `${location.city}, ${location.country || ''}` : (location.country || '')}
               </p>
             </div>
           )}
 
           <div className="collaborators-list">
-            {members.map((member, index) => (
-              <div key={member.id || member.name + index} className="collaborator-item">
-                <div className="collaborator-item-header">
-                  <h3>{member.name}</h3>
-                  {member.orcid && (
-                    <a href={member.orcid} target="_blank" rel="noopener noreferrer" className="orcid-link-icon" title="ORCID">
-                      <FaOrcid size={20} />
-                    </a>
-                  )}
-                </div>
+            {members.map((member, index) => {
+              const displayAff = getDisplayAffiliation(member);
+              const locationText = displayAff?.city 
+                ? `${displayAff.city}, ${displayAff.country || ''}` 
+                : (displayAff?.country || '');
 
-                {!isMultiple && (
+              return (
+                <div key={member.id || member.name + index} className="collaborator-item">
+                  <div className="collaborator-item-header">
+                    <h3>{member.name}</h3>
+                    {member.orcid && (
+                      <a href={member.orcid} target="_blank" rel="noopener noreferrer" className="orcid-link-icon" title="ORCID">
+                        <FaOrcid size={20} />
+                      </a>
+                    )}
+                  </div>
+
                   <div className="affiliation-info">
-                    <p className="affiliation">
-                      <FaUniversity />
-                      {member.affiliation}
-                    </p>
-                    <p className="location">
-                      <FaMapMarkerAlt />
-                      {member.city ? `${member.city}, ` : ''}{member.country || ''}
-                    </p>
+                    <div className="affiliation-section">
+                      <p className="affiliation">
+                        <FaUniversity />
+                        {displayAff?.name || 'Unknown'}
+                      </p>
+                      {locationText && (
+                        <p className="location">
+                          <FaMapMarkerAlt />
+                          {locationText}
+                        </p>
+                      )}
+                    </div>
                   </div>
-                )}
 
-                <div className="stats-vertical">
-                  <div className="stat-item">
-                    <span>Publications: {member.collaborations}</span>
-                  </div>
-                  <div className="stat-item">
-                    <span>Latest Year of Publication: {member.latestPaperYear}</span>
+                  <div className="stats-vertical">
+                    <div className="stat-item">
+                      <span>Publications: {member.collaborations}</span>
+                    </div>
+                    <div className="stat-item">
+                      <span>Latest Year of Publication: {member.latestPaperYear}</span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>

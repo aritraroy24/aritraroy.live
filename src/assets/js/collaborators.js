@@ -1,4 +1,6 @@
 import collaboratorsDataStatic, { generationDate } from './data/collaborations-cache.js';
+import manualInstitutes from './data/collected/collected-institutional-data.js';
+import manualCollaborators from './data/collected/collected-collaborator-data.js';
 
 // OpenAlex API Configuration
 const USER_ORCID = '0000-0003-0243-9124';
@@ -92,6 +94,44 @@ async function geocodeInstitution(name, countryCode) {
     return await geocodeWithPhoton(name, countryCode);
 }
 
+async function getInstitutionalDetails(name, countryCode = null) {
+    if (!name || name === 'Unknown') {
+        return { name: 'Unknown', city: null, country: null, latitude: null, longitude: null, manual: false };
+    }
+
+    // Check manual data first
+    const manualData = manualInstitutes.find(i =>
+        i.name.toLowerCase() === name.toLowerCase()
+    );
+
+    if (manualData) {
+        return {
+            name: manualData.name,
+            city: manualData.city,
+            country: manualData.country,
+            latitude: manualData.latitude,
+            longitude: manualData.longitude,
+            manual: true
+        };
+    }
+
+    // Fallback to geocoding APIs
+    const geo = await geocodeInstitution(name, countryCode);
+    if (geo && !isNaN(geo.latitude)) {
+        return {
+            name: name,
+            city: geo.city,
+            country: geo.country,
+            latitude: geo.latitude,
+            longitude: geo.longitude,
+            manual: false
+        };
+    }
+
+    // Return with name but no coordinates
+    return { name: name, city: null, country: null, latitude: null, longitude: null, manual: false };
+}
+
 function selectBestName(names) {
     if (!names || names.length === 0) return null;
     const cleanNames = [...new Set(names.filter(n => n && typeof n === 'string' && !n.startsWith('None ')))]
@@ -114,12 +154,9 @@ function selectBestName(names) {
 }
 
 // Determine latest institution across all 4 sources
-async function determineLatestAffiliations(orcidUrl, openAlexAffiliation, openAlexYear, openAlexAuthorId) {
+async function determineLatestAffiliations(orcidUrl, openAlexAuthorId) {
     let candidates = [];
     let bestNameFromOA = null;
-    if (openAlexAffiliation && openAlexAffiliation !== 'Unknown') {
-        candidates.push({ name: openAlexAffiliation, year: parseInt(openAlexYear) || 0, isCurrent: false, priority: 1 });
-    }
 
     // Fetch from OpenAlex author profile for affiliations
     if (openAlexAuthorId) {
@@ -187,9 +224,7 @@ async function determineLatestAffiliations(orcidUrl, openAlexAffiliation, openAl
     }
     
     let uniqueAffiliations = [];
-    if (candidates.length === 0) {
-        uniqueAffiliations = [openAlexAffiliation];
-    } else {
+    if (candidates.length > 0) {
         candidates.sort((a, b) => {
             if (a.isCurrent && !b.isCurrent) return -1;
             if (!a.isCurrent && b.isCurrent) return 1;
@@ -216,7 +251,7 @@ async function determineLatestAffiliations(orcidUrl, openAlexAffiliation, openAl
 
     return {
         bestName: bestNameFromOA,
-        affiliations: uniqueAffiliations
+        currentAffiliations: uniqueAffiliations
     };
 }
 
@@ -318,47 +353,185 @@ async function fetchCollaborators() {
             // Check cache first to avoid expensive API calls
             const cached = masterCacheMap.get(id) || masterCacheMap.get(c.name);
             
-            if (cached && cached.affiliation && cached.affiliation !== 'Unknown') {
-                c.name = cached.name;
-                c.affiliation = cached.affiliation;
-                c.latitude = cached.latitude;
-                c.longitude = cached.longitude;
-                c.city = cached.city;
-                c.country = cached.country;
-                finalProcessed.push(c);
+            if (cached && cached.collaborationAffiliation && cached.currentAffiliation) {
+                let collaborationAffiliation = cached.collaborationAffiliation;
+                let currentAffiliation = cached.currentAffiliation;
+                let institutionOverridden = false;
+
+                // Apply manual institution overrides to cached data
+                const manualColl = manualInstitutes.find(i => i.name.toLowerCase() === collaborationAffiliation.name.toLowerCase());
+                if (manualColl) {
+                    collaborationAffiliation = { ...manualColl };
+                    institutionOverridden = true;
+                }
+                const manualCurr = manualInstitutes.find(i => i.name.toLowerCase() === currentAffiliation.name.toLowerCase());
+                if (manualCurr) {
+                    currentAffiliation = { ...manualCurr };
+                    institutionOverridden = true;
+                }
+
+                let finalData = {
+                    id: c.id,
+                    name: cached.name,
+                    orcid: c.orcid,
+                    collaborations: c.collaborations,
+                    dois: c.dois,
+                    latestPaperYear: c.latestPaperYear,
+                    collaborationAffiliation,
+                    currentAffiliation,
+                    updatedManually: (cached.updatedManually || institutionOverridden) || false
+                };
+
+                // Apply manual collaborator overrides
+                if (c.id) {
+                    const manualOverride = manualCollaborators.find(mc => mc.id === c.id);
+                    if (manualOverride) {
+                        // Name override
+                        if (manualOverride.name === "") {
+                            finalData.name = null;
+                        } else if (manualOverride.name !== null && manualOverride.name !== undefined) {
+                            finalData.name = manualOverride.name;
+                        }
+
+                        // ORCID override
+                        if (manualOverride.orcid === "") {
+                            finalData.orcid = null;
+                        } else if (manualOverride.orcid !== null && manualOverride.orcid !== undefined) {
+                            finalData.orcid = manualOverride.orcid;
+                        }
+
+                        // Collaborations override
+                        if (manualOverride.collaborations === "") {
+                            finalData.collaborations = null;
+                        } else if (manualOverride.collaborations !== null && manualOverride.collaborations !== undefined) {
+                            finalData.collaborations = manualOverride.collaborations;
+                        }
+
+                        // LatestPaperYear override
+                        if (manualOverride.latestPaperYear === "") {
+                            finalData.latestPaperYear = null;
+                        } else if (manualOverride.latestPaperYear !== null && manualOverride.latestPaperYear !== undefined) {
+                            finalData.latestPaperYear = manualOverride.latestPaperYear;
+                        }
+                        
+                        // Affiliation overrides
+                        if (manualOverride.collaborationAffiliation === "") {
+                            finalData.collaborationAffiliation = { name: null, city: null, country: null, latitude: null, longitude: null, manual: true };
+                        } else if (manualOverride.collaborationAffiliation !== null && manualOverride.collaborationAffiliation !== undefined) {
+                            finalData.collaborationAffiliation = await getInstitutionalDetails(manualOverride.collaborationAffiliation);
+                        }
+
+                        if (manualOverride.currentAffiliation === "") {
+                            finalData.currentAffiliation = { name: null, city: null, country: null, latitude: null, longitude: null, manual: true };
+                        } else if (manualOverride.currentAffiliation !== null && manualOverride.currentAffiliation !== undefined) {
+                            finalData.currentAffiliation = await getInstitutionalDetails(manualOverride.currentAffiliation);
+                        }
+
+                        finalData.updatedManually = true;
+                    }
+                }
+
+                finalProcessed.push(finalData);
                 continue;
             }
 
-            const { bestName, affiliations: affiliationOptions } = await determineLatestAffiliations(c.orcid, c.openAlexAffiliation, c.latestPaperYear, c.id);
-            
-            if (bestName) {
-                c.name = bestName;
+            const { bestName, currentAffiliations } = await determineLatestAffiliations(c.orcid, c.id);
+            const finalName = bestName || c.name;
+
+            let collaborationAffiliation = null;
+            let currentAffiliation = null;
+            let institutionOverridden = false;
+
+            // 1. Handle Collaboration Affiliation
+            const collAffName = c.openAlexAffiliation;
+            if (collAffName && collAffName !== 'Unknown') {
+                const details = await getInstitutionalDetails(collAffName);
+                collaborationAffiliation = details;
+                if (details.manual) institutionOverridden = true;
             }
 
-            if (!affiliationOptions || affiliationOptions.length === 0 || (affiliationOptions[0]?.name === 'Unknown' || affiliationOptions[0] === 'Unknown')) continue;
-
-            let foundGeo = false;
-
-            // Try geocoding all options
-            for (const affOpt of affiliationOptions) {
-                const affName = typeof affOpt === 'string' ? affOpt : affOpt.name;
-                const countryCode = typeof affOpt === 'object' ? affOpt.countryCode : null;
-                const geo = await geocodeInstitution(affName, countryCode);
-                if (geo && geo.latitude && geo.longitude) {
-                    c.affiliation = affName;
-                    Object.assign(c, geo);
-                    foundGeo = true;
-                    break;
+            // 2. Handle Current Affiliation
+            if (currentAffiliations && currentAffiliations.length > 0) {
+                for (const affOpt of currentAffiliations) {
+                    const affName = typeof affOpt === 'string' ? affOpt : affOpt.name;
+                    const countryCode = typeof affOpt === 'object' ? affOpt.countryCode : null;
+                    const details = await getInstitutionalDetails(affName, countryCode);
+                    if (details && details.latitude) {
+                        currentAffiliation = details;
+                        if (details.manual) institutionOverridden = true;
+                        break;
+                    }
                 }
             }
 
-            // If no geocoding succeeded but we have affiliations, use the first one
-            if (!foundGeo && affiliationOptions.length > 0) {
-                const affName = typeof affiliationOptions[0] === 'string' ? affiliationOptions[0] : affiliationOptions[0].name;
-                c.affiliation = affName;
+            if (!currentAffiliation && collaborationAffiliation) {
+                currentAffiliation = { ...collaborationAffiliation };
             }
 
-            if (c.affiliation) finalProcessed.push(c);
+            if (collaborationAffiliation) {
+                let collaboratorData = {
+                    id: c.id,
+                    name: finalName,
+                    orcid: c.orcid,
+                    collaborations: c.collaborations,
+                    dois: c.dois,
+                    latestPaperYear: c.latestPaperYear,
+                    collaborationAffiliation,
+                    currentAffiliation,
+                    updatedManually: institutionOverridden
+                };
+
+                // Apply manual collaborator overrides
+                if (c.id) {
+                    const manualOverride = manualCollaborators.find(mc => mc.id === c.id);
+                    if (manualOverride) {
+                        // Name override
+                        if (manualOverride.name === "") {
+                            collaboratorData.name = null;
+                        } else if (manualOverride.name !== null && manualOverride.name !== undefined) {
+                            collaboratorData.name = manualOverride.name;
+                        }
+
+                        // ORCID override
+                        if (manualOverride.orcid === "") {
+                            collaboratorData.orcid = null;
+                        } else if (manualOverride.orcid !== null && manualOverride.orcid !== undefined) {
+                            collaboratorData.orcid = manualOverride.orcid;
+                        }
+
+                        // Collaborations override
+                        if (manualOverride.collaborations === "") {
+                            collaboratorData.collaborations = null;
+                        } else if (manualOverride.collaborations !== null && manualOverride.collaborations !== undefined) {
+                            collaboratorData.collaborations = manualOverride.collaborations;
+                        }
+
+                        // LatestPaperYear override
+                        if (manualOverride.latestPaperYear === "") {
+                            collaboratorData.latestPaperYear = null;
+                        } else if (manualOverride.latestPaperYear !== null && manualOverride.latestPaperYear !== undefined) {
+                            collaboratorData.latestPaperYear = manualOverride.latestPaperYear;
+                        }
+
+                        // Affiliation overrides
+                        if (manualOverride.collaborationAffiliation === "") {
+                            collaboratorData.collaborationAffiliation = { name: null, city: null, country: null, latitude: null, longitude: null, manual: true };
+                        } else if (manualOverride.collaborationAffiliation !== null && manualOverride.collaborationAffiliation !== undefined) {
+                            collaboratorData.collaborationAffiliation = await getInstitutionalDetails(manualOverride.collaborationAffiliation);
+                        }
+
+                        if (manualOverride.currentAffiliation === "") {
+                            collaboratorData.currentAffiliation = { name: null, city: null, country: null, latitude: null, longitude: null, manual: true };
+                        } else if (manualOverride.currentAffiliation !== null && manualOverride.currentAffiliation !== undefined) {
+                            collaboratorData.currentAffiliation = await getInstitutionalDetails(manualOverride.currentAffiliation);
+                        }
+
+                        collaboratorData.updatedManually = true;
+                    }
+                }
+
+                finalProcessed.push(collaboratorData);
+            }
         }
 
         const sorted = finalProcessed.sort((a, b) => b.collaborations - a.collaborations);
@@ -379,7 +552,16 @@ function renderCollaborators(list, container, loader) {
 function createCollaboratorCard(c) {
     const card = document.createElement('div');
     card.className = 'collaborator-card';
-    const flag = getCountryFlag(c.country);
+    
+    const coll = c.collaborationAffiliation;
+    const curr = c.currentAffiliation;
+    const aff = (coll?.name && coll?.latitude && coll?.longitude) ? coll : (curr || coll);
+    
+    const flag = getCountryFlag(aff?.country);
+    const locationText = aff?.city 
+        ? `${aff.city}, ${aff.country || ''}` 
+        : (aff?.country || '');
+
     card.innerHTML = `
         <div class="collaborator-content">
             <div class="collaborator-header">
@@ -389,8 +571,8 @@ function createCollaboratorCard(c) {
                 </div>
             </div>
             <div class="collaborator-info">
-                <div class="collaborator-affiliation">${flag ? `<span class="country-flag">${flag}</span>` : ''}<span>${c.affiliation}</span></div>
-                ${c.city ? `<div class="collaborator-location"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg><span>${c.city}</span></div>` : ''}
+                <div class="collaborator-affiliation">${flag ? `<span class="country-flag">${flag}</span>` : ''}<span>${aff?.name || 'Unknown'}</span></div>
+                ${locationText ? `<div class="collaborator-location"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg><span>${locationText}</span></div>` : ''}
                 <div class="collaboration-count"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M2 2.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm2-1a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zM0 13a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 16 13V6a1.5 1.5 0 0 0-1.5-1.5h-13A1.5 1.5 0 0 0 0 6v7zm1.5.5A.5.5 0 0 1 1 13V6a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5h-13z"/></svg><span>${c.collaborations} ${c.collaborations === 1 ? 'publication' : 'publications'}</span></div>
             </div>
         </div>`;

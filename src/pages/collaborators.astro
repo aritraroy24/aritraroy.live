@@ -43,47 +43,57 @@ import "../assets/styles/collaborators.scss";
     <div class="collaborators-cards-only" id="collaborators-list">
       <div class="collaborators-container">
         {
-          collaborators.map((collab) => (
-            <div class="collaborator-card">
-              <div class="collaborator-content">
-                <div class="collaborator-header">
-                  <h3 class="collaborator-name">{collab.name}</h3>
-                  <div class="collaborator-links">
-                    {collab.orcid && (
-                      <a
-                        href={collab.orcid}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="orcid-link"
-                        title="ORCID"
-                      >
-                        <Icon name="socials/orcid" title="ORCID" />
-                      </a>
-                    )}
-                  </div>
-                </div>
-                <div class="collaborator-info">
-                  <p class="collaborator-affiliation">
-                    <Icon name="others/institute" class="institute-icon" />
-                    {collab.affiliation}
-                  </p>
-                  <p class="collaborator-location">
-                    <Icon name="others/map-marker" />
-                    {collab.city ? `${collab.city}, ` : ""}
-                    {collab.country}
-                  </p>
-                  <div class="stats-grid-vertical">
-                    <div class="collaboration-count">
-                      Publications: {collab.collaborations}
+          collaborators.map((collab) => {
+            const coll = collab.collaborationAffiliation;
+            const curr = collab.currentAffiliation;
+            const displayAff = (coll?.name && coll?.latitude && coll?.longitude) ? coll : (curr || coll);
+            const locationText = displayAff?.city 
+              ? `${displayAff.city}, ${displayAff.country || ''}` 
+              : (displayAff?.country || '');
+
+            return (
+              <div class="collaborator-card">
+                <div class="collaborator-content">
+                  <div class="collaborator-header">
+                    <h3 class="collaborator-name">{collab.name}</h3>
+                    <div class="collaborator-links">
+                      {collab.orcid && (
+                        <a
+                          href={collab.orcid}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="orcid-link"
+                          title="ORCID"
+                        >
+                          <Icon name="socials/orcid" title="ORCID" />
+                        </a>
+                      )}
                     </div>
-                    <div class="latest-year">
-                      Latest Year of Publication: {collab.latestPaperYear}
+                  </div>
+                  <div class="collaborator-info">
+                    <p class="collaborator-affiliation">
+                      <Icon name="others/institute" class="institute-icon" />
+                      {displayAff?.name || 'Unknown'}
+                    </p>
+                    {locationText && (
+                      <p class="collaborator-location">
+                        <Icon name="others/map-marker" />
+                        {locationText}
+                      </p>
+                    )}
+                    <div class="stats-grid-vertical">
+                      <div class="collaboration-count">
+                        Publications: {collab.collaborations}
+                      </div>
+                      <div class="latest-year">
+                        Latest Year of Publication: {collab.latestPaperYear}
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))
+            );
+          })
         }
       </div>
     </div>
