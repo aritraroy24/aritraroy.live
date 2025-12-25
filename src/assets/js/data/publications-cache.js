@@ -1,6 +1,6 @@
 // Auto-generated publications data
-// Last updated: 2025-12-25T01:42:18.465Z
-const generationDate = '2025-12-25T01:42:18.465Z';
+// Last updated: 2025-12-25T02:31:18.635Z
+const generationDate = '2025-12-25T02:31:18.635Z';
 
 const publications = [
   {

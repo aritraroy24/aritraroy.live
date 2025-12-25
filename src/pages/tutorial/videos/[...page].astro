@@ -62,18 +62,22 @@ const {
     <div class="allPostsContainer">
       {
         page.data.length > 0 ? (
-          page.data.map((video: any) => (
-            <PostCard
-              url={video.slug}
-              title={video.data.title}
-              image={video.data.cover}
-              pubDate={video.data.pubDate}
-              duration={video.data.duration}
-              tags={video.data.tags}
-              urlPrefix="/tutorial/videos/"
-              buttonText="View Post"
-            />
-          )) 
+          page.data.map((video: any) => {
+            const slugParts = video.slug.split('/');
+            const lastPart = slugParts[slugParts.length - 1];
+            return (
+              <PostCard
+                url={lastPart}
+                title={video.data.title}
+                image={video.data.cover}
+                pubDate={video.data.pubDate}
+                duration={video.data.duration}
+                tags={video.data.tags}
+                urlPrefix="/tutorial/videos/"
+                buttonText="View Post"
+              />
+            );
+          }) 
         ):(
           <div class="noDataFoundContainer">
             <Image

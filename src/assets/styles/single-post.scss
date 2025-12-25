@@ -1,5 +1,5 @@
 .post-content {
-  padding: 0 15vw;
+  padding: 0 30vw;
   text-align: left;
   margin-bottom: 50px;
   .biggerParagraph {
@@ -91,6 +91,7 @@
   div div div {
     display: flex;
     flex-direction: column;
+    align-items: center;
     div {
       margin-bottom: 30px;
       width: 40vw;
@@ -234,6 +235,7 @@ code {
 
 @media only screen and (max-width: 1500px) {
   .post-content {
+    padding: 0 25vw;
     div div div {
       div {
         width: 50vw;
@@ -255,6 +257,7 @@ code {
 }
 @media only screen and (max-width: 1050px) {
   .post-content {
+    padding: 0 20vw;
     .refLeft {
       flex: 100%;
     }

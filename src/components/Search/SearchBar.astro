@@ -17,12 +17,14 @@ import "./styles/Search.scss";
 const allBlogs = await getCollection("blogs");
 const formattedBlogs = formatPosts(allBlogs);
 formattedBlogs.forEach((blog: any) => {
-  blog.slug = "tutorials/blogs/" + blog.slug;
+  blog.slug = "tutorial/blogs/" + blog.slug;
 });
 const allVideos = await getCollection("videos");
 const formattedVideos = formatPosts(allVideos);
 formattedVideos.forEach((video: any) => {
-  video.slug = "tutorials/videos/" + video.slug;
+  const slugParts = video.slug.split('/');
+  const lastPart = slugParts[slugParts.length - 1];
+  video.slug = "tutorial/videos/" + lastPart;
 });
 const allResearchProjects = await getCollection("research");
 allResearchProjects.forEach((chemProject: any) => {
