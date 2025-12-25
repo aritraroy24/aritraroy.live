@@ -44,6 +44,11 @@ formattedVideos.forEach((item: any) => {
 // removing the same post itself (we don't want to show the same post as similar post suggestion)
 const relatedVideos = tagsFilteredVideos
   .filter((video: any) => video.data.title !== title)
+  .map((video: any) => {
+    const slugParts = video.slug.split('/');
+    const lastPart = slugParts[slugParts.length - 1];
+    return { ...video, slug: lastPart };
+  })
   .slice(0, 3);
 ---
 
@@ -65,6 +70,6 @@ const relatedVideos = tagsFilteredVideos
     rssUrl="/tutorial/videos/rss.xml"
   />
   <!-- related video posts section -->
-  <RelatedPosts relatedPosts={relatedVideos} text="Vidoes" urlPrefix="/" />
+  <RelatedPosts relatedPosts={relatedVideos} text="Vidoes" urlPrefix="/tutorial/videos/" />
   <Footer />
 </Layout>

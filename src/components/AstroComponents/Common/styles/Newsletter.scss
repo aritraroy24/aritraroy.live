@@ -44,7 +44,9 @@
         transition: all 200ms ease-out;
         background: transparent;
         color: white;
-        background: #64ffdb25;
+        &:hover {
+            background: #64ffdb18;
+        }
     }
 }
 @media only screen and (max-width: 730px) {

@@ -7,6 +7,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: relative;
+  isolation: isolate; // Create new stacking context for Edge
 }
 h1 {
   font-size: 64px !important;
@@ -52,6 +54,8 @@ h2 {
   flex-direction: column;
   justify-content: center;
   animation: 2s ease-out 0s 1 slideInFromBottom;
+  position: relative;
+  z-index: 10;
 }
 @keyframes slideInFromBottom {
   0% {
@@ -105,26 +109,61 @@ p {
   font-size: 55px;
 }
 
-.orb {
-  height: 800px;
-  width: 800px;
-  background: url("../../../assets/images/fullerene.webp");
-  z-index: -1;
+.orb-container {
   position: fixed;
   bottom: -320px;
   right: -150px;
+  width: 800px;
+  height: 800px;
+  z-index: 0;
+  pointer-events: none;
+
+  // Edge browser compatibility
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+
+  // Animation with webkit prefix
   animation: orbfloat 12s infinite ease-in-out;
+  -webkit-animation: orbfloat 12s infinite ease-in-out;
+  animation-fill-mode: both;
+  -webkit-animation-fill-mode: both;
+}
+
+.orb-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 @keyframes orbfloat {
   from {
-    transform: translate(40px, 0px);
+    transform: translate3d(40px, 0px, 0);
   }
   50% {
-    transform: translate(0px, -40px);
+    transform: translate3d(0px, -40px, 0);
   }
   to {
-    transform: translate(40px, 0px);
+    transform: translate3d(40px, 0px, 0);
+  }
+}
+
+// Webkit keyframes for Edge/Safari compatibility
+@-webkit-keyframes orbfloat {
+  from {
+    -webkit-transform: translate3d(40px, 0px, 0);
+    transform: translate3d(40px, 0px, 0);
+  }
+  50% {
+    -webkit-transform: translate3d(0px, -40px, 0);
+    transform: translate3d(0px, -40px, 0);
+  }
+  to {
+    -webkit-transform: translate3d(40px, 0px, 0);
+    transform: translate3d(40px, 0px, 0);
   }
 }
 
@@ -241,7 +280,7 @@ p {
     font-size: 31px;
   }
 
-  .orb {
+  .orb-container {
     bottom: -600px;
     right: -275px;
   }

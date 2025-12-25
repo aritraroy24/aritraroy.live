@@ -1,0 +1,58 @@
+---
+// layout import
+import Layout from "@layouts/Layout.astro";
+
+// component import
+import Header from "@components/AstroIslands/Common/Header";
+import Footer from "@components/AstroComponents/Footer.astro";
+import Socials from "@components/AstroComponents/Socials.astro";
+
+// defining page title and description for all publications page
+const {
+  pageTitle = "Aritra Roy | Publications",
+  pageDescription = "Explore my research publications and scholarly works in computational materials science.",
+  frontmatter,
+  cover,
+} = Astro.props;
+
+import "../../../assets/styles/publications.scss";
+---
+
+<Layout title={pageTitle} description={pageDescription} {frontmatter} {cover}>
+  <script is:inline>
+    // Immediately hide global preloader on this page
+    (function() {
+      const preloader = document.getElementById('preloader');
+      if (preloader) {
+        preloader.remove();
+      }
+      const root = document.getElementById('root');
+      if (root) {
+        root.style.display = 'grid';
+      }
+    })();
+  </script>
+  <Header client:only="react" />
+  <Socials />
+  <div class="postsNavigationDiv">
+    <!-- publications heading section -->
+    <h1 class="publications-main-title">Our Publications</h1>
+    <p class="publications-subtitle">
+      Explore my latest research contributions and scholarly works
+    </p>
+
+    <!-- Loading Indicator -->
+    <div id="publications-loader" class="publications-loader">
+      <img src="/preloader.svg" alt="Loading..." class="loader-spinner" />
+      <p>Loading publications...</p>
+    </div>
+
+    <!-- Publications Container -->
+    <div id="publications-container" class="publications-list-grouped">
+      <!-- Publications will be dynamically loaded from ORCID -->
+    </div>
+  </div>
+  <Footer />
+</Layout>
+
+<script src="../../../assets/js/publications.js"></script>

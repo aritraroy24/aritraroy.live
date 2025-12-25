@@ -1,0 +1,59 @@
+---
+// layout import
+import Layout from "@layouts/Layout.astro";
+
+// component import
+import Header from "@components/AstroIslands/Common/Header";
+import Footer from "@components/AstroComponents/Footer.astro";
+import Socials from "@components/AstroComponents/Socials.astro";
+
+// defining page title and description
+const {
+  pageTitle = "Aritra Roy | Software & Code",
+  pageDescription = "Explore my software contributions and code repositories in computational materials science.",
+  frontmatter,
+  cover,
+} = Astro.props;
+
+import "../../../assets/styles/repos.scss";
+---
+
+<Layout title={pageTitle} description={pageDescription} {frontmatter} {cover}>
+  <script is:inline>
+    // Immediately hide global preloader on this page
+    (function() {
+      const preloader = document.getElementById('preloader');
+      if (preloader) {
+        preloader.remove();
+      }
+      const root = document.getElementById('root');
+      if (root) {
+        root.style.display = 'grid';
+      }
+    })();
+  </script>
+  <Header client:only="react" />
+  <Socials />
+  <div class="postsNavigationDiv">
+    <!-- software heading section -->
+    <h1 class="software-main-title">Software & Code</h1>
+    <p class="software-subtitle">
+      Research-related software contributions and code repositories
+    </p>
+
+    <!-- Loading Indicator -->
+    <div id="repos-loader" class="repos-loader">
+      <img src="/preloader.svg" alt="Loading..." class="loader-spinner" />
+      <p>Loading repositories...</p>
+    </div>
+
+    <!-- Repositories Container -->
+    <div id="repos-container" class="repos-container">
+      <!-- Repository cards will be dynamically loaded from GitHub -->
+    </div>
+  </div>
+  <Footer />
+</Layout>
+
+<script src="../../../assets/js/github-repos.js"></script>
+

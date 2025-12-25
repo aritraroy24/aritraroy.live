@@ -1,0 +1,103 @@
+---
+// layout import
+import Layout from "@layouts/Layout.astro";
+
+// component import
+import Header from "@components/AstroIslands/Common/Header";
+import Footer from "@components/AstroComponents/Footer.astro";
+import Socials from "@components/AstroComponents/Socials.astro";
+import { Code } from 'astro:components';
+
+// Import collaborators data
+import collaborators, { generationDate } from "../../../assets/js/data/collaborations-cache.js";
+
+// defining page title and description
+const {
+  pageTitle = "Aritra Roy | Collaborators Raw Data",
+  pageDescription = "Raw JSON data of research collaborators and co-authors.",
+} = Astro.props;
+
+import "../../../assets/styles/collaborators.scss";
+
+const rawJson = JSON.stringify(collaborators, null, 2);
+const date = new Date(generationDate);
+const formattedStaticDate = `${String(date.getDate()).padStart(2, '0')}-${String(date.getMonth() + 1).padStart(2, '0')}-${date.getFullYear()}`;
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <Header client:only="react" />
+  <Socials />
+  <div class="postsNavigationDiv">
+    <h1 class="collaborators-main-title">Raw Collaboration Data</h1>
+    <p class="collaborators-subtitle" id="update-date">
+      Last Updated: {formattedStaticDate}
+    </p>
+
+    <div class="raw-data-container">
+      <div class="code-wrapper" id="raw-code-wrapper">
+        <Code code={rawJson} lang="json" theme="min-dark" />
+      </div>
+    </div>
+  </div>
+  <Footer />
+</Layout>
+
+<script is:inline>
+  (function() {
+    const LOCALSTORAGE_KEY = 'collaborators-cache';
+    try {
+      const stored = localStorage.getItem(LOCALSTORAGE_KEY);
+      if (stored) {
+        const data = JSON.parse(stored);
+        if (data && data.collaborators) {
+          // Update Date
+          const dateElement = document.getElementById('update-date');
+          if (dateElement && data.lastUpdated) {
+            const date = new Date(data.lastUpdated);
+            const dateOnly = `${String(date.getDate()).padStart(2, '0')}-${String(date.getMonth() + 1).padStart(2, '0')}-${date.getFullYear()}`;
+            dateElement.textContent = `Last Updated: ${dateOnly} (from browser cache)`;
+          }
+
+          // Update Code Block
+          // Note: Replacing textContent will remove Shiki highlighting colors
+          const codeElement = document.querySelector('#raw-code-wrapper pre code');
+          if (codeElement) {
+            codeElement.textContent = JSON.stringify(data.collaborators, null, 2);
+            codeElement.style.color = 'var(--white)'; // Ensure visibility after losing highlighting
+          }
+        }
+      }
+    } catch (e) {
+      console.error('Error loading local storage collaborators:', e);
+    }
+  })();
+</script>
+
+<style lang="scss">
+  .raw-data-container {
+    margin: 2rem auto;
+    max-width: 90vw;
+    padding: 0 1rem;
+    width: 100%;
+
+    @media (min-width: 730px) and (max-width: 1500px) {
+      max-width: 80vw;
+    }
+  }
+
+  .code-wrapper {
+    background: rgba(41, 61, 90, 0.3);
+    border-radius: 8px;
+    border: 1px solid var(--slate);
+    overflow: hidden;
+    
+    :global(pre) {
+      margin: 0 !important;
+      padding: 1.5rem !important;
+      background-color: transparent !important;
+      font-family: 'Overpass Mono', monospace !important;
+      font-size: 0.85rem !important;
+      line-height: 1.5 !important;
+    }
+  }
+</style>

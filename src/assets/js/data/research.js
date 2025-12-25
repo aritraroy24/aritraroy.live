@@ -6,22 +6,19 @@ const research = [
         duration: 'Sep, 2023 - Present',
         url: 'https://www.lsbu.ac.uk/',
         description: [
-            'Machine learning',
-            'Solid State Physics',
-            'Materials Modelling',
+            'AI for piezoelectric materials',
             'Under Dr John Buckeridge'
         ]
     },
     {
         id: 3,
-        title: 'Research Collaborator',
-        institution: 'National Institute of Technology Silchar',
-        duration: 'Nov, 2022 - Present',
-        url: 'http://www.nits.ac.in/',
+        title: 'Visiting Researcher',
+        institution: "King's College London",
+        duration: 'Mar, 2024 - Present',
+        url: 'https://www.kcl.ac.uk/',
         description: [
-            'Metal sensing using amino acids',
-            'L-Cysteine and Histidine',
-            'With Dr B. Ghosh & Dr F. Fantuzzi'
+            'Computational study on piezoelectric materials',
+            'Under Dr Chiara Gattinoni'
         ]
     },
     {
@@ -31,9 +28,8 @@ const research = [
         duration: 'Jun, 2022 - Present',
         url: 'https://www.felipefantuzzi.org/',
         description: [
-            'C-C activation for organometallic compounds',
-            'Allyl-like trialuminium compound',
-            'With Dr F. Fantuzzi & Dr D. Dhar'
+            'Electronic structure calculations for organometallic systems',
+            'With Dr Felipe Fantuzzi'
         ]
     },
     {
@@ -44,7 +40,6 @@ const research = [
         url: 'https://sites.google.com/view/cis-laboratory',
         description: [
             'Semiconductor borophene',
-            'Boron two-dimensional sheet',
             'Under Dr M. M. Balakrishnarajan'
         ]
     }

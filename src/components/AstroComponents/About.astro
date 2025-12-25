@@ -15,63 +15,151 @@ import "./styles/About.scss";
 ---
 
 <main class="AboutMe" id="about" data-name="AboutMe">
-  <h2>
-    <span class="number-heading">01.</span>About Me
-  </h2>
+  <h1>About Me</h1>
   <section class="about-box">
     <!-- about description - left section -->
     <section class="about-description">
-      <p>
-        Currently, I'm a doctoral researcher at <a
-          href="https://www.lsbu.ac.uk/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="hyperlink"
-        >
-          LSBU, UK
-        </a> in <b>Chemical Process and Energy Engineering Dept.</b> under {" "}
-        <a
-          href="https://scholar.google.com.sg/citations?user=hfyoL4AAAAAJ&hl=en"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="hyperlink"
-        >
-          Dr John Buckeridge
-        </a> and
-        <a
-          href="https://scholar.google.co.uk/citations?user=cwB7NzAAAAAJ&hl=en"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="hyperlink"
-        >
-          Dr Chiara Gattinoni
-        </a>.
-      </p>
-      <p>
-        Along with that, I'm working on multiple collaborative projects
-        primarily under the guidance of {" "}
-        <a
-          href="https://www.felipefantuzzi.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="hyperlink"
-        >
-          Dr Felipe Fantuzzi
-        </a> from <span><b>Kent University</b></span>.
-      </p>
-      <p>
-        My PhD project is based on <b
-          >using text-mined scientific data for designing piezoelectric
-          materials</b
-        >. Currently I'm learning <a
-          href="https://www.vasp.at/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="hyperlink"
-        >
-          VASP
-        </a>, and various architectures of <b>AI-ML</b>.
-      </p>
+      <!-- Three paragraphs version for large screens -->
+      <div class="text-large-screen">
+        <p>
+          Currently, I'm a doctoral researcher at <a
+            href="https://slimeslab.github.io/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hyperlink"
+          >
+            SLIMES
+          </a> lab in <b>Chemical Process and Energy Engineering Dept.</b> of <a
+            href="https://www.lsbu.ac.uk/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hyperlink"
+          >
+            LSBU, UK
+          </a> under {" "}
+          <a
+            href="https://scholar.google.com.sg/citations?user=hfyoL4AAAAAJ&hl=en"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hyperlink"
+          >
+            Dr John Buckeridge
+          </a> and
+          <a
+            href="https://scholar.google.co.uk/citations?user=cwB7NzAAAAAJ&hl=en"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hyperlink"
+          >
+            Dr Chiara Gattinoni
+          </a>.
+        </p>
+        <p>
+          Along with that, I'm working on multiple collaborative projects
+          primarily under the guidance of {" "}
+          <a
+            href="https://www.felipefantuzzi.org/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hyperlink"
+          >
+            Dr Felipe Fantuzzi
+          </a> from Kent University.
+        </p>
+        <p>
+          My PhD project focuses on <b
+            >using text-mining and deep-learning to design piezoelectric
+            materials</b
+          >. I have expertise in the <a
+            href="https://www.vasp.at/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hyperlink"
+          >
+            VASP
+          </a> simulation package and in various LLM-based techniques for text-mining
+          scientific literature and data extraction (e.g., <a
+            href="https://slimeslab.github.io/ComProScanner/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hyperlink">ComProScanner</a
+          >), and I enjoy participating in AI for Science initiatives and
+          challenges (e.g., <a
+            href="https://github.com/blaiszik/microstack"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hyperlink">μStack</a
+          >).
+        </p>
+      </div>
+
+      <!-- One paragraph version for small screens -->
+      <div class="text-small-screen">
+        <p>
+          Currently, I'm a doctoral researcher at <a
+            href="https://slimeslab.github.io/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hyperlink"
+          >
+            SLIMES
+          </a> lab in <b>Chemical Process and Energy Engineering Dept.</b> of <a
+            href="https://www.lsbu.ac.uk/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hyperlink"
+          >
+            LSBU, UK
+          </a> under {" "}
+          <a
+            href="https://scholar.google.com.sg/citations?user=hfyoL4AAAAAJ&hl=en"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hyperlink"
+          >
+            Dr John Buckeridge
+          </a> and
+          <a
+            href="https://scholar.google.co.uk/citations?user=cwB7NzAAAAAJ&hl=en"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hyperlink"
+          >
+            Dr Chiara Gattinoni
+          </a>. Along with that, I'm working on multiple collaborative projects
+          primarily under the guidance of {" "}
+          <a
+            href="https://www.felipefantuzzi.org/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hyperlink"
+          >
+            Dr Felipe Fantuzzi
+          </a> from Kent University. My PhD project focuses on <b
+            >using text-mined scientific data to design piezoelectric materials</b
+          >. I have expertise in the <a
+            href="https://www.vasp.at/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hyperlink"
+          >
+            VASP
+          </a> simulation package and in various LLM-based techniques for text-mining
+          scientific literature and data extraction (e.g., <a
+            href="https://slimeslab.github.io/ComProScanner/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hyperlink">ComProScanner</a
+          >), and I enjoy participating in AI for Science initiatives and
+          challenges (e.g., <a
+            href="https://github.com/blaiszik/microstack"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hyperlink">μStack</a
+          >).
+        </p>
+      </div>
+
       <p>Here are a few tools I've been working with recently:</p>
       <section class="skills">
         <ul>
@@ -105,82 +193,49 @@ import "./styles/About.scss";
           }
         </ul>
       </section>
-      <div class="iconsContainerMobile">
-        {
-          programmingTools.map((item: any) => {
-            const typeMapping: { [key: string]: string } = {
-              language: "Language",
-              library: "Library/Framework",
-              backend: "Backend",
-              tools: "Tools",
-              os: "Operating System",
-              ui: "UI/UX",
-              blog: "Blog Writing",
-              assistant: "AI Assistants",
-            };
-
-            const itemType = Object.keys(item)[0];
-            const displayName =
-              typeMapping[itemType as keyof typeof typeMapping];
-
-            return (
-              <div class="langIcons">
-                <p>{displayName}:</p>
-                <div>
-                  {item[itemType].map((itemElement: any) => (
-                    <a href={itemElement.url}>
-                      <Icon
-                        name={itemElement.iconName}
-                        title={itemElement.title}
-                      />
-                    </a>
-                  ))}
-                </div>
-              </div>
-            );
-          })
-        }
-      </div>
     </section>
     <!-- about image - right section -->
     <section class="img-container">
-      <Image src={headshot} alt="Aritra Face" width={300} height={300} />
-      <div class="iconsContainer">
-        {
-          programmingTools.map((item: any) => {
-            const typeMapping: { [key: string]: string } = {
-              language: "Language",
-              library: "Library/Framework",
-              backend: "Backend",
-              tools: "Tools",
-              os: "Operating System",
-              ui: "UI/UX",
-              blog: "Blog Writing",
-              assistant: "AI Assistants",
-            };
-
-            const itemType = Object.keys(item)[0];
-            const displayName =
-              typeMapping[itemType as keyof typeof typeMapping];
-
-            return (
-              <div class="langIcons">
-                <p>{displayName}:</p>
-                <div>
-                  {item[itemType].map((itemElement: any) => (
-                    <a href={itemElement.url}>
-                      <Icon
-                        name={itemElement.iconName}
-                        title={itemElement.title}
-                      />
-                    </a>
-                  ))}
-                </div>
-              </div>
-            );
-          })
-        }
-      </div>
+      <Image
+        src={headshot}
+        alt="Aritra Face"
+        width={800}
+        height={800}
+        quality="high"
+      />
     </section>
   </section>
+  <div class="iconsContainer">
+    {
+      programmingTools.map((item: any) => {
+        const typeMapping: { [key: string]: string } = {
+          language: "Language",
+          library: "Library/Framework",
+          backend: "Backend",
+          tools: "Tools",
+          os: "Operating System",
+          ui: "UI/UX",
+          blog: "Blog Writing",
+          assistant: "AI Assistants",
+        };
+
+        const itemType = Object.keys(item)[0];
+        const displayName = typeMapping[itemType as keyof typeof typeMapping];
+
+        return (
+          <div class="langIcons">
+            <p>{displayName}:</p>
+            <div>
+              {item[itemType].map((itemElement: any) => (
+                <a href={itemElement.url} class="iconLink">
+                  <Icon name={itemElement.iconName} title={itemElement.title} />
+                  <span class="iconTitle">{itemElement.title}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        );
+      })
+    }
+  </div>
 </main>

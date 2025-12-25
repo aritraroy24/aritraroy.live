@@ -21,14 +21,18 @@ export async function GET(context) {
             title: "Aritra Roy | YouTube Videos RSS Feed",
             url: "https://aritraroy.live/tutorial/videos/rss.xml"
         },
-        items: formattedVideos.map((video) => ({
-            title: video.data.title,
-            description: video.data.description,
-            pubDate: video.data.pubDate,
-            link: `/tutorial/videos/${video.slug}`,
-            categories: video.data.tags,
-            content: `${[sanitizeHtml(marked.parse(video.body)) + sanitizeHtml(marked.parse("Duration: " + video.data.duration))]}`,
-        })),
+        items: formattedVideos.map((video) => {
+            const slugParts = video.slug.split('/');
+            const lastPart = slugParts[slugParts.length - 1];
+            return {
+                title: video.data.title,
+                description: video.data.description,
+                pubDate: video.data.pubDate,
+                link: `/tutorial/videos/${lastPart}`,
+                categories: video.data.tags,
+                content: `${[sanitizeHtml(marked.parse(video.body)) + sanitizeHtml(marked.parse("Duration: " + video.data.duration))]}`,
+            };
+        }),
         customData: `<atom:link href="https://aritraroy.live/tutorial/videos/rss.xml" rel="self" type="application/rss+xml" />`,
         stylesheet: '/rss/video-rss-styles.xsl',
     });

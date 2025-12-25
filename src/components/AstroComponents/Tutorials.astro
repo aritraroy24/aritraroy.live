@@ -81,20 +81,24 @@ const formattedVideos = formatPosts(allVideos).slice(0, 2);
     <div class="allPostsContainer">
       {
         formattedVideos.length > 0 ? (
-          formattedVideos.map((video: any) => (
-            <PostCard
-              url={video.slug}
-              title={video.data.title}
-              journalName={video.data.journalName}
-              image={video.data.cover}
-              pubDate={video.data.pubDate}
-              duration={video.data.duration}
-              status={video.data.status}
-              tags={video.data.tags}
-              urlPrefix="/tutorial/videos/"
-              buttonText="View Post"
-            />
-          ))
+          formattedVideos.map((video: any) => {
+            const slugParts = video.slug.split('/');
+            const lastPart = slugParts[slugParts.length - 1];
+            return (
+              <PostCard
+                url={lastPart}
+                title={video.data.title}
+                journalName={video.data.journalName}
+                image={video.data.cover}
+                pubDate={video.data.pubDate}
+                duration={video.data.duration}
+                status={video.data.status}
+                tags={video.data.tags}
+                urlPrefix="/tutorial/videos/"
+                buttonText="View Post"
+              />
+            );
+          })
         ) : (
           <div class="noDataFoundContainer">
             <Image

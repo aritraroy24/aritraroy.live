@@ -1,0 +1,216 @@
+---
+// layout import
+import Layout from "@layouts/Layout.astro";
+
+// component import
+import Header from "@components/AstroIslands/Common/Header";
+import Footer from "@components/AstroComponents/Footer.astro";
+import Socials from "@components/AstroComponents/Socials.astro";
+import Button from "@components/AstroComponents/Common/Button.astro";
+import CollaboratorsGlobe from "@components/AstroIslands/CollaboratorsGlobe";
+import { Icon } from "astro-icon/components";
+
+// Import collaborators data
+import collaborators from "../../../assets/js/data/collaborations-cache.js";
+
+// defining page title and description
+const {
+  pageTitle = "Aritra Roy | Collaborators",
+  pageDescription = "Explore my research collaborators and co-authors from around the world.",
+  frontmatter,
+  cover,
+} = Astro.props;
+
+import "../../../assets/styles/collaborators.scss";
+---
+
+<Layout title={pageTitle} description={pageDescription} {frontmatter} {cover}>
+  <script is:inline>
+    // Immediately hide global preloader on this page
+    (function() {
+      const preloader = document.getElementById('preloader');
+      if (preloader) {
+        preloader.remove();
+      }
+      const root = document.getElementById('root');
+      if (root) {
+        root.style.display = 'grid';
+      }
+    })();
+  </script>
+  <Header client:only="react" />
+  <Socials />
+  <div class="postsNavigationDiv">
+    <!-- collaborators heading section -->
+    <h1 class="collaborators-main-title">Research Collaborators</h1>
+    <p class="collaborators-subtitle">
+      Explore co-authors and research partners around the world <span
+        class="globe-text">on an interactive 3D globe</span
+      >
+    </p>
+
+    <!-- Globe Loading Indicator (Desktop only) -->
+    <div id="globe-loader" class="globe-loader-section">
+      <img src="/preloader.svg" alt="Loading..." class="loader-spinner" />
+      <p>Loading globe...</p>
+    </div>
+
+    <!-- Collaborators Globe -->
+    <div id="globe-container" class="globe-container-only" style="display: none;">
+      <CollaboratorsGlobe client:only="react" />
+    </div>
+
+    <div id="globe-button" class="explore-raw-data-btn desktop-only" style="display: none;">
+      <Button href="/research/collaborators/raw" text="Explore Raw Data" />
+    </div>
+
+    <div class="collaborators-cards-only" id="collaborators-list">
+      <div class="collaborators-loader" id="collaborators-loader">
+        <img src="/preloader.svg" alt="Loading..." class="loader-spinner" />
+        <p>Loading collaborators...</p>
+      </div>
+      <div class="collaborators-container" id="collaborators-container" style="display: none;">
+        {
+          collaborators.map((collab) => {
+            const coll = collab.collaborationAffiliation;
+            const curr = collab.currentAffiliation;
+            const displayAff =
+              coll?.name && coll?.latitude && coll?.longitude
+                ? coll
+                : curr || coll;
+            const locationText = displayAff?.city
+              ? `${displayAff.city}, ${displayAff.country || ""}`
+              : displayAff?.country || "";
+
+            return (
+              <div class="collaborator-card">
+                <div class="collaborator-content">
+                  <div class="collaborator-header">
+                    <h2 class="collaborator-name">{collab.name}</h2>
+                    <div class="collaborator-links">
+                      {collab.orcid && (
+                        <a
+                          href={collab.orcid}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="orcid-link"
+                          title="ORCID"
+                        >
+                          <Icon name="socials/orcid" title="ORCID" />
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                  <div class="collaborator-info">
+                    <p class="collaborator-affiliation">
+                      <Icon name="others/institute" class="institute-icon" />
+                      {displayAff?.name || "Unknown"}
+                    </p>
+                    {locationText && (
+                      <p class="collaborator-location">
+                        <Icon name="others/map-marker" />
+                        {locationText}
+                      </p>
+                    )}
+                    <div class="stats-grid-vertical">
+                      <div class="collaboration-count">
+                        Publications: {collab.collaborations}
+                      </div>
+                      <div class="latest-year">
+                        Latest Year of Publication: {collab.latestPaperYear}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })
+        }
+      </div>
+      <div class="explore-raw-data-btn">
+        <Button href="/research/collaborators/raw" text="Explore Raw Data" />
+      </div>
+    </div>
+  </div>
+  <Footer />
+</Layout>
+
+<script>
+  // Handle mobile cards loader
+  document.addEventListener('DOMContentLoaded', () => {
+    const loader = document.getElementById('collaborators-loader');
+    const container = document.getElementById('collaborators-container');
+
+    if (loader && container) {
+      // Add a small delay for smooth transition
+      setTimeout(() => {
+        loader.style.display = 'none';
+        container.style.display = 'grid';
+      }, 300);
+    }
+  });
+
+  // Handle globe loader on desktop
+  let globeShown = false;
+
+  function showGlobeContent() {
+    if (globeShown) return;
+    globeShown = true;
+
+    const globeLoader = document.getElementById('globe-loader');
+    const globeContainer = document.getElementById('globe-container');
+    const globeButton = document.getElementById('globe-button');
+
+    if (globeLoader) {
+      globeLoader.style.display = 'none';
+    }
+
+    if (globeContainer) {
+      globeContainer.style.display = 'block';
+      // Add fade-in animation
+      globeContainer.style.opacity = '0';
+      setTimeout(() => {
+        globeContainer.style.transition = 'opacity 0.5s ease-in';
+        globeContainer.style.opacity = '1';
+      }, 50);
+    }
+
+    if (globeButton) {
+      globeButton.style.display = 'flex';
+      // Add fade-in animation
+      globeButton.style.opacity = '0';
+      setTimeout(() => {
+        globeButton.style.transition = 'opacity 0.5s ease-in';
+        globeButton.style.opacity = '1';
+      }, 50);
+    }
+  }
+
+  window.addEventListener('globeReady', showGlobeContent);
+
+  // Fallback: show globe after 5 seconds even if event doesn't fire
+  setTimeout(() => {
+    if (!globeShown && window.innerWidth > 768) {
+      console.warn('Globe initialization timeout - showing content anyway');
+      showGlobeContent();
+    }
+  }, 5000);
+</script>
+
+<style lang="scss">
+  .explore-raw-data-btn {
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+
+    &.desktop-only {
+      margin-top: 1rem;
+      margin-bottom: 3rem;
+
+      @media (max-width: 768px) {
+        display: none;
+      }
+    }
+  }
+</style>

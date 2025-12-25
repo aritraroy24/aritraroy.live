@@ -58,13 +58,8 @@ function Search({ searchList }: Props) {
         setQuery(value);
     }
 
-    interface Post {
-        slug: string;
-        title: string;
-        description: string;
-    }
     interface SectionProps {
-        posts: Post[];
+        posts: CollectionEntry[];
         slugKey: string;
         heading: string;
     }

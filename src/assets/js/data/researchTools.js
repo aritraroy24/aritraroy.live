@@ -1,63 +1,43 @@
 const researchTools = [
     {
         id: 1,
-        toolName: 'Gaussian',
-        version: '16'
-    },
-    {
-        id: 2,
-        toolName: 'ORCA',
-        version: '5.0'
-    },
-    {
-        id: 3,
-        toolName: 'GaussView',
-        version: '6.0'
-    },
-    {
-        id: 4,
-        toolName: 'Spartan',
-        version: '\'14'
-    },
-    {
-        id: 5,
         toolName: 'VASP',
         version: '6.4.3'
     },
     {
-        id: 6,
-        toolName: 'Avogadro',
+        id: 2,
+        toolName: 'Gaussian',
+        version: '16'
+    },
+    {
+        id: 3,
+        toolName: 'ORCA',
+        version: '5.0'
+    },
+    {
+        id: 4,
+        toolName: 'Multiwfn',
         version: ''
+    },
+    {
+        id: 5,
+        toolName: 'GaussView',
+        version: '6.0'
+    },
+    {
+        id: 6,
+        toolName: 'Spartan',
+        version: '\'14'
     },
     {
         id: 7,
-        toolName: 'ChemDraw Pro',
-        version: '2021'
-    },
-    {
-        id: 8,
-        toolName: 'WinCACAO',
-        version: ''
-    },
-    {
-        id: 9,
         toolName: 'Origin Pro',
         version: '2022'
     },
     {
-        id: 10,
-        toolName: 'EndNote',
-        version: 'X9'
-    },
-    {
-        id: 11,
-        toolName: 'Materials Studio',
-        version: '2017'
-    },
-    {
-        id: 12,
-        toolName: 'Multiwfn',
+        id: 8,
+        toolName: 'Avogadro',
         version: ''
-    },
+    }
 ];
 export default researchTools

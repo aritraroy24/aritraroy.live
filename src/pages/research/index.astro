@@ -1,0 +1,68 @@
+---
+// layout import
+import Layout from "@layouts/Layout.astro";
+
+// component import
+import { Image } from "astro:assets";
+import Header from "@components/AstroIslands/Common/Header";
+import Footer from "@components/AstroComponents/Footer.astro";
+import Socials from "@components/AstroComponents/Socials.astro";
+
+// style import
+import "@assets/styles/posts.scss";
+
+// asset import
+import publicationsImage from "@images/content/projects/research.svg";
+import softwareImage from "@images/content/projects/coding.svg";
+import collaboratorsImage from "@images/content/projects/collaboration.svg";
+
+// defining page title and description
+const {
+  pageTitle = "Aritra Roy | Research",
+  pageDescription = "Explore my research publications, software/code contributions, and collaborators in computational materials science.",
+  frontmatter,
+  cover,
+} = Astro.props;
+
+const imgData = [
+  {
+    src: publicationsImage,
+    alt: "Publications",
+    url: "/research/publications",
+    text: "Publications",
+  },
+  {
+    src: softwareImage,
+    alt: "Software/Code",
+    url: "/research/software",
+    text: "Software/Code",
+  },
+  {
+    src: collaboratorsImage,
+    alt: "Collaborators",
+    url: "/research/collaborators",
+    text: "Collaborators",
+  },
+];
+---
+
+<Layout title={pageTitle} description={pageDescription} {frontmatter} {cover}>
+  <Header client:only="react" />
+  <Socials />
+  <main class="Research" id="research" data-name="Research">
+    <!-- research heading section -->
+    <h1>Research</h1>
+    <!-- all research sections -->
+    <div class="allPostsContainer">
+      {
+        imgData.map((img: any) => (
+          <a class="projectSectionLinks" href={img.url}>
+            <Image src={img.src} alt={img.alt} width={300} />
+            <p>{img.text}</p>
+          </a>
+        ))
+      }
+    </div>
+  </main>
+  <Footer />
+</Layout>

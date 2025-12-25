@@ -5,12 +5,7 @@ import Layout from "@layouts/Layout.astro";
 // component import
 import Header from "@components/AstroIslands/Common/Header";
 import Hero from "@components/AstroComponents/Hero.astro";
-import About from "@components/AstroComponents/About.astro";
-import Projects from "@components/AstroComponents/Projects.astro";
-import Portfolio from "@components/AstroComponents/Portfolio.astro";
-import Tutorials from "@components/AstroComponents/Tutorials.astro";
 import Socials from "@components/AstroComponents/Socials.astro";
-import Contact from "@components/AstroComponents/Contact.astro";
 import Footer from "@components/AstroComponents/Footer.astro";
 
 // title & description value to pass to the layout
@@ -23,13 +18,8 @@ const {
 ---
 
 <Layout title={pageTitle} description={pageDescription} {frontmatter} {cover}>
-  <Header isHomePage={true} client:only="react" />
+  <Header client:only="react" />
   <Socials />
   <Hero />
-  <About />
-  <Projects />
-  <Portfolio />
-  <Tutorials />
-  <Contact />
   <Footer />
 </Layout>

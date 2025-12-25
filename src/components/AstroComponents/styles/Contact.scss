@@ -8,21 +8,13 @@
     padding: 150px 220px 0 220px;
     margin-top: -150px;
     margin-bottom: 50px;
-    .number-heading {
-        font-family: "Overpass Mono", Verdana, Geneva, Tahoma, sans-serif;
-        font-size: 22px;
-        color: #64ffda;
-        margin-right: -3px;
-        padding-right: 10px;
-        padding-top: 4px;
-    }
-    h2 {
+    h1 {
         color: rgba(255, 255, 255, 0.932);
         margin-bottom: 5px;
         font-family: "Overpass", Verdana, Geneva, Tahoma, sans-serif;
         font-size: 30px;
         position: relative;
-        top: -15px;
+        margin-top: 60px;
 
         span {
             font-family: "Overpass Mono", Verdana, Geneva, Tahoma, sans-serif;
@@ -101,7 +93,7 @@
             width: 400px;
         }
 
-        h2 {
+        h1 {
             font-size: 30px;
         }
 
@@ -132,7 +124,13 @@
         }
     }
 }
-
+@media only screen and (max-width: 650px) {
+    .Contact {
+        h1 {
+            margin-top: 120px;
+        }
+    }
+}
 @media only screen and (max-width: 550px) {
     .Contact {
         p {
@@ -140,7 +138,7 @@
             width: 400px;
         }
 
-        h2 {
+        h1 {
             font-size: 30px;
         }
     }
@@ -149,9 +147,6 @@
 @media only screen and (max-width: 450px) {
     .Contact {
         padding: 150px 22px 0 22px;
-        .number-heading {
-            font-size: 22px;
-        }
         min-height: 440px;
 
         p {
@@ -160,7 +155,7 @@
             margin-bottom: -50px;
         }
 
-        h2 {
+        h1 {
             font-size: 25px;
             margin-bottom: 35px;
 
@@ -173,7 +168,7 @@
 }
 @media only screen and (max-width: 420px) {
     .Contact {
-        h2 {
+        h1 {
             font-size: 25px;
             top: 20px;
         }
@@ -181,8 +176,7 @@
 }
 @media only screen and (max-width: 330px) {
     .Contact {
-        h2,
-        .number-heading {
+        h1 {
             font-size: 19px;
         }
         p {

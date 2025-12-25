@@ -30,10 +30,11 @@
       font-size: 16px;
       margin-bottom: 8px !important;
     }
-    a h4 {
+    a h2 {
       font-size: 20px;
+      margin-top: 0;
     }
-    a h4:hover {
+    a h2:hover {
       color: var(--green) !important;
       transition: all 200ms ease-out;
     }
@@ -55,7 +56,7 @@
 @media only screen and (max-width: 450px) {
   .postCard {
     div {
-      a h4 {
+      a h2 {
         font-size: 18px;
       }
       .dateDurationPostCard {

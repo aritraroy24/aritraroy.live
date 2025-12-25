@@ -7,34 +7,18 @@
   padding: 150px 220px 0 220px;
   margin-top: -150px;
   margin-bottom: 150px;
-
-  .number-heading {
-    font-family: "Overpass Mono", Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 22px;
-    color: #64ffda;
-    margin-right: -3px;
-    padding-right: 10px;
-    padding-top: 4px;
-  }
-  h2 {
+  h1 {
     color: rgba(255, 255, 255, 0.932);
     margin-bottom: 5px;
     font-family: "Overpass", Verdana, Geneva, Tahoma, sans-serif;
     font-size: 30px;
     position: relative;
-    top: -15px;
+    margin-top: 60px;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     transition: all 200ms ease-out;
-
-    span {
-      font-family: "Overpass Mono", Verdana, Geneva, Tahoma, sans-serif;
-      font-size: 23px;
-      color: #64ffda;
-      margin-right: -3px;
-    }
   }
 
   .es6 {
@@ -48,6 +32,7 @@
     display: flex;
     max-width: 950px;
     justify-content: space-between;
+    width: 100%;
   }
 
   .hyperlink {
@@ -76,12 +61,13 @@
   .img-container {
     display: flex;
     justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    align-items: flex-start;
+    // flex-direction: column;
+    padding: 50px 30px 0 20px;
   }
 
   img {
-    width: 300px;
+    width: 400px;
     height: auto;
     border-radius: 3px;
     transition: all 200ms ease-out;
@@ -89,33 +75,89 @@
     animation: floating 5s infinite ease-in-out;
   }
 
-  .iconsContainerMobile {
-    display: none;
-  }
   .iconsContainer {
-    margin-top: 80px;
-    padding: 20px;
+    margin-top: 50px;
+    padding: 30px;
     background-color: rgba(45, 52, 65, 0.5);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    max-width: 950px;
+    width: 100%;
+    border-radius: 4px;
+
     .langIcons {
       display: flex;
-      align-items: start;
+      align-items: center;
       flex-direction: column;
-      p {
-        margin: 0 !important;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(100, 255, 218, 0.1);
+      border-radius: 8px;
+      transition: all 300ms ease-out;
+      min-width: 180px;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.06);
+        border-color: rgba(100, 255, 218, 0.4);
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
       }
+
+      p {
+        margin: 0 0 15px 0 !important;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--green);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        text-align: center;
+        opacity: 0.8;
+      }
+
       div {
         display: flex;
-        margin-bottom: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 20px;
         a {
-          width: 100%;
-          padding: 3px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 6px;
+          padding: 5px;
+          transition: all 200ms ease;
+          text-decoration: none;
+
           svg {
-            color: var(--green);
-            opacity: 0.6;
+            color: #ffffff;
+            opacity: 0.7;
+            width: 28px;
+            height: 28px;
+            transition: all 200ms ease;
           }
-        }
-        a svg:hover {
-          opacity: 1;
+
+          .iconTitle {
+            font-size: 11px;
+            color: var(--slate);
+            font-family: "Overpass Mono", monospace;
+            opacity: 0.8;
+            transition: all 200ms ease;
+            text-align: center;
+          }
+
+          &:hover {
+            svg {
+              opacity: 1;
+              color: var(--green);
+              transform: translateY(-2px);
+            }
+            .iconTitle {
+              opacity: 1;
+              color: var(--white);
+            }
+          }
         }
       }
     }
@@ -161,46 +203,63 @@
   padding-top: 50px;
   padding-right: 20px;
   padding-left: 20px;
-  width: 50%;
+  width: 60%;
+
+  .text-large-screen {
+    display: block;
+  }
+
+  .text-small-screen {
+    display: none;
+  }
 }
+
+@media only screen and (max-width: 1330px) {
+  .about-box {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+
+  .about-description {
+    width: 100%;
+    text-align: center;
+
+    p {
+      text-align: justify;
+    }
+
+    .text-large-screen {
+      display: none;
+    }
+
+    .text-small-screen {
+      display: block;
+    }
+    .skills {
+      text-align: left;
+    }
+  }
+
+  .img-container {
+    width: 100%;
+    padding: 0 20px 30px 20px;
+    align-items: center;
+  }
+}
+
 @media only screen and (max-width: 1050px) {
   .AboutMe {
-    padding: 0 80px;
-    padding-top: 150px;
+    padding: 150px 80px 0 80px;
     margin-top: -150px;
     .about-box {
       justify-content: space-around;
     }
   }
-  .img-container {
-    img {
-      width: 225px;
-    }
-  }
-  .iconsContainer {
-    margin-top: 80px;
-    padding: 80px;
-    background-color: rgba(45, 52, 65, 0.5);
-    .langIcons {
-      div {
-        flex-wrap: nowrap;
-        a {
-          width: 40px;
-          padding: 2px;
-        }
-      }
-    }
-  }
-}
-@media only screen and (max-width: 1050px) {
-  .AboutMe {
-    padding: 150px 80px 0 80px;
-  }
 }
 
 @media only screen and (max-width: 900px) {
   .about-box {
-    flex-direction: column;
+    flex-direction: column-reverse;
     align-items: center;
   }
 
@@ -229,36 +288,16 @@
       margin-right: 20px;
     }
   }
+
   .iconsContainer {
-    display: none;
-  }
-  .iconsContainerMobile {
-    display: flex !important;
-    flex-direction: column;
-    margin: 80px 0;
+    margin-top: 40px;
     padding: 20px;
-    background-color: rgba(45, 52, 65, 0.5);
+    gap: 20px;
+
     .langIcons {
-      display: flex;
-      align-items: start;
-      flex-direction: column;
-      p {
-        margin: 0 !important;
-      }
       div {
-        display: flex;
-        margin-bottom: 15px;
-        a {
-          width: 100%;
-          padding: 3px;
-          svg {
-            color: var(--green);
-            opacity: 0.6;
-          }
-        }
-        a svg:hover {
-          opacity: 1;
-        }
+        gap: 15px;
+        flex-wrap: wrap;
       }
     }
   }
@@ -267,14 +306,11 @@
   .AboutMe {
     padding: 150px 40px 0 40px;
   }
-  .langIcons {
-    div {
-      a {
-        padding: 2.5px;
-        svg {
-          width: 17.5px;
-        }
-      }
+}
+@media only screen and (max-width: 650px) {
+  .AboutMe {
+    h1 {
+      margin-top: 120px;
     }
   }
 }
@@ -283,23 +319,39 @@
     padding: 150px 22px 0 22px;
     img {
       width: 250px;
-      margin-right: 20px;
+      margin-bottom: 20px;
     }
-    h2 {
+    h1 {
       font-size: 25px;
     }
     .about-description {
       p {
         font-size: 14px;
+        text-align: center;
+      }
+    }
+    .iconsContainer {
+      padding: 15px;
+      gap: 15px;
+      .langIcons {
+        p {
+          font-size: 12px;
+        }
+        div {
+          gap: 10px;
+          a svg {
+            width: 20px;
+            height: 20px;
+          }
+        }
       }
     }
   }
 }
 @media only screen and (max-width: 420px) {
   .AboutMe {
-    h2 {
+    h1 {
       font-size: 25px;
-      top: 20px;
     }
   }
 }
@@ -314,7 +366,6 @@
   .AboutMe {
     img {
       width: 200px;
-      margin-right: 15px;
     }
     .about-description {
       padding-left: 10px;
@@ -324,18 +375,8 @@
 }
 @media only screen and (max-width: 330px) {
   .AboutMe {
-    h2,
-    .number-heading {
+    h1 {
       font-size: 19px;
-    }
-  }
-  .langIcons {
-    div {
-      flex-wrap: wrap;
-      a {
-        width: 40px !important;
-        padding: 1.5px;
-      }
     }
   }
 }

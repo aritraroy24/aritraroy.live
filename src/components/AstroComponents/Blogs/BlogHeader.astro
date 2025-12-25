@@ -18,7 +18,7 @@ const { tags, title, subtitle, duration, pubDate, cover } = Astro.props;
 ---
 
 <>
-  <Header isHomePage={false} client:only="react" />
+  <Header client:only="react" />
   <header class="blogHeaderContainer">
     <BackButton
       text="Back"
