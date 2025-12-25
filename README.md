@@ -71,4 +71,4 @@ npm run prebuild
 
 ---
 
-Built with ❤️ using [Astro](https://astro.build) and
+Built with ❤️ using [Astro](https://astro.build).
