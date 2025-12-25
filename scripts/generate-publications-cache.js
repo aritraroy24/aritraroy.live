@@ -41,8 +41,8 @@ async function loadExisting() {
         const dateMatch = content.match(/const generationDate = ['"]([^'"]+)['"]/);
         const generationDate = dateMatch ? dateMatch[1] : null;
 
-        // Extract works array
-        const worksMatch = content.match(/const publications = ([\s\S]*?);/);
+        // Extract works array (match until ];)
+        const worksMatch = content.match(/const publications = (\[[\s\S]*?\]);/);
         if (worksMatch) {
             return {
                 works: JSON.parse(worksMatch[1]),
