@@ -90,7 +90,6 @@
   }
   div div div {
     display: flex;
-    align-items: center;
     flex-direction: column;
     div {
       margin-bottom: 30px;
@@ -137,25 +136,74 @@
     display: flex;
     justify-content: flex-end;
     position: relative;
+    height: 0;
+    z-index: 10;
+
     .show,
     .feedback {
-      position: absolute;
-      z-index: 10;
-      width: 70px;
-      right: -60px;
-      margin-top: -40px;
+      position: absolute !important;
+      z-index: 100 !important;
+      width: 100px !important;
+      right: -35px !important;
+      top: -65px !important;
+      text-align: center !important;
+      padding: 5px !important;
+      border-radius: 4px !important;
+      font-size: 14px !important;
+      display: block !important;
+      white-space: nowrap !important;
+      pointer-events: none !important;
+      &::after,
+      &::before {
+        display: none !important;
+        content: none !important;
+        border: none !important;
+      }
+    }
+    .feedback {
+      background-color: var(--green) !important;
+      color: var(--navy) !important;
+      border-radius: 8px 0 8px 8px !important;
+      top: 0 !important;
+      right: 15px !important;
+      font-weight: 600 !important;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2) !important;
+      width: fit-content !important;
+      padding: 5px 15px !important;
     }
   }
+  .copied-text {
+    background: var(--green);
+    color: var(--navy);
+    padding: 5px 15px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 8px 0 8px 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    margin-top: -2px;
+    z-index: 10;
+    width: fit-content;
+  }
 }
-.expressive-code .copy button div {
-  display: none;
+
+.expressive-code .copy {
+  position: relative;
+  height: 0;
+  button {
+    position: relative;
+    top: 5px;
+    div {
+      display: none !important;
+    }
+  }
 }
 // Customizing code blocks
 pre {
   padding: 0 1.35rem !important;
 }
 code {
-  overflow-x: scroll !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
   width: calc(40vw - 1.35rem) !important;
 }
 .ec-line {
@@ -200,7 +248,8 @@ code {
     }
   }
   code {
-    overflow-x: scroll !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
     width: calc(50vw - 1.35rem) !important;
   }
 }
@@ -235,7 +284,8 @@ code {
     }
   }
   code {
-    overflow-x: scroll !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
     width: calc(60vw - 1.35rem) !important;
   }
 }
@@ -271,7 +321,8 @@ code {
     padding: 0 0.75rem !important;
   }
   code {
-    overflow-x: scroll !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
     width: calc(100vw - 0.75rem - 80px) !important;
   }
 }

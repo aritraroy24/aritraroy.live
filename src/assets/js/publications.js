@@ -586,12 +586,12 @@ function initializeCollapseButtons() {
             const bibtexContent = btn.previousElementSibling.textContent;
 
             navigator.clipboard.writeText(bibtexContent).then(() => {
-                const originalText = btn.textContent;
                 btn.textContent = 'Copied!';
                 btn.classList.add('copied');
+                btn.blur(); // Remove focus after copying
 
                 setTimeout(() => {
-                    btn.textContent = originalText;
+                    btn.textContent = 'Copy';
                     btn.classList.remove('copied');
                 }, 2000);
             });

@@ -49,14 +49,13 @@
                 color: #64ffda;
                 text-decoration: none;
                 transition: all 200ms ease-out;
-
-                &:hover {
-                    color: rgba(255, 47, 82, 0.685);
-                }
             }
 
             span {
                 color: #64ffda;
+                &:hover {
+                    text-decoration: wavy underline;
+                }
             }
         }
     }
