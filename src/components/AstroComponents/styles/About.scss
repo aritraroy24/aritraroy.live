@@ -225,7 +225,7 @@
     text-align: center;
 
     p {
-      text-align: center;
+      text-align: justify;
     }
 
     .text-large-screen {
@@ -234,6 +234,9 @@
 
     .text-small-screen {
       display: block;
+    }
+    .skills {
+      text-align: left;
     }
   }
 
@@ -324,6 +327,7 @@
     .about-description {
       p {
         font-size: 14px;
+        text-align: center;
       }
     }
     .iconsContainer {

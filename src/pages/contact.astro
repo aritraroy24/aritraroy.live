@@ -4,7 +4,7 @@ import Layout from "@layouts/Layout.astro";
 
 // component import
 import Header from "@components/AstroIslands/Common/Header";
-import Contact from "@components/AstroComponents/Contact.astro";
+import ContactSection from "@components/AstroComponents/Contact.astro";
 import Socials from "@components/AstroComponents/Socials.astro";
 import Footer from "@components/AstroComponents/Footer.astro";
 
@@ -20,6 +20,6 @@ const {
 <Layout title={pageTitle} description={pageDescription} {frontmatter} {cover}>
   <Header client:only="react" />
   <Socials />
-  <Contact />
+  <ContactSection />
   <Footer />
 </Layout>

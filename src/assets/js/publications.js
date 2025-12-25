@@ -1,10 +1,76 @@
+import publicationsStatic, { generationDate } from './data/publications-cache.js';
+
 // ORCID API Configuration
-const ORCID_ID = '0000-0003-0243-9124'; // Replace with your ORCID ID
-const USER_NAME = 'Roy'; // Your last name to make it bold in author lists
-const MAX_PUBLICATIONS_HOMEPAGE = 2; // Show only 2 on homepage
+const ORCID_ID = '0000-0003-0243-9124';
+const USER_NAME = 'Aritra Roy';
+const MAX_PUBLICATIONS_HOMEPAGE = 2;
 const IS_HOMEPAGE = window.location.pathname === '/' || window.location.pathname.includes('index');
 
-// Fetch publications from ORCID
+// Cache configuration
+const CACHE_KEY = 'publications_cache';
+const CACHE_TIMESTAMP_KEY = 'publications_cache_timestamp';
+const CACHE_EXPIRY_DAYS = 30;
+
+// Check if cache is expired (older than 30 days)
+function isCacheExpired() {
+    const timestamp = localStorage.getItem(CACHE_TIMESTAMP_KEY);
+    const genDate = generationDate ? new Date(generationDate) : new Date(0);
+
+    // Use the most recent of either localStorage timestamp or static cache generation date
+    const lastUpdate = timestamp ? new Date(timestamp) : genDate;
+
+    const now = new Date();
+    const daysDiff = (now - lastUpdate) / (1000 * 60 * 60 * 24);
+
+    return daysDiff > CACHE_EXPIRY_DAYS;
+}
+
+// Get cached publications (merging static and local)
+function getCachedPublications() {
+    try {
+        const localCached = localStorage.getItem(CACHE_KEY);
+        const localWorks = localCached ? JSON.parse(localCached) : [];
+        const staticWorks = publicationsStatic || [];
+
+        // Return the one with more data
+        return localWorks.length >= staticWorks.length ? localWorks : staticWorks;
+    } catch (error) {
+        console.error('Error reading cache:', error);
+        return publicationsStatic || [];
+    }
+}
+
+// Save publications to localStorage cache
+function saveToCache(works) {
+    try {
+        localStorage.setItem(CACHE_KEY, JSON.stringify(works));
+        localStorage.setItem(CACHE_TIMESTAMP_KEY, new Date().toISOString());
+        console.log(`✓ Saved ${works.length} publications to cache`);
+    } catch (error) {
+        console.error('Error saving to cache:', error);
+    }
+}
+
+// Fetch publications from ORCID API
+async function fetchFromORCID() {
+    console.log('Fetching from ORCID API...');
+    const response = await fetch(`https://pub.orcid.org/v3.0/${ORCID_ID}/works`, {
+        headers: {
+            'Accept': 'application/json'
+        }
+    });
+
+    if (!response.ok) {
+        throw new Error(`ORCID API returned status ${response.status}`);
+    }
+
+    const data = await response.json();
+    const works = data.group || [];
+    console.log(`✓ Fetched ${works.length} publications from ORCID`);
+    return works;
+}
+
+// Main fetch function with smart caching
 async function fetchPublications() {
     const loader = document.getElementById('publications-loader');
     const container = document.getElementById('publications-container');
@@ -12,23 +78,48 @@ async function fetchPublications() {
     if (!loader || !container) return;
 
     try {
-        // Fetch works from ORCID API
-        const response = await fetch(`https://pub.orcid.org/v3.0/${ORCID_ID}/works`, {
-            headers: {
-                'Accept': 'application/json'
-            }
-        });
+        let works = getCachedPublications();
+        const isExpired = isCacheExpired();
 
-        if (!response.ok) {
-            throw new Error('Failed to fetch publications');
+        console.log(`✓ Loaded ${works.length} publications from cache`);
+
+        // Check for updates if cache is expired OR we want to check for new publications
+        if (isExpired || works.length > 0) {
+            try {
+                // Fetch latest from ORCID to check count
+                const freshWorks = await fetchFromORCID();
+
+                // If ORCID has more publications OR cache is expired, update
+                if (freshWorks.length > works.length || isExpired) {
+                    if (freshWorks.length > works.length) {
+                        console.log(`ℹ Found ${freshWorks.length - works.length} new publications, updating cache...`);
+                    } else {
+                        console.log('ℹ Cache expired, updating with fresh data...');
+                    }
+                    works = freshWorks;
+                    saveToCache(freshWorks);
+                } else {
+                    console.log('✓ Cache is up to date and fresh');
+                }
+            } catch (error) {
+                console.log('ℹ Could not check for updates, using cached data');
+            }
+        } else if (works.length === 0) {
+            // No cache available at all, must fetch
+            works = await fetchFromORCID();
+            saveToCache(works);
         }
 
-        const data = await response.json();
-        const works = data.group || [];
+        // Convert works to work summaries format
+        const workSummaries = works.map(workGroup => {
+            if (workGroup['work-summary']) {
+                return workGroup['work-summary'][0];
+            }
+            return workGroup;
+        });
 
         // Sort by publication date (most recent first)
-        const sortedWorks = works
-            .map((workGroup) => workGroup['work-summary']?.[0])
+        const sortedWorks = workSummaries
             .filter((work) => work !== undefined)
             .sort((a, b) => {
                 const dateA = a['publication-date'];
@@ -101,7 +192,7 @@ async function fetchPublications() {
                 const numberDiv = document.createElement('div');
                 numberDiv.className = 'publication-number';
                 numberDiv.textContent = (pub.displayNumber || '') + '.';
-                
+
                 fragment.appendChild(numberDiv);
                 fragment.appendChild(pub.item);
             }
@@ -234,7 +325,7 @@ async function fetchArxivMetadata(arxivId) {
     }
 }
 
-// Format authors list with bold for user's name
+// Format authors list with highlight for user's name
 function formatAuthors(authors) {
     console.log('formatAuthors called with:', authors);
 
@@ -248,9 +339,9 @@ function formatAuthors(authors) {
         const family = author.family || '';
         const fullName = `${given} ${family}`.trim();
 
-        // Check if this is the user's name and make it bold
-        if (family === USER_NAME) {
-            return `<strong>${fullName}</strong>`;
+        // Check if this is the user's name and highlight it
+        if (fullName === USER_NAME) {
+            return `<span style="color: #64ffda;">${fullName}</span>`;
         }
         return fullName;
     });
@@ -464,7 +555,7 @@ async function createPublicationItem(work) {
       </div>
       <div class="bibtex-container" style="display: none;">
         <pre class="bibtex-content">${bibtex}</pre>
-        <button class="copy-bibtex-btn">Copy</button>
+        <button class="copy-bibtex-btn">BibTeX</button>
       </div>
     </div>
   `;
@@ -586,12 +677,13 @@ function initializeCollapseButtons() {
             const bibtexContent = btn.previousElementSibling.textContent;
 
             navigator.clipboard.writeText(bibtexContent).then(() => {
+                const originalText = btn.textContent;
                 btn.textContent = 'Copied!';
                 btn.classList.add('copied');
                 btn.blur(); // Remove focus after copying
 
                 setTimeout(() => {
-                    btn.textContent = 'Copy';
+                    btn.textContent = originalText;
                     btn.classList.remove('copied');
                 }, 2000);
             });

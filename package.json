@@ -5,11 +5,12 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "prebuild": "node scripts/generate-collaborators-cache.js",
+    "prebuild": "node scripts/generate-collaborators-cache.js && node scripts/generate-publications-cache.js",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "generate-collaborators": "node scripts/generate-collaborators-cache.js --force"
+    "generate-collaborators": "node scripts/generate-collaborators-cache.js --force",
+    "generate-publications": "node scripts/generate-publications-cache.js"
   },
   "dependencies": {
     "@astrojs/markdown-remark": "^6.3.10",

@@ -1,6 +1,6 @@
 // Auto-generated collaborator data
-// Last updated: 2025-12-24T12:07:06.209Z
-const generationDate = '2025-12-24T12:07:06.209Z';
+// Last updated: 2025-12-25T01:42:17.717Z
+const generationDate = '2025-12-25T01:42:17.717Z';
 
 const collaborators = [
   {
@@ -70,8 +70,7 @@ const collaborators = [
       "city": "Silchar",
       "country": "India",
       "latitude": 24.7552219,
-      "longitude": 92.7874485,
-      "manual": true
+      "longitude": 92.7874485
     },
     "currentAffiliation": {
       "name": "National Institute Of Technology Silchar",
@@ -104,16 +103,14 @@ const collaborators = [
       "city": "Silchar",
       "country": "India",
       "latitude": 24.7552219,
-      "longitude": 92.7874485,
-      "manual": true
+      "longitude": 92.7874485
     },
     "currentAffiliation": {
       "name": "National Institute Of Technology Silchar",
       "city": "Silchar",
       "country": "India",
       "latitude": 24.7552219,
-      "longitude": 92.7874485,
-      "manual": true
+      "longitude": 92.7874485
     },
     "updatedManually": true
   },
@@ -138,16 +135,14 @@ const collaborators = [
       "city": "Silchar",
       "country": "India",
       "latitude": 24.7552219,
-      "longitude": 92.7874485,
-      "manual": true
+      "longitude": 92.7874485
     },
     "currentAffiliation": {
       "name": "National Institute Of Technology Silchar",
       "city": "Silchar",
       "country": "India",
       "latitude": 24.7552219,
-      "longitude": 92.7874485,
-      "manual": true
+      "longitude": 92.7874485
     },
     "updatedManually": true
   },
@@ -228,16 +223,14 @@ const collaborators = [
       "city": "Silchar",
       "country": "India",
       "latitude": 24.7552219,
-      "longitude": 92.7874485,
-      "manual": true
+      "longitude": 92.7874485
     },
     "currentAffiliation": {
       "name": "National Institute Of Technology Silchar",
       "city": "Silchar",
       "country": "India",
       "latitude": 24.7552219,
-      "longitude": 92.7874485,
-      "manual": true
+      "longitude": 92.7874485
     },
     "updatedManually": true
   },
@@ -266,8 +259,7 @@ const collaborators = [
       "city": "Palakkad",
       "country": "India",
       "latitude": 10.8018655,
-      "longitude": 76.8185065,
-      "manual": true
+      "longitude": 76.8185065
     },
     "updatedManually": true
   },
@@ -926,8 +918,7 @@ const collaborators = [
       "city": "Lausanne",
       "country": "Switzerland",
       "latitude": 46.5186594,
-      "longitude": 6.5665615,
-      "manual": true
+      "longitude": 6.5665615
     },
     "updatedManually": true
   },
@@ -1158,16 +1149,14 @@ const collaborators = [
       "city": "Lausanne",
       "country": "Switzerland",
       "latitude": 46.5186594,
-      "longitude": 6.5665615,
-      "manual": true
+      "longitude": 6.5665615
     },
     "currentAffiliation": {
       "name": "École Polytechnique Fédérale de Lausanne",
       "city": "Lausanne",
       "country": "Switzerland",
       "latitude": 46.5186594,
-      "longitude": 6.5665615,
-      "manual": true
+      "longitude": 6.5665615
     },
     "updatedManually": true
   },
@@ -1428,16 +1417,14 @@ const collaborators = [
       "city": "Gandhinagar",
       "country": "India",
       "latitude": 23.1563544,
-      "longitude": 72.6652774,
-      "manual": true
+      "longitude": 72.6652774
     },
     "currentAffiliation": {
       "name": "Pandit Deendayal Petroleum University",
       "city": "Gandhinagar",
       "country": "India",
       "latitude": 23.1563544,
-      "longitude": 72.6652774,
-      "manual": true
+      "longitude": 72.6652774
     },
     "updatedManually": true
   },
@@ -1458,16 +1445,14 @@ const collaborators = [
       "city": "Toronto",
       "country": "Canada",
       "latitude": 43.6976648,
-      "longitude": -79.3989186,
-      "manual": true
+      "longitude": -79.3989186
     },
     "currentAffiliation": {
       "name": "CIC biomaGUNE",
       "city": "San Sebastián",
       "country": "Spain",
       "latitude": 43.2888456,
-      "longitude": -1.9832498,
-      "manual": true
+      "longitude": -1.9832498
     },
     "updatedManually": true
   },
@@ -1488,8 +1473,7 @@ const collaborators = [
       "city": "Gandhinagar",
       "country": "India",
       "latitude": 23.1563544,
-      "longitude": 72.6652774,
-      "manual": true
+      "longitude": 72.6652774
     },
     "currentAffiliation": {
       "name": "Amrita Vishwa Vidyapeetham",
@@ -1518,16 +1502,14 @@ const collaborators = [
       "city": "Gandhinagar",
       "country": "India",
       "latitude": 23.1563544,
-      "longitude": 72.6652774,
-      "manual": true
+      "longitude": 72.6652774
     },
     "currentAffiliation": {
       "name": "Pandit Deendayal Petroleum University",
       "city": "Gandhinagar",
       "country": "India",
       "latitude": 23.1563544,
-      "longitude": 72.6652774,
-      "manual": true
+      "longitude": 72.6652774
     },
     "updatedManually": true
   },
