@@ -39,7 +39,8 @@
   text-align: center;
 }
 
-.collaborators-loader {
+.collaborators-loader,
+.globe-loader-section {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -53,22 +54,17 @@
     }
 }
 
-.loader-spinner {
-    border: 3px solid rgba(96, 255, 217, 0.2);
-    border-top: 3px solid #60ffd9;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    animation: spin 1s linear infinite;
+.globe-loader-section {
+    min-height: 500px;
+
+    @media (max-width: 768px) {
+        display: none;
+    }
 }
 
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
+.loader-spinner {
+    width: 80px;
+    height: 80px;
 }
 
 // Collaborators Container
@@ -79,11 +75,23 @@
     max-width: 1400px;
     margin: 0 auto;
     padding: 20px;
+    animation: fadeIn 0.5s ease-in;
 
     // Center single card
     &:has(.collaborator-card:only-child) {
         grid-template-columns: 1fr;
         max-width: 450px;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 

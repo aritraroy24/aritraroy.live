@@ -193,6 +193,12 @@ const CollaboratorsGlobe: React.FC = () => {
       }
 
       setHasInitializedPOV(true);
+
+      // Dispatch event to notify that globe is ready
+      setTimeout(() => {
+        const event = new CustomEvent('globeReady');
+        window.dispatchEvent(event);
+      }, 500);
     }
   }, [dimensions.width, hasInitializedPOV]);
 
@@ -245,14 +251,14 @@ const CollaboratorsGlobe: React.FC = () => {
             htmlAltitude={0.001}
             htmlElement={(d: any) => {
               const el = document.createElement('div');
-              const isActive = clickedLocation && 
-                               Math.abs(clickedLocation.lat - d.lat) < 0.01 && 
+              const isActive = clickedLocation &&
+                               Math.abs(clickedLocation.lat - d.lat) < 0.01 &&
                                Math.abs(clickedLocation.lng - d.lng) < 0.01;
-              
+
               const baseSize = 10;
               const scaleFactor = 5;
               let size = baseSize + Math.sqrt(d.totalPublications) * scaleFactor;
-              
+
               if (isActive) {
                 size *= 1.5; // Make active pin bigger
               }
