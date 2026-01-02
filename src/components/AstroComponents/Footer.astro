@@ -10,8 +10,6 @@ import "./styles/Footer.scss";
 
 // import data
 import socials from "@js/data/socials";
-
-const year = new Date().getFullYear();
 ---
 
 <footer class="Footer" id="footer">
@@ -37,10 +35,14 @@ const year = new Date().getFullYear();
   <Newsletter />
   <div class="copyrightDiv">
     <p>
-      &copy; {year}
+      &copy; <span id="copyright-year"></span>
       <a href="/"><span>aritraroy.live</span></a>
     </p>
     <p>❤️</p>
     <p>All rights reserved.</p>
   </div>
 </footer>
+
+<script>
+  document.getElementById('copyright-year')!.textContent = new Date().getFullYear().toString();
+</script>

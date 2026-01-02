@@ -21,14 +21,14 @@ import "../assets/styles/publications.scss";
 <Layout title={pageTitle} description={pageDescription} {frontmatter} {cover}>
   <script is:inline>
     // Immediately hide global preloader on this page
-    (function() {
-      const preloader = document.getElementById('preloader');
+    (function () {
+      const preloader = document.getElementById("preloader");
       if (preloader) {
         preloader.remove();
       }
-      const root = document.getElementById('root');
+      const root = document.getElementById("root");
       if (root) {
-        root.style.display = 'grid';
+        root.style.display = "grid";
       }
     })();
   </script>
@@ -36,7 +36,7 @@ import "../assets/styles/publications.scss";
   <Socials />
   <div class="postsNavigationDiv">
     <!-- publications heading section -->
-    <h1 class="publications-main-title">Our Publications</h1>
+    <h1 class="publications-main-title">My Publications</h1>
     <p class="publications-subtitle">
       Explore my latest research contributions and scholarly works
     </p>
@@ -68,4 +68,3 @@ import "../assets/styles/publications.scss";
 </Layout>
 
 <script src="../assets/js/publications.js"></script>
-
