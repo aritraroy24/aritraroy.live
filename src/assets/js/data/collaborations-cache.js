@@ -1,6 +1,6 @@
 // Auto-generated collaborator data
-// Last updated: 2026-01-02T23:59:31.677Z
-const generationDate = '2026-01-02T23:59:31.677Z';
+// Last updated: 2026-02-03T00:59:39.574Z
+const generationDate = '2026-02-03T00:59:39.574Z';
 
 const collaborators = [
   {
@@ -9,10 +9,6 @@ const collaborators = [
     "orcid": "https://orcid.org/0000-0002-8200-8262",
     "collaborations": 5,
     "dois": [
-      {
-        "doi": "https://doi.org/10.1039/d3sd00183k",
-        "title": "A simple copper(<scp>ii</scp>) dppy-based receptor for sensing of <scp>l</scp>-cysteine and <scp>l</scp>-histidine in aqueous acetonitrile medium"
-      },
       {
         "doi": "https://doi.org/10.1016/j.jphotochem.2024.116154",
         "title": "A copper complex receptor for nanomolar sulfide sensing and applications in DNA/BSA binding"
@@ -24,6 +20,10 @@ const collaborators = [
       {
         "doi": "https://doi.org/10.1021/acsanm.5c03716",
         "title": "Pristine Nanostructured α-Ni(OH) <sub>2</sub> as a Nonenzymatic Electrochemical Strip Sensor for Trace Detection of Phenolic Compounds"
+      },
+      {
+        "doi": "https://doi.org/10.1039/d3sd00183k",
+        "title": "A simple copper(<scp>ii</scp>) dppy-based receptor for sensing of <scp>l</scp>-cysteine and <scp>l</scp>-histidine in aqueous acetonitrile medium"
       },
       {
         "doi": "https://doi.org/10.1039/d5nj04215a",
@@ -50,18 +50,18 @@ const collaborators = [
     "updatedManually": false
   },
   {
-    "id": "https://openalex.org/A5101960351",
+    "id": "https://openalex.org/A5082064131",
     "name": "Dipankar Das",
-    "orcid": "https://orcid.org/0000-0001-7842-8179",
+    "orcid": "https://orcid.org/0000-0001-9298-6871",
     "collaborations": 2,
     "dois": [
       {
-        "doi": "https://doi.org/10.1039/d3sd00183k",
-        "title": "A simple copper(<scp>ii</scp>) dppy-based receptor for sensing of <scp>l</scp>-cysteine and <scp>l</scp>-histidine in aqueous acetonitrile medium"
-      },
-      {
         "doi": "https://doi.org/10.1016/j.jphotochem.2024.116154",
         "title": "A copper complex receptor for nanomolar sulfide sensing and applications in DNA/BSA binding"
+      },
+      {
+        "doi": "https://doi.org/10.1039/d3sd00183k",
+        "title": "A simple copper(<scp>ii</scp>) dppy-based receptor for sensing of <scp>l</scp>-cysteine and <scp>l</scp>-histidine in aqueous acetonitrile medium"
       }
     ],
     "latestPaperYear": 2024,
@@ -77,8 +77,7 @@ const collaborators = [
       "city": "Silchar",
       "country": "India",
       "latitude": 24.7552219,
-      "longitude": 92.7874485,
-      "manual": true
+      "longitude": 92.7874485
     },
     "updatedManually": true
   },
@@ -89,12 +88,12 @@ const collaborators = [
     "collaborations": 2,
     "dois": [
       {
-        "doi": "https://doi.org/10.1039/d3sd00183k",
-        "title": "A simple copper(<scp>ii</scp>) dppy-based receptor for sensing of <scp>l</scp>-cysteine and <scp>l</scp>-histidine in aqueous acetonitrile medium"
-      },
-      {
         "doi": "https://doi.org/10.1016/j.jphotochem.2024.116154",
         "title": "A copper complex receptor for nanomolar sulfide sensing and applications in DNA/BSA binding"
+      },
+      {
+        "doi": "https://doi.org/10.1039/d3sd00183k",
+        "title": "A simple copper(<scp>ii</scp>) dppy-based receptor for sensing of <scp>l</scp>-cysteine and <scp>l</scp>-histidine in aqueous acetonitrile medium"
       }
     ],
     "latestPaperYear": 2024,
@@ -121,12 +120,12 @@ const collaborators = [
     "collaborations": 2,
     "dois": [
       {
-        "doi": "https://doi.org/10.1039/d3sd00183k",
-        "title": "A simple copper(<scp>ii</scp>) dppy-based receptor for sensing of <scp>l</scp>-cysteine and <scp>l</scp>-histidine in aqueous acetonitrile medium"
-      },
-      {
         "doi": "https://doi.org/10.1016/j.jphotochem.2024.116154",
         "title": "A copper complex receptor for nanomolar sulfide sensing and applications in DNA/BSA binding"
+      },
+      {
+        "doi": "https://doi.org/10.1039/d3sd00183k",
+        "title": "A simple copper(<scp>ii</scp>) dppy-based receptor for sensing of <scp>l</scp>-cysteine and <scp>l</scp>-histidine in aqueous acetonitrile medium"
       }
     ],
     "latestPaperYear": 2024,
@@ -344,11 +343,11 @@ const collaborators = [
       "manual": false
     },
     "currentAffiliation": {
-      "name": "Institute of Inorganic Chemistry of the Slovak Academy of Sciences",
-      "city": "Vieska nad Žitavou",
-      "country": "Slovakia",
-      "latitude": 48.3198619,
-      "longitude": 18.369856291310015,
+      "name": "University of Würzburg",
+      "city": "Würzburg",
+      "country": "Germany",
+      "latitude": 49.78060885,
+      "longitude": 9.971636668405157,
       "manual": false
     },
     "updatedManually": false
@@ -374,14 +373,127 @@ const collaborators = [
       "manual": false
     },
     "currentAffiliation": {
-      "name": "University of Würzburg",
-      "city": "Würzburg",
-      "country": "Germany",
-      "latitude": 49.78060885,
-      "longitude": 9.971636668405157,
+      "name": "University of Lethbridge",
+      "city": "Lethbridge",
+      "country": "Canada",
+      "latitude": 49.6744567,
+      "longitude": -112.8606051,
       "manual": false
     },
     "updatedManually": false
+  },
+  {
+    "id": "https://openalex.org/A5033826823",
+    "name": "Suman Mondal",
+    "orcid": "https://orcid.org/0009-0004-2062-8644",
+    "collaborations": 1,
+    "dois": [
+      {
+        "doi": "https://doi.org/10.1021/acsanm.5c03716",
+        "title": "Pristine Nanostructured α-Ni(OH) <sub>2</sub> as a Nonenzymatic Electrochemical Strip Sensor for Trace Detection of Phenolic Compounds"
+      }
+    ],
+    "latestPaperYear": 2025,
+    "collaborationAffiliation": {
+      "name": "Pandit Deendayal Petroleum University",
+      "city": "Gandhinagar",
+      "country": "India",
+      "latitude": 23.1563544,
+      "longitude": 72.6652774
+    },
+    "currentAffiliation": {
+      "name": "Pandit Deendayal Petroleum University",
+      "city": "Gandhinagar",
+      "country": "India",
+      "latitude": 23.1563544,
+      "longitude": 72.6652774
+    },
+    "updatedManually": true
+  },
+  {
+    "id": "https://openalex.org/A5042882491",
+    "name": "Rene Pfeifer",
+    "orcid": "https://orcid.org/0000-0002-0750-1321",
+    "collaborations": 1,
+    "dois": [
+      {
+        "doi": "https://doi.org/10.1021/acsanm.5c03716",
+        "title": "Pristine Nanostructured α-Ni(OH) <sub>2</sub> as a Nonenzymatic Electrochemical Strip Sensor for Trace Detection of Phenolic Compounds"
+      }
+    ],
+    "latestPaperYear": 2025,
+    "collaborationAffiliation": {
+      "name": "Digital Research Alliance of Canada",
+      "city": "Toronto",
+      "country": "Canada",
+      "latitude": 43.6976648,
+      "longitude": -79.3989186
+    },
+    "currentAffiliation": {
+      "name": "CIC biomaGUNE",
+      "city": "San Sebastián",
+      "country": "Spain",
+      "latitude": 43.2888456,
+      "longitude": -1.9832498
+    },
+    "updatedManually": true
+  },
+  {
+    "id": "https://openalex.org/A5003314340",
+    "name": "Amitava Choudhury",
+    "orcid": null,
+    "collaborations": 1,
+    "dois": [
+      {
+        "doi": "https://doi.org/10.1021/acsanm.5c03716",
+        "title": "Pristine Nanostructured α-Ni(OH) <sub>2</sub> as a Nonenzymatic Electrochemical Strip Sensor for Trace Detection of Phenolic Compounds"
+      }
+    ],
+    "latestPaperYear": 2025,
+    "collaborationAffiliation": {
+      "name": "Pandit Deendayal Petroleum University",
+      "city": "Gandhinagar",
+      "country": "India",
+      "latitude": 23.1563544,
+      "longitude": 72.6652774
+    },
+    "currentAffiliation": {
+      "name": "Amrita Vishwa Vidyapeetham",
+      "city": "Bengaluru",
+      "country": "India",
+      "latitude": 12.8938021,
+      "longitude": 77.6759379,
+      "manual": false
+    },
+    "updatedManually": true
+  },
+  {
+    "id": "https://openalex.org/A5033973396",
+    "name": "Kalisadhan Mukherjee",
+    "orcid": "https://orcid.org/0000-0002-5431-4246",
+    "collaborations": 1,
+    "dois": [
+      {
+        "doi": "https://doi.org/10.1021/acsanm.5c03716",
+        "title": "Pristine Nanostructured α-Ni(OH) <sub>2</sub> as a Nonenzymatic Electrochemical Strip Sensor for Trace Detection of Phenolic Compounds"
+      }
+    ],
+    "latestPaperYear": 2025,
+    "collaborationAffiliation": {
+      "name": "Pandit Deendayal Petroleum University",
+      "city": "Gandhinagar",
+      "country": "India",
+      "latitude": 23.1563544,
+      "longitude": 72.6652774
+    },
+    "currentAffiliation": {
+      "name": "Pandit Deendayal Petroleum University",
+      "city": "Gandhinagar",
+      "country": "India",
+      "latitude": 23.1563544,
+      "longitude": 72.6652774
+    },
+    "updatedManually": true
   },
   {
     "id": "https://openalex.org/A5099022000",
@@ -475,7 +587,7 @@ const collaborators = [
   },
   {
     "id": "https://openalex.org/A5070684693",
-    "name": "Mehrad Gholizadeh Ansari",
+    "name": "Mehrad Ansari",
     "orcid": "https://orcid.org/0000-0001-5696-9193",
     "collaborations": 1,
     "dois": [
@@ -486,26 +598,26 @@ const collaborators = [
     ],
     "latestPaperYear": 2025,
     "collaborationAffiliation": {
-      "name": "University of Rochester",
-      "city": "City of Rochester",
-      "country": "United States",
-      "latitude": 43.129864,
-      "longitude": -77.628784,
+      "name": "University of Toronto",
+      "city": "Toronto",
+      "country": "Canada",
+      "latitude": 43.6608141,
+      "longitude": -79.3960322,
       "manual": false
     },
     "currentAffiliation": {
-      "name": "University of Rochester",
-      "city": "City of Rochester",
-      "country": "United States",
-      "latitude": 43.129864,
-      "longitude": -77.628784,
+      "name": "University of Toronto",
+      "city": "Toronto",
+      "country": "Canada",
+      "latitude": 43.6608141,
+      "longitude": -79.3960322,
       "manual": false
     },
     "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5000741143",
-    "name": "Joshua David Bocarsly",
+    "name": "Joshua Bocarsly",
     "orcid": "https://orcid.org/0000-0002-7523-152X",
     "collaborations": 1,
     "dois": [
@@ -524,18 +636,18 @@ const collaborators = [
       "manual": false
     },
     "currentAffiliation": {
-      "name": "Superconductor Technologies (United States)",
-      "city": "Atlanta",
-      "country": "United States",
-      "latitude": 33.7741222,
-      "longitude": -84.3843122,
+      "name": "University of Cambridge",
+      "city": "Cambridge",
+      "country": "United Kingdom",
+      "latitude": 52.1890916,
+      "longitude": 0.1212977,
       "manual": false
     },
     "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5021656287",
-    "name": "Cate Brinson",
+    "name": "LC Brinson",
     "orcid": "https://orcid.org/0000-0003-2551-1563",
     "collaborations": 1,
     "dois": [
@@ -576,16 +688,16 @@ const collaborators = [
     ],
     "latestPaperYear": 2025,
     "collaborationAffiliation": {
-      "name": "Lawrence Berkeley National Laboratory",
-      "city": "Oakland",
+      "name": "University of California, Berkeley",
+      "city": "Irvine",
       "country": "United States",
-      "latitude": 37.8769588,
-      "longitude": -122.2456303,
+      "latitude": 33.6487724,
+      "longitude": -117.8364995,
       "manual": false
     },
     "currentAffiliation": {
       "name": "Lawrence Berkeley National Laboratory",
-      "city": "Oakland",
+      "city": "Berkeley",
       "country": "United States",
       "latitude": 37.8769588,
       "longitude": -122.2456303,
@@ -704,11 +816,11 @@ const collaborators = [
       "manual": false
     },
     "currentAffiliation": {
-      "name": "Biogen (Belgium)",
-      "city": "Belgium",
-      "country": "Belgium",
-      "latitude": 50.6402809,
-      "longitude": 4.6667145,
+      "name": "College of West Anglia",
+      "city": "King's Lynn and West Norfolk",
+      "country": "United Kingdom",
+      "latitude": 52.7562198,
+      "longitude": 0.4092043,
       "manual": false
     },
     "updatedManually": false
@@ -756,14 +868,6 @@ const collaborators = [
     ],
     "latestPaperYear": 2025,
     "collaborationAffiliation": {
-      "name": "Federal Institute For Materials Research and Testing",
-      "city": "Moscow",
-      "country": "Russia",
-      "latitude": 55.84809475,
-      "longitude": 37.54265674435073,
-      "manual": false
-    },
-    "currentAffiliation": {
       "name": "Friedrich Schiller University Jena",
       "city": "Jena",
       "country": "Germany",
@@ -771,11 +875,19 @@ const collaborators = [
       "longitude": 11.582889860119629,
       "manual": false
     },
+    "currentAffiliation": {
+      "name": "Federal Institute For Materials Research and Testing",
+      "city": "Greifswald",
+      "country": "Germany",
+      "latitude": 54.18287865,
+      "longitude": 13.367471141544499,
+      "manual": false
+    },
     "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5058042607",
-    "name": "Hassan Mohammad Harb",
+    "name": "Hassan Harb",
     "orcid": "https://orcid.org/0000-0002-6016-3122",
     "collaborations": 1,
     "dois": [
@@ -824,11 +936,11 @@ const collaborators = [
       "manual": false
     },
     "currentAffiliation": {
-      "name": "Duke University",
-      "city": "Durham",
-      "country": "United States",
-      "latitude": 36.0001557,
-      "longitude": -78.9442297,
+      "name": "Sharif University of Technology",
+      "city": "Tehran",
+      "country": "Iran",
+      "latitude": 35.7027174,
+      "longitude": 51.35172,
       "manual": false
     },
     "updatedManually": false
@@ -943,11 +1055,11 @@ const collaborators = [
       "manual": false
     },
     "currentAffiliation": {
-      "name": "Massachusetts Institute of Technology",
-      "city": "Cambridge",
+      "name": "Stevens Institute of Technology",
+      "city": "Hoboken",
       "country": "United States",
-      "latitude": 42.3582529,
-      "longitude": -71.0966272,
+      "latitude": 40.7448096,
+      "longitude": -74.0252392,
       "manual": false
     },
     "updatedManually": false
@@ -965,19 +1077,19 @@ const collaborators = [
     ],
     "latestPaperYear": 2025,
     "collaborationAffiliation": {
-      "name": "Humboldt-Universität zu Berlin",
-      "city": "Berlin",
-      "country": "Germany",
-      "latitude": 52.5183402,
-      "longitude": 13.3929202,
-      "manual": false
-    },
-    "currentAffiliation": {
       "name": "University of Amsterdam",
       "city": "Amsterdam",
       "country": "Netherlands",
       "latitude": 52.3681334,
       "longitude": 4.8898042,
+      "manual": false
+    },
+    "currentAffiliation": {
+      "name": "Humboldt-Universität zu Berlin",
+      "city": "Berlin",
+      "country": "Germany",
+      "latitude": 52.5183402,
+      "longitude": 13.3929202,
       "manual": false
     },
     "updatedManually": false
@@ -1003,11 +1115,11 @@ const collaborators = [
       "manual": false
     },
     "currentAffiliation": {
-      "name": "Vector Institute",
-      "city": "Huddinge",
-      "country": "Sweden",
-      "latitude": 59.219549549999996,
-      "longitude": 17.94005487275674,
+      "name": "University of Toronto",
+      "city": "Toronto",
+      "country": "Canada",
+      "latitude": 43.6608141,
+      "longitude": -79.3960322,
       "manual": false
     },
     "updatedManually": false
@@ -1025,11 +1137,11 @@ const collaborators = [
     ],
     "latestPaperYear": 2025,
     "collaborationAffiliation": {
-      "name": "Federal Institute For Materials Research and Testing",
-      "city": "Moscow",
-      "country": "Russia",
-      "latitude": 55.84809475,
-      "longitude": 37.54265674435073,
+      "name": "Friedrich Schiller University Jena",
+      "city": "Jena",
+      "country": "Germany",
+      "latitude": 50.92526475,
+      "longitude": 11.582889860119629,
       "manual": false
     },
     "currentAffiliation": {
@@ -1063,11 +1175,11 @@ const collaborators = [
       "manual": false
     },
     "currentAffiliation": {
-      "name": "Massachusetts Institute of Technology",
-      "city": "Cambridge",
-      "country": "United States",
-      "latitude": 42.3582529,
-      "longitude": -71.0966272,
+      "name": "Sabancı Üniversitesi",
+      "city": "Tuzla",
+      "country": "Turkey",
+      "latitude": 40.8927159,
+      "longitude": 29.3786332,
       "manual": false
     },
     "updatedManually": false
@@ -1301,11 +1413,11 @@ const collaborators = [
       "manual": false
     },
     "currentAffiliation": {
-      "name": "University of Cologne",
-      "city": "Cologne",
-      "country": "Germany",
-      "latitude": 50.9280446,
-      "longitude": 6.9281305,
+      "name": "Janssen (Belgium)",
+      "city": "'s-Gravenvoeren - Fouron-le-Comte",
+      "country": "Belgium",
+      "latitude": 50.75825985,
+      "longitude": 5.76601533601176,
       "manual": false
     },
     "updatedManually": false
@@ -1361,18 +1473,18 @@ const collaborators = [
       "manual": false
     },
     "currentAffiliation": {
-      "name": "Alex's Lemonade Stand Foundation",
-      "city": "Nashua",
+      "name": "Argonne National Laboratory",
+      "city": "Lemont",
       "country": "United States",
-      "latitude": 42.70866865,
-      "longitude": -71.44352505,
+      "latitude": 41.709141,
+      "longitude": -87.9786195,
       "manual": false
     },
     "updatedManually": false
   },
   {
     "id": "https://openalex.org/A5033890428",
-    "name": "Benjamin Blaiszik",
+    "name": "Ben Blaiszik",
     "orcid": "https://orcid.org/0000-0002-5326-4902",
     "collaborations": 1,
     "dois": [
@@ -1383,6 +1495,14 @@ const collaborators = [
     ],
     "latestPaperYear": 2025,
     "collaborationAffiliation": {
+      "name": "University of Chicago",
+      "city": "Riverside",
+      "country": "United States",
+      "latitude": 33.9685887,
+      "longitude": -117.348498,
+      "manual": false
+    },
+    "currentAffiliation": {
       "name": "Argonne National Laboratory",
       "city": "Lemont",
       "country": "United States",
@@ -1390,128 +1510,7 @@ const collaborators = [
       "longitude": -87.9786195,
       "manual": false
     },
-    "currentAffiliation": {
-      "name": "University of Chicago",
-      "city": "Chicago",
-      "country": "United States",
-      "latitude": 41.7913274,
-      "longitude": -87.6008421,
-      "manual": false
-    },
     "updatedManually": false
-  },
-  {
-    "id": "https://openalex.org/A5033826823",
-    "name": "Suman Mondal",
-    "orcid": null,
-    "collaborations": 1,
-    "dois": [
-      {
-        "doi": "https://doi.org/10.1021/acsanm.5c03716",
-        "title": "Pristine Nanostructured α-Ni(OH) <sub>2</sub> as a Nonenzymatic Electrochemical Strip Sensor for Trace Detection of Phenolic Compounds"
-      }
-    ],
-    "latestPaperYear": 2025,
-    "collaborationAffiliation": {
-      "name": "Pandit Deendayal Petroleum University",
-      "city": "Gandhinagar",
-      "country": "India",
-      "latitude": 23.1563544,
-      "longitude": 72.6652774
-    },
-    "currentAffiliation": {
-      "name": "Pandit Deendayal Petroleum University",
-      "city": "Gandhinagar",
-      "country": "India",
-      "latitude": 23.1563544,
-      "longitude": 72.6652774
-    },
-    "updatedManually": true
-  },
-  {
-    "id": "https://openalex.org/A5042882491",
-    "name": "Rene Pfeifer",
-    "orcid": "https://orcid.org/0000-0002-0750-1321",
-    "collaborations": 1,
-    "dois": [
-      {
-        "doi": "https://doi.org/10.1021/acsanm.5c03716",
-        "title": "Pristine Nanostructured α-Ni(OH) <sub>2</sub> as a Nonenzymatic Electrochemical Strip Sensor for Trace Detection of Phenolic Compounds"
-      }
-    ],
-    "latestPaperYear": 2025,
-    "collaborationAffiliation": {
-      "name": "Digital Research Alliance of Canada",
-      "city": "Toronto",
-      "country": "Canada",
-      "latitude": 43.6976648,
-      "longitude": -79.3989186
-    },
-    "currentAffiliation": {
-      "name": "CIC biomaGUNE",
-      "city": "San Sebastián",
-      "country": "Spain",
-      "latitude": 43.2888456,
-      "longitude": -1.9832498
-    },
-    "updatedManually": true
-  },
-  {
-    "id": "https://openalex.org/A5003314340",
-    "name": "Amitava Choudhury",
-    "orcid": null,
-    "collaborations": 1,
-    "dois": [
-      {
-        "doi": "https://doi.org/10.1021/acsanm.5c03716",
-        "title": "Pristine Nanostructured α-Ni(OH) <sub>2</sub> as a Nonenzymatic Electrochemical Strip Sensor for Trace Detection of Phenolic Compounds"
-      }
-    ],
-    "latestPaperYear": 2025,
-    "collaborationAffiliation": {
-      "name": "Pandit Deendayal Petroleum University",
-      "city": "Gandhinagar",
-      "country": "India",
-      "latitude": 23.1563544,
-      "longitude": 72.6652774
-    },
-    "currentAffiliation": {
-      "name": "Amrita Vishwa Vidyapeetham",
-      "city": "Bengaluru",
-      "country": "India",
-      "latitude": 12.8938021,
-      "longitude": 77.6759379,
-      "manual": false
-    },
-    "updatedManually": true
-  },
-  {
-    "id": "https://openalex.org/A5033973396",
-    "name": "Kalisadhan Mukherjee",
-    "orcid": "https://orcid.org/0000-0002-5431-4246",
-    "collaborations": 1,
-    "dois": [
-      {
-        "doi": "https://doi.org/10.1021/acsanm.5c03716",
-        "title": "Pristine Nanostructured α-Ni(OH) <sub>2</sub> as a Nonenzymatic Electrochemical Strip Sensor for Trace Detection of Phenolic Compounds"
-      }
-    ],
-    "latestPaperYear": 2025,
-    "collaborationAffiliation": {
-      "name": "Pandit Deendayal Petroleum University",
-      "city": "Gandhinagar",
-      "country": "India",
-      "latitude": 23.1563544,
-      "longitude": 72.6652774
-    },
-    "currentAffiliation": {
-      "name": "Pandit Deendayal Petroleum University",
-      "city": "Gandhinagar",
-      "country": "India",
-      "latitude": 23.1563544,
-      "longitude": 72.6652774
-    },
-    "updatedManually": true
   },
   {
     "id": "https://openalex.org/A5036862851",

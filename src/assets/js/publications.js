@@ -1,39 +1,35 @@
 import publicationsStatic, { generationDate } from './data/publications-cache.js';
 
-// ORCID API Configuration
-const ORCID_ID = '0000-0003-0243-9124';
+// Configuration
 const USER_NAME = 'Aritra Roy';
 const MAX_PUBLICATIONS_HOMEPAGE = 2;
 const IS_HOMEPAGE = window.location.pathname === '/' || window.location.pathname.includes('index');
 
 // Cache configuration
-const CACHE_KEY = 'publications_cache';
-const CACHE_TIMESTAMP_KEY = 'publications_cache_timestamp';
-const CACHE_EXPIRY_DAYS = 30;
+const CACHE_KEY = 'publications_cache_v2'; // New version since schema changed
+const CACHE_TIMESTAMP_KEY = 'publications_cache_timestamp_v2';
 
-// Check if cache is expired (older than 30 days)
-function isCacheExpired() {
-    const timestamp = localStorage.getItem(CACHE_TIMESTAMP_KEY);
-    const genDate = generationDate ? new Date(generationDate) : new Date(0);
-
-    // Use the most recent of either localStorage timestamp or static cache generation date
-    const lastUpdate = timestamp ? new Date(timestamp) : genDate;
-
-    const now = new Date();
-    const daysDiff = (now - lastUpdate) / (1000 * 60 * 60 * 24);
-
-    return daysDiff > CACHE_EXPIRY_DAYS;
-}
-
-// Get cached publications (merging static and local)
-function getCachedPublications() {
+// Get publications (preferring localStorage, falling back to static)
+function getPublications() {
     try {
         const localCached = localStorage.getItem(CACHE_KEY);
-        const localWorks = localCached ? JSON.parse(localCached) : [];
-        const staticWorks = publicationsStatic || [];
+        const localTimestamp = localStorage.getItem(CACHE_TIMESTAMP_KEY);
 
-        // Return the one with more data
-        return localWorks.length >= staticWorks.length ? localWorks : staticWorks;
+        // If we have local data and it's not older than our static data, use it
+        if (localCached && localTimestamp) {
+            const localDate = new Date(localTimestamp);
+            const staticDate = new Date(generationDate);
+
+            if (localDate >= staticDate) {
+                console.log('✓ Loaded publications from localStorage');
+                return JSON.parse(localCached);
+            }
+        }
+
+        // Otherwise use static data and save it to localStorage for next time
+        console.log('✓ Loaded publications from static cache');
+        saveToCache(publicationsStatic);
+        return publicationsStatic;
     } catch (error) {
         console.error('Error reading cache:', error);
         return publicationsStatic || [];
@@ -44,96 +40,32 @@ function getCachedPublications() {
 function saveToCache(works) {
     try {
         localStorage.setItem(CACHE_KEY, JSON.stringify(works));
-        localStorage.setItem(CACHE_TIMESTAMP_KEY, new Date().toISOString());
-        console.log(`✓ Saved ${works.length} publications to cache`);
+        localStorage.setItem(CACHE_TIMESTAMP_KEY, generationDate || new Date().toISOString());
+        console.log(`✓ Cached ${works.length} publications to localStorage`);
     } catch (error) {
-        console.error('Error saving to cache:', error);
+        console.warn('Error saving to cache (likely quota exceeded):', error);
     }
 }
 
-// Fetch publications from ORCID API
-async function fetchFromORCID() {
-    console.log('Fetching from ORCID API...');
-    const response = await fetch(`https://pub.orcid.org/v3.0/${ORCID_ID}/works`, {
-        headers: {
-            'Accept': 'application/json'
-        }
-    });
-
-    if (!response.ok) {
-        throw new Error(`ORCID API returned status ${response.status}`);
-    }
-
-    const data = await response.json();
-    const works = data.group || [];
-    console.log(`✓ Fetched ${works.length} publications from ORCID`);
-    return works;
-}
-
-// Main fetch function with smart caching
-async function fetchPublications() {
+// Main function to display publications
+function displayPublications() {
     const loader = document.getElementById('publications-loader');
     const container = document.getElementById('publications-container');
 
     if (!loader || !container) return;
 
     try {
-        let works = getCachedPublications();
-        const isExpired = isCacheExpired();
+        const works = getPublications();
 
-        console.log(`✓ Loaded ${works.length} publications from cache`);
-
-        // Check for updates if cache is expired OR we want to check for new publications
-        if (isExpired || works.length > 0) {
-            try {
-                // Fetch latest from ORCID to check count
-                const freshWorks = await fetchFromORCID();
-
-                // If ORCID has more publications OR cache is expired, update
-                if (freshWorks.length > works.length || isExpired) {
-                    if (freshWorks.length > works.length) {
-                        console.log(`ℹ Found ${freshWorks.length - works.length} new publications, updating cache...`);
-                    } else {
-                        console.log('ℹ Cache expired, updating with fresh data...');
-                    }
-                    works = freshWorks;
-                    saveToCache(freshWorks);
-                } else {
-                    console.log('✓ Cache is up to date and fresh');
-                }
-            } catch (error) {
-                console.log('ℹ Could not check for updates, using cached data');
-            }
-        } else if (works.length === 0) {
-            // No cache available at all, must fetch
-            works = await fetchFromORCID();
-            saveToCache(works);
-        }
-
-        // Convert works to work summaries format
-        const workSummaries = works.map(workGroup => {
-            if (workGroup['work-summary']) {
-                return workGroup['work-summary'][0];
-            }
-            return workGroup;
-        });
-
-        // Sort by publication date (most recent first)
-        const sortedWorks = workSummaries
-            .filter((work) => work !== undefined)
+        // Convert works to work summaries format if needed (already processed in script)
+        const sortedWorks = works
             .sort((a, b) => {
-                const dateA = a['publication-date'];
-                const dateB = b['publication-date'];
+                const dateA = a.processedInfo.year;
+                const dateB = b.processedInfo.year;
+                const monthA = Number(a.processedInfo.month) || 0;
+                const monthB = Number(b.processedInfo.month) || 0;
 
-                if (!dateA) return 1;
-                if (!dateB) return -1;
-
-                const yearA = Number(dateA.year?.value) || 0;
-                const yearB = Number(dateB.year?.value) || 0;
-                const monthA = Number(dateA.month?.value) || 0;
-                const monthB = Number(dateB.month?.value) || 0;
-
-                if (yearB !== yearA) return yearB - yearA;
+                if (dateB !== dateA) return Number(dateB) - Number(dateA);
                 return monthB - monthA;
             });
 
@@ -154,17 +86,15 @@ async function fetchPublications() {
             return;
         }
 
-        // Process all publications in parallel to fetch metadata
-        const processedPublications = await Promise.all(
-            publicationsToShow.map(async (work) => {
-                const item = await createPublicationItem(work);
-                return {
-                    year: work['publication-date']?.year?.value?.toString() || 'Unknown',
-                    displayNumber: work._displayNumber,
-                    item: item
-                };
-            })
-        );
+        // Process all publications (now synchronous)
+        const processedPublications = publicationsToShow.map((work) => {
+            const item = createPublicationItem(work);
+            return {
+                year: work.processedInfo.year || 'Unknown',
+                displayNumber: work._displayNumber,
+                item: item
+            };
+        });
 
         // Group processed publications by year
         const groupedPublications = {};
@@ -180,14 +110,12 @@ async function fetchPublications() {
 
         // Render grouped publications to fragment
         for (const year of sortedYears) {
-            // Render Year Heading (Right Column)
             const yearTitle = document.createElement('h2');
             yearTitle.className = 'year-title';
             yearTitle.textContent = year;
             yearTitle.style.gridColumn = "2";
             fragment.appendChild(yearTitle);
 
-            // Render Items for this year
             for (const pub of groupedPublications[year]) {
                 const numberDiv = document.createElement('div');
                 numberDiv.className = 'publication-number';
@@ -207,334 +135,95 @@ async function fetchPublications() {
         initializeCollapseButtons();
 
     } catch (error) {
-        console.error('Error fetching publications:', error);
+        console.error('Error displaying publications:', error);
         loader.style.display = 'none';
         container.innerHTML = '<p class="error-message">Unable to load publications. Please try again later.</p>';
     }
 }
 
-// Fetch metadata from Crossref API
-async function fetchCrossrefMetadata(doi) {
-    if (!doi) return null;
-
-    try {
-        const response = await fetch(`https://api.crossref.org/works/${doi}`);
-        if (!response.ok) return null;
-
-        const data = await response.json();
-        return data.message;
-    } catch (error) {
-        console.error('Error fetching Crossref metadata:', error);
-        return null;
-    }
-}
-
-// Fetch metadata from arXiv API
-async function fetchArxivMetadata(arxivId) {
-    if (!arxivId) return null;
-
-    try {
-        // Clean the arXiv ID (remove any prefix like "arXiv:")
-        const cleanId = arxivId.replace(/^arXiv:/i, '').trim();
-        console.log(`Fetching arXiv metadata for ID: ${cleanId}`);
-
-        // arXiv API does not support CORS, so we use a proxy for client-side fetching
-        const apiUrl = `https://export.arxiv.org/api/query?id_list=${cleanId}`;
-        const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(apiUrl)}`;
-
-        const response = await fetch(proxyUrl);
-        if (!response.ok) {
-            console.error('arXiv API (via proxy) returned non-OK status:', response.status);
-            return null;
-        }
-
-        const xmlText = await response.text();
-        const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
-
-        // Check for parsing errors
-        const parserError = xmlDoc.getElementsByTagName('parsererror');
-        if (parserError.length > 0) {
-            console.error('XML Parsing Error:', parserError[0].textContent);
-            return null;
-        }
-
-        // Use getElementsByTagNameNS with '*' to ignore namespaces
-        const entries = xmlDoc.getElementsByTagNameNS('*', 'entry');
-        if (entries.length === 0) {
-            console.warn('No <entry> element found in arXiv XML');
-            return null;
-        }
-        const entry = entries[0];
-
-        // Extract title
-        const titleEls = entry.getElementsByTagNameNS('*', 'title');
-        const title = titleEls.length > 0 ? titleEls[0].textContent?.trim() : '';
-
-        // Extract published date
-        const publishedEls = entry.getElementsByTagNameNS('*', 'published');
-        const published = publishedEls.length > 0 ? publishedEls[0].textContent?.trim() : '';
-
-        // Extract authors - very robustly
-        const authorElements = entry.getElementsByTagNameNS('*', 'author');
-        console.log(`Found ${authorElements.length} author elements via getElementsByTagNameNS`);
-
-        const authors = Array.from(authorElements).map(authorEl => {
-            // Find name child - ignore namespaces
-            const nameEls = authorEl.getElementsByTagNameNS('*', 'name');
-            if (nameEls.length === 0) return null;
-
-            const fullName = nameEls[0].textContent.trim();
-            if (!fullName) return null;
-
-            // Handle name parts
-            const nameParts = fullName.split(/\s+/);
-            if (nameParts.length === 1) {
-                return { given: '', family: nameParts[0] };
-            }
-            const family = nameParts[nameParts.length - 1];
-            const given = nameParts.slice(0, -1).join(' ');
-            return { given, family };
-        }).filter(author => author !== null);
-
-        // Extract primary category
-        let primaryClass = '';
-        const primaryCategoryEls = entry.getElementsByTagNameNS('*', 'primary_category');
-        if (primaryCategoryEls.length > 0) {
-            primaryClass = primaryCategoryEls[0].getAttribute('term') || '';
-        }
-
-        // Extract year from published date
-        const year = published ? new Date(published).getFullYear().toString() : '';
-
-        console.log('arXiv metadata successfully extracted:', { title, authorsCount: authors.length, year });
-
-        return {
-            type: 'arxiv',
-            title,
-            author: authors,
-            'container-title': ['arXiv Preprint'],
-            year,
-            publisher: 'arXiv',
-            arxivId: cleanId,
-            primaryClass: primaryClass
-        };
-    } catch (error) {
-        console.error('Error fetching arXiv metadata:', error);
-        return null;
-    }
-}
-
 // Format authors list with highlight for user's name
 function formatAuthors(authors) {
-    console.log('formatAuthors called with:', authors);
-
-    if (!authors || authors.length === 0) {
-        console.log('No authors provided to formatAuthors');
-        return '';
-    }
+    if (!authors || authors.length === 0) return '';
 
     const formattedAuthors = authors.map(author => {
         const given = author.given || '';
         const family = author.family || '';
         const fullName = `${given} ${family}`.trim();
 
-        // Check if this is the user's name and highlight it
         if (fullName === USER_NAME) {
             return `<span style="color: #64ffda;">${fullName}</span>`;
         }
         return fullName;
     });
 
-    // If more than 50 authors, show first 50 and add "show full list" option
     if (formattedAuthors.length > 50) {
         const first50 = formattedAuthors.slice(0, 50);
         const remaining = formattedAuthors.slice(50);
+        let html = first50.join(', ') + ', ' + first50.pop();
 
-        let html = '';
-
-        // Format first 50 authors
-        if (first50.length > 1) {
-            const lastAuthor = first50.pop();
-            html = first50.join(', ') + ', ' + lastAuthor;
-        } else {
-            html = first50[0];
-        }
-
-        // Add remaining authors in a collapsible section
         const uniqueId = 'authors-' + Math.random().toString(36).substr(2, 9);
-        let remainingHtml = '';
-        if (remaining.length > 1) {
-            const lastRemainingAuthor = remaining.pop();
-            remainingHtml = ', ' + remaining.join(', ') + ', and ' + lastRemainingAuthor;
-        } else {
-            remainingHtml = ', and ' + remaining[0];
-        }
+        let remainingHtml = ', ' + remaining.join(', ') + ', and ' + remaining.pop();
 
         html += `<span class="authors-full-list" id="${uniqueId}">${remainingHtml}</span> <button class="show-all-authors-btn" onclick="toggleAuthorsList('${uniqueId}')">... show full author list</button>`;
-
         return html;
     }
 
-    // Format the author list for 50 or fewer authors
-    if (formattedAuthors.length === 1) {
-        return formattedAuthors[0];
-    } else if (formattedAuthors.length === 2) {
-        return formattedAuthors.join(' and ');
-    } else {
-        const lastAuthor = formattedAuthors.pop();
-        return formattedAuthors.join(', ') + ', and ' + lastAuthor;
-    }
+    if (formattedAuthors.length === 1) return formattedAuthors[0];
+    if (formattedAuthors.length === 2) return formattedAuthors.join(' and ');
+    
+    const lastAuthor = formattedAuthors.pop();
+    return formattedAuthors.join(', ') + ', and ' + lastAuthor;
 }
 
-// Create year section with publications
-async function createYearSection(year, publications) {
-    const section = document.createElement('div');
-    section.className = 'year-section';
-
-    const yearTitle = document.createElement('h3');
-    yearTitle.className = 'year-title';
-    yearTitle.textContent = year;
-
-    const publicationsList = document.createElement('div');
-    publicationsList.className = 'publications-year-list';
-
-    for (const work of publications) {
-        const publicationItem = await createPublicationItem(work);
-        publicationsList.appendChild(publicationItem);
-    }
-
-    section.appendChild(yearTitle);
-    section.appendChild(publicationsList);
-
-    return section;
-}
-
-// Create individual publication item with collapsible bibtex
-async function createPublicationItem(work) {
+// Create individual publication item
+function createPublicationItem(work) {
     const item = document.createElement('div');
     item.className = 'publication-item';
 
+    const info = work.processedInfo;
     const title = work.title?.title?.value || 'Untitled';
-    const journalTitle = work['journal-title']?.value || '';
-    const publicationDate = work['publication-date'];
-    const year = publicationDate?.year?.value?.toString() || '';
-    const month = publicationDate?.month?.value?.toString() || '';
-
-    // Get DOI or other external identifiers
-    const externalIds = work['external-ids']?.['external-id'] || [];
-    const doiObj = externalIds.find((id) => id['external-id-type'] === 'doi');
-    const arxivObj = externalIds.find((id) => id['external-id-type'] === 'arxiv');
-    const doiValue = doiObj ? doiObj['external-id-value'] : null;
-    const arxivValue = arxivObj ? arxivObj['external-id-value'] : null;
-
-    // Check if DOI is an arXiv DOI (covers various formats)
-    const isArxivDoi = doiValue && (
-        doiValue.toLowerCase().includes('arxiv') ||
-        doiValue.startsWith('10.48550/') ||
-        doiValue.match(/10\.48550\/.+/i)
-    );
-
-    // Extract arXiv ID from DOI or use existing arXiv value
-    let arxivIdToUse = arxivValue;
-    if (isArxivDoi && !arxivIdToUse) {
-        // Extract arXiv ID from various DOI formats:
-        // "10.48550/ARXIV.2411.15221" -> "2411.15221"
-        // "10.48550/arXiv.2411.15221" -> "2411.15221"
-        const match = doiValue.match(/10\.48550\/(?:ARXIV\.?|arXiv\.?)?(.+)/i);
-        if (match) {
-            arxivIdToUse = match[1];
-        }
-    }
-
-    console.log('Identifier extraction:', { doiValue, arxivValue, isArxivDoi, arxivIdToUse });
-
-    // Determine the primary link (prefer DOI over arXiv for non-arXiv DOIs)
+    
     let linkUrl = '#';
-    if (doiValue && !isArxivDoi) {
-        linkUrl = `https://doi.org/${doiValue}`;
-    } else if (arxivIdToUse) {
-        const cleanArxivId = arxivIdToUse.replace(/^arXiv:/i, '');
+    if (info.doi && !info.isArxivDoi) {
+        linkUrl = `https://doi.org/${info.doi}`;
+    } else if (info.arxivId) {
+        const cleanArxivId = info.arxivId.replace(/^arXiv:/i, '');
         linkUrl = `https://arxiv.org/abs/${cleanArxivId}`;
-    } else if (doiValue) {
-        linkUrl = `https://doi.org/${doiValue}`;
+    } else if (info.doi) {
+        linkUrl = `https://doi.org/${info.doi}`;
     }
 
-    // Fetch metadata - prioritize arXiv API for arXiv papers
-    let metadataSource = null;
-    if (arxivIdToUse || isArxivDoi) {
-        metadataSource = await fetchArxivMetadata(arxivIdToUse);
-    }
-    if (!metadataSource && doiValue && !isArxivDoi) {
-        metadataSource = await fetchCrossrefMetadata(doiValue);
-    }
+    const authorsHtml = formatAuthors(info.authors);
+    let dateString = info.year;
+    if (info.month) dateString = `${getMonthName(info.month)} ${info.year}`;
 
-    // Extract metadata
-    let authors = [];
-    let volume = '';
-    let issue = '';
-    let pages = '';
-    let publisher = '';
-    let primaryClass = '';
-    let finalJournalTitle = journalTitle;
-
-    if (metadataSource) {
-        authors = metadataSource.author || [];
-        volume = metadataSource.volume || '';
-        issue = metadataSource.issue || '';
-        pages = metadataSource.page || '';
-        publisher = metadataSource.publisher || '';
-        primaryClass = metadataSource.primaryClass || '';
-        finalJournalTitle = metadataSource['container-title']?.[0] || journalTitle;
-    }
-
-    // Enforce "arXiv Preprint" for arXiv papers if the title is generic or missing
-    if ((isArxivDoi || arxivIdToUse) && (!finalJournalTitle || finalJournalTitle.toLowerCase() === 'arxiv')) {
-        finalJournalTitle = 'arXiv Preprint';
-    }
-
-    console.log('Publication metadata:', { title, authors, metadataSource });
-
-    // Format authors
-    const authorsHtml = formatAuthors(authors);
-
-    // Format date
-    let dateString = '';
-    if (year) {
-        dateString = month ? `${getMonthName(month)} ${year}` : year;
-    }
-
-    // Generate BibTeX
     const bibtex = generateBibtex({
         title,
-        authors: metadataSource?.author || [],
-        journalTitle: finalJournalTitle,
-        year,
-        volume,
-        issue,
-        pages,
-        doi: isArxivDoi ? null : doiValue, // Don't include arXiv DOI in BibTeX
-        arxivId: arxivIdToUse,
-        publisher,
-        primaryClass,
-        type: metadataSource?.type
+        authors: info.authors,
+        journalTitle: info.journalTitle,
+        year: info.year,
+        volume: work.metadata?.volume,
+        issue: work.metadata?.issue,
+        pages: work.metadata?.page,
+        doi: info.isArxivDoi ? null : info.doi,
+        arxivId: info.arxivId,
+        publisher: work.metadata?.publisher,
+        primaryClass: work.metadata?.primaryClass,
+        type: work.metadata?.type
     });
 
-    // Build metadata line parts
     const metaParts = [];
-    if (finalJournalTitle) metaParts.push(`<span class="publication-journal">${finalJournalTitle}</span>`);
-    if (volume) metaParts.push(`<span class="publication-volume">Vol. ${volume}</span>`);
-    if (issue) metaParts.push(`<span class="publication-issue">Issue ${issue}</span>`);
-    if (pages) metaParts.push(`<span class="publication-pages">pp. ${pages}</span>`);
-    if (arxivIdToUse) {
-        const cleanArxivId = arxivIdToUse.replace(/^arXiv:/i, '');
+    if (info.journalTitle) metaParts.push(`<span class="publication-journal">${info.journalTitle}</span>`);
+    if (work.metadata?.volume) metaParts.push(`<span class="publication-volume">Vol. ${work.metadata.volume}</span>`);
+    if (work.metadata?.issue) metaParts.push(`<span class="publication-issue">Issue ${work.metadata.issue}</span>`);
+    if (work.metadata?.page) metaParts.push(`<span class="publication-pages">pp. ${work.metadata.page}</span>`);
+    if (info.arxivId) {
+        const cleanArxivId = info.arxivId.replace(/^arXiv:/i, '');
         metaParts.push(`<span class="publication-arxiv">arXiv:${cleanArxivId}</span>`);
     }
     if (dateString) metaParts.push(`<span class="publication-date">${dateString}</span>`);
 
     const metaLineHtml = metaParts.join('<span class="separator">•</span>');
-
-    console.log('Rendering publication:', { title, authorsHtml, authors });
 
     item.innerHTML = `
     <div class="publication-content">
@@ -567,28 +256,23 @@ async function createPublicationItem(work) {
 function generateBibtex(data) {
     const { title, authors, journalTitle, year, volume, issue, pages, doi, arxivId, publisher, primaryClass, type } = data;
 
-    // Create citation key from first author's last name and year
     let citationKey = 'article' + year;
     if (authors && authors.length > 0) {
         const firstAuthorFamily = authors[0].family || '';
         citationKey = firstAuthorFamily.toLowerCase() + year;
     }
 
-    // Determine entry type - use @misc for arXiv preprints, @article for published papers
     const entryType = (type === 'arxiv' && !doi) ? 'misc' : 'article';
 
-    // Format authors for BibTeX
     let authorString = '';
     if (authors && authors.length > 0) {
         if (entryType === 'misc') {
-            // For arXiv papers: "FirstName LastName and FirstName LastName"
             authorString = authors.map(author => {
                 const given = author.given || '';
                 const family = author.family || '';
                 return `${given} ${family}`.trim();
             }).join(' and ');
         } else {
-            // For regular papers: "LastName, FirstName and LastName, FirstName"
             authorString = authors.map(author => {
                 const given = author.given || '';
                 const family = author.family || '';
@@ -610,7 +294,6 @@ function generateBibtex(data) {
 
     if (year) bibtex += `  year={${year}},\n`;
 
-    // Add arXiv-specific fields for @misc entries
     if (entryType === 'misc' && arxivId) {
         const cleanArxivId = arxivId.replace(/^arXiv:/i, '').trim();
         bibtex += `  eprint={${cleanArxivId}},\n`;
@@ -618,7 +301,6 @@ function generateBibtex(data) {
         if (primaryClass) bibtex += `  primaryClass={${primaryClass}},\n`;
         bibtex += `  url={https://arxiv.org/abs/${cleanArxivId}},\n`;
     } else if (arxivId) {
-        // For published papers that also have arXiv
         const cleanArxivId = arxivId.replace(/^arXiv:/i, '').trim();
         bibtex += `  archivePrefix={arXiv},\n`;
         bibtex += `  eprint={${cleanArxivId}},\n`;
@@ -631,10 +313,9 @@ function generateBibtex(data) {
 }
 
 // Toggle authors list visibility
-function toggleAuthorsList(id) {
+window.toggleAuthorsList = function(id) {
     const authorsList = document.getElementById(id);
     const button = event.target;
-
     if (authorsList) {
         if (authorsList.classList.contains('visible')) {
             authorsList.classList.remove('visible');
@@ -644,14 +325,10 @@ function toggleAuthorsList(id) {
             button.textContent = '... hide full author list';
         }
     }
-}
-
-// Make toggleAuthorsList available globally
-window.toggleAuthorsList = toggleAuthorsList;
+};
 
 // Initialize bibtex toggle and copy functionality
 function initializeCollapseButtons() {
-    // Bibtex toggle buttons
     document.addEventListener('click', function (e) {
         if (e.target.closest('.bibtex-toggle-btn')) {
             const btn = e.target.closest('.bibtex-toggle-btn');
@@ -671,7 +348,6 @@ function initializeCollapseButtons() {
             }
         }
 
-        // Copy bibtex button
         if (e.target.closest('.copy-bibtex-btn')) {
             const btn = e.target.closest('.copy-bibtex-btn');
             const bibtexContent = btn.previousElementSibling.textContent;
@@ -680,8 +356,7 @@ function initializeCollapseButtons() {
                 const originalText = btn.textContent;
                 btn.textContent = 'Copied!';
                 btn.classList.add('copied');
-                btn.blur(); // Remove focus after copying
-
+                btn.blur();
                 setTimeout(() => {
                     btn.textContent = originalText;
                     btn.classList.remove('copied');
@@ -691,12 +366,10 @@ function initializeCollapseButtons() {
     });
 }
 
-// Helper function to get month name
 function getMonthName(month) {
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     return months[parseInt(month) - 1] || '';
 }
 
 // Load publications when the page loads
-document.addEventListener('DOMContentLoaded', fetchPublications);
+document.addEventListener('DOMContentLoaded', displayPublications);

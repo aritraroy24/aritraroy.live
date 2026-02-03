@@ -495,11 +495,41 @@ async function generate(forceMode = false) {
             }
         }
 
-        const [oaRes, orcidWorksDetailed] = await Promise.all([
-            fetch(WORKS_API_URL),
-            fetchOrcidWorksDetailed()
-        ]);
-        if (!oaRes.ok) throw new Error('OpenAlex Response not OK');
+        console.log('🌐 Fetching data from OpenAlex and ORCID...');
+        let oaRes, orcidWorksDetailed;
+        try {
+            [oaRes, orcidWorksDetailed] = await Promise.all([
+                fetch(WORKS_API_URL),
+                fetchOrcidWorksDetailed()
+            ]);
+            
+            if (!oaRes.ok) {
+                console.warn('⚠️  OpenAlex response not OK. Falling back to existing cache.');
+                return;
+            }
+        } catch (error) {
+            console.error('❌ Network error while fetching collaborator data:', error.message);
+            if (existingMap.size > 0) {
+                console.log('📂 Falling back to existing cache to proceed with build.');
+                // Re-save existing data to update the timestamp
+                const sorted = Array.from(existingMap.values())
+                    .sort((a, b) => b.collaborations - a.collaborations);
+                const currentDate = new Date().toISOString();
+                const fileContent = `// Auto-generated collaborator data (RECOVERY MODE)
+// Last updated: ${currentDate}
+const generationDate = '${currentDate}';
+
+const collaborators = ${JSON.stringify(sorted, null, 2)};
+
+export { generationDate };
+export default collaborators;
+`;
+                fs.writeFileSync(OUTPUT_FILE, fileContent);
+                return;
+            } else {
+                throw new Error('No existing cache available and network fetch failed. Build cannot proceed.');
+            }
+        }
 
         const orcidDois = new Set(orcidWorksDetailed.keys());
         const works = (await oaRes.json()).results || [];

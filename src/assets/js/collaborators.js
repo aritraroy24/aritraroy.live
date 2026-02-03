@@ -1,543 +1,61 @@
 import collaboratorsDataStatic, { generationDate } from './data/collaborations-cache.js';
-import manualInstitutes from './data/collected/collected-institutional-data.js';
-import manualCollaborators from './data/collected/collected-collaborator-data.js';
 
-// OpenAlex API Configuration
-const USER_ORCID = '0000-0003-0243-9124';
-const WORKS_API_URL = `https://api.openalex.org/works?filter=authorships.author.orcid:${USER_ORCID}&per_page=200`;
-const ORCID_WORKS_API = `https://pub.orcid.org/v3.0/${USER_ORCID}/works`;
+// Configuration
+const LOCALSTORAGE_KEY = 'collaborators_cache_v2';
+const TIMESTAMP_KEY = 'collaborators_timestamp_v2';
 
-// Geocoding APIs
-const NOMINATIM_API = 'https://nominatim.openstreetmap.org/search';
-const PHOTON_API = 'https://photon.komoot.io/api/';
-const LOCALSTORAGE_KEY = 'collaborators-cache';
-
-// Load static cache from imported file
-async function loadStaticCache() {
-    return collaboratorsDataStatic || [];
-}
-
-// Load from browser storage
-function loadLocalStorageCache() {
+// Get collaborators (preferring localStorage, falling back to static)
+function getCollaborators() {
     try {
-        const stored = localStorage.getItem(LOCALSTORAGE_KEY);
-        if (stored) return JSON.parse(stored);
-    } catch (e) { }
-    return null;
+        const localCached = localStorage.getItem(LOCALSTORAGE_KEY);
+        const localTimestamp = localStorage.getItem(TIMESTAMP_KEY);
+
+        if (localCached && localTimestamp) {
+            const localDate = new Date(localTimestamp);
+            const staticDate = new Date(generationDate);
+
+            if (localDate >= staticDate) {
+                console.log('✓ Loaded collaborators from localStorage');
+                return JSON.parse(localCached);
+            }
+        }
+
+        console.log('✓ Loaded collaborators from static cache');
+        saveToLocalStorage(collaboratorsDataStatic);
+        return collaboratorsDataStatic;
+    } catch (e) {
+        console.error('Error reading cache:', e);
+        return collaboratorsDataStatic || [];
+    }
 }
 
 // Save to browser storage
 function saveToLocalStorage(collaborators) {
     try {
-        const cacheData = {
-            version: "1.0",
-            generationDate: generationDate, // Use static cache generation date
-            lastUpdated: new Date().toISOString(), // Keep for runtime fetch tracking
-            collaborators: collaborators
-        };
-        localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(cacheData));
-    } catch (e) { }
-}
-
-// Rate limiting for geocoding
-let lastGeocodingRequest = 0;
-async function rateLimitedDelay() {
-    const now = Date.now();
-    const timeSinceLastRequest = now - lastGeocodingRequest;
-    if (timeSinceLastRequest < 1000) {
-        await new Promise(resolve => setTimeout(resolve, 1000 - timeSinceLastRequest));
+        localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(collaborators));
+        localStorage.setItem(TIMESTAMP_KEY, generationDate || new Date().toISOString());
+    } catch (e) {
+        console.warn('Error saving to cache (likely quota exceeded):', e);
     }
-    lastGeocodingRequest = Date.now();
 }
 
-async function geocodeWithPhoton(institutionName, countryCode) {
-    try {
-        await rateLimitedDelay();
-        const searchQuery = countryCode ? `${institutionName}, ${countryCode}` : institutionName;
-        const url = `${PHOTON_API}?q=${encodeURIComponent(searchQuery)}&limit=1&lang=en`;
-        const response = await fetch(url);
-        if (!response.ok) return null;
-        const data = await response.json();
-        if (data?.features?.length > 0) {
-            const f = data.features[0];
-            return {
-                latitude: parseFloat(f.geometry.coordinates[1]),
-                longitude: parseFloat(f.geometry.coordinates[0]),
-                city: f.properties.city || f.properties.town || f.properties.name || null,
-                country: f.properties.country || null
-            };
-        }
-    } catch (e) { }
-    return null;
-}
-
-async function geocodeInstitution(name, countryCode) {
-    if (!name || name === 'Unknown') return null;
-    try {
-        await rateLimitedDelay();
-        const query = countryCode ? `${name}, ${countryCode}` : name;
-        const url = `${NOMINATIM_API}?q=${encodeURIComponent(query)}&format=json&limit=1&addressdetails=1&accept-language=en`;
-        const response = await fetch(url, { headers: { 'User-Agent': 'AstroPortfolio' } });
-        if (response.ok) {
-            const data = await response.json();
-            if (data?.length > 0) {
-                const res = {
-                    latitude: parseFloat(data[0].lat),
-                    longitude: parseFloat(data[0].lon),
-                    city: data[0].address?.city || data[0].address?.town || null,
-                    country: data[0].address?.country || null
-                };
-                if (!isNaN(res.latitude)) return res;
-            }
-        }
-    } catch (e) { }
-    return await geocodeWithPhoton(name, countryCode);
-}
-
-async function getInstitutionalDetails(name, countryCode = null) {
-    if (!name || name === 'Unknown') {
-        return { name: 'Unknown', city: null, country: null, latitude: null, longitude: null, manual: false };
-    }
-
-    // Check manual data first
-    const manualData = manualInstitutes.find(i =>
-        i.name.toLowerCase() === name.toLowerCase()
-    );
-
-    if (manualData) {
-        return {
-            name: manualData.name,
-            city: manualData.city,
-            country: manualData.country,
-            latitude: manualData.latitude,
-            longitude: manualData.longitude,
-            manual: true
-        };
-    }
-
-    // Fallback to geocoding APIs
-    const geo = await geocodeInstitution(name, countryCode);
-    if (geo && !isNaN(geo.latitude)) {
-        return {
-            name: name,
-            city: geo.city,
-            country: geo.country,
-            latitude: geo.latitude,
-            longitude: geo.longitude,
-            manual: false
-        };
-    }
-
-    // Return with name but no coordinates
-    return { name: name, city: null, country: null, latitude: null, longitude: null, manual: false };
-}
-
-function selectBestName(names) {
-    if (!names || names.length === 0) return null;
-    const cleanNames = [...new Set(names.filter(n => n && typeof n === 'string' && !n.startsWith('None ')))]
-        .map(n => n.trim());
-    if (cleanNames.length === 0) return null;
-
-    const countInitials = (s) => {
-        if (!s) return 999;
-        const matches = s.match(/\b\w\b\.?/g) || [];
-        return matches.length;
-    };
-
-    return cleanNames.reduce((best, current) => {
-        const currentInitials = countInitials(current);
-        const bestInitials = countInitials(best);
-        if (currentInitials < bestInitials) return current;
-        if (currentInitials === bestInitials && current.length > best.length) return current;
-        return best;
-    }, cleanNames[0]);
-}
-
-// Determine latest institution across all 4 sources
-async function determineLatestAffiliations(orcidUrl, openAlexAuthorId) {
-    let candidates = [];
-    let bestNameFromOA = null;
-
-    // Fetch from OpenAlex author profile for affiliations
-    if (openAlexAuthorId) {
-        try {
-            // Convert OpenAlex ID to API URL
-            const authorApiUrl = openAlexAuthorId.replace('https://openalex.org/', 'https://api.openalex.org/authors/');
-            const authorRes = await fetch(authorApiUrl);
-            if (authorRes.ok) {
-                const authorData = await authorRes.json();
-
-                // Get best name from OA alternatives
-                const allNames = [authorData.display_name, ...(authorData.display_name_alternatives || [])];
-                bestNameFromOA = selectBestName(allNames);
-
-                const affiliations = authorData.affiliations || [];
-                affiliations.forEach(aff => {
-                    if (aff.institution?.display_name && aff.years?.length > 0) {
-                        const latestYear = Math.max(...aff.years);
-                        const currentYear = new Date().getFullYear();
-                        const isCurrent = aff.years.includes(currentYear) || aff.years.includes(currentYear - 1);
-                        candidates.push({
-                            name: aff.institution.display_name,
-                            year: latestYear,
-                            isCurrent: isCurrent,
-                            priority: 4,
-                            countryCode: aff.institution.country_code || null
-                        });
-                    }
-                });
-            }
-        } catch (e) { }
-    }
-
-    if (orcidUrl) {
-        try {
-            const orcidId = orcidUrl.split('/').pop();
-            const headers = { 'Accept': 'application/json' };
-            const [empRes, eduRes] = await Promise.all([
-                fetch(`https://pub.orcid.org/v3.0/${orcidId}/employments`, { headers }),
-                fetch(`https://pub.orcid.org/v3.0/${orcidId}/educations`, { headers })
-            ]);
-            if (empRes.ok) {
-                const d = await empRes.json();
-                (d['affiliation-group'] || []).forEach(g => {
-                    const s = g['summaries']?.[0]?.['employment-summary'];
-                    if (s) candidates.push({
-                        name: s.organization?.name,
-                        year: s['start-date'] ? parseInt(s['start-date'].year.value) : 0,
-                        isCurrent: !s['end-date'], priority: 3
-                    });
-                });
-            }
-            if (eduRes.ok) {
-                const d = await eduRes.json();
-                (d['affiliation-group'] || []).forEach(g => {
-                    const s = g['summaries']?.[0]?.['education-summary'];
-                    if (s) candidates.push({
-                        name: s.organization?.name,
-                        year: s['start-date'] ? parseInt(s['start-date'].year.value) : 0,
-                        isCurrent: !s['end-date'], priority: 2
-                    });
-                });
-            }
-        } catch (e) { }
-    }
-    
-    let uniqueAffiliations = [];
-    if (candidates.length > 0) {
-        candidates.sort((a, b) => {
-            if (a.isCurrent && !b.isCurrent) return -1;
-            if (!a.isCurrent && b.isCurrent) return 1;
-            if (b.year !== a.year) return b.year - a.year;
-            return b.priority - a.priority;
-        });
-
-        // Return all candidates that match the top candidate's criteria
-        const top = candidates[0];
-        const topTied = candidates.filter(c =>
-            c.isCurrent === top.isCurrent &&
-            c.year === top.year
-        );
-
-        // Remove duplicates by institution name, keep first occurrence with country code
-        const seen = new Set();
-        for (const c of topTied) {
-            if (!seen.has(c.name)) {
-                seen.add(c.name);
-                uniqueAffiliations.push({ name: c.name, countryCode: c.countryCode });
-            }
-        }
-    }
-
-    return {
-        bestName: bestNameFromOA,
-        currentAffiliations: uniqueAffiliations
-    };
-}
-
-async function fetchOrcidDois() {
-    try {
-        const response = await fetch(ORCID_WORKS_API, { headers: { 'Accept': 'application/json' } });
-        if (!response.ok) return new Set();
-        const data = await response.json();
-        const validDois = new Set();
-        (data.group || []).forEach(g => {
-            (g['work-summary'] || []).forEach(s => {
-                (s['external-ids']?.['external-id'] || []).forEach(id => {
-                    if (id['external-id-type'] === 'doi') {
-                        validDois.add(id['external-id-value'].toLowerCase().replace(/^https?:\/\/(dx\.)?doi\.org\//, '').trim());
-                    }
-                });
-            });
-        });
-        return validDois;
-    } catch (e) { return new Set(); }
-}
-
-async function fetchCollaborators() {
+async function displayCollaborators() {
     const loader = document.getElementById('collaborators-loader');
     const container = document.getElementById('collaborators-container');
     if (!loader || !container) return;
 
     try {
-        const staticCache = await loadStaticCache();
-        const localCacheData = loadLocalStorageCache();
-        const localCols = localCacheData?.collaborators || [];
-
-        const masterCacheMap = new Map();
-        staticCache.forEach(c => masterCacheMap.set(c.id || c.name, c));
-        localCols.forEach(c => {
-            const ext = masterCacheMap.get(c.id || c.name);
-            if (!ext || (c.latitude && c.longitude)) {
-                // Preserve updatedManually flag from static cache if it exists
-                if (ext && ext.updatedManually !== undefined) {
-                    c.updatedManually = ext.updatedManually;
-                }
-                masterCacheMap.set(c.id || c.name, c);
-            }
-        });
-
-        const THIRTY_DAYS = 30 * 24 * 60 * 60 * 1000;
-        // Use static cache generation date to determine if data is stale
-        const cacheGenTime = generationDate ? new Date(generationDate).getTime() : 0;
-        const expired = (Date.now() - cacheGenTime) > THIRTY_DAYS;
-
-        if (!expired && localCacheData && localCols.length > 0) {
-            const list = Array.from(masterCacheMap.values()).sort((a, b) => b.collaborations - a.collaborations);
-            renderCollaborators(list, container, loader);
+        const collaborators = getCollaborators();
+        
+        if (!collaborators || collaborators.length === 0) {
+            loader.style.display = 'none';
+            container.innerHTML = '<p class="no-data">No collaborators found.</p>';
             return;
         }
 
-        const [oaRes, orcidDois] = await Promise.all([
-            fetch(WORKS_API_URL).catch(() => ({ ok: false })),
-            fetchOrcidDois()
-        ]);
-        if (!oaRes.ok) throw new Error();
-        const works = (await oaRes.json()).results || [];
-        const colsMap = new Map();
-
-        for (const w of works) {
-            const yr = w.publication_year || 0;
-            const doi = w.doi?.toLowerCase().replace(/^https?:\/\/(dx\.)?doi\.org\//, '').trim();
-            if (orcidDois.size > 0 && (!doi || !orcidDois.has(doi))) continue;
-
-            for (const auth of (w.authorships || [])) {
-                const a = auth.author;
-                if (!a || (a.orcid && a.orcid.includes(USER_ORCID))) continue;
-                
-                const authorId = a.id || a.orcid || a.display_name;
-                const inst = auth.institutions?.[0]?.display_name || 'Unknown';
-                
-                if (colsMap.has(authorId)) {
-                    const e = colsMap.get(authorId);
-                    if (!e.dois.some(d => d.title === w.title)) {
-                        e.collaborations++;
-                        e.dois.push({ doi: w.doi || doi, title: w.title });
-                    }
-                    if (yr > e.latestPaperYear) {
-                        e.latestPaperYear = yr;
-                        e.openAlexAffiliation = inst;
-                    }
-                } else {
-                    colsMap.set(authorId, {
-                        id: a.id, name: a.display_name, orcid: a.orcid,
-                        openAlexAffiliation: inst, latestPaperYear: yr,
-                        collaborations: 1, dois: [{ doi: w.doi || doi, title: w.title }]
-                    });
-                }
-            }
-        }
-
-        const finalProcessed = [];
-        for (const [id, c] of colsMap) {
-            // Check cache first to avoid expensive API calls
-            const cached = masterCacheMap.get(id) || masterCacheMap.get(c.name);
-            
-            if (cached && cached.collaborationAffiliation && cached.currentAffiliation) {
-                let collaborationAffiliation = cached.collaborationAffiliation;
-                let currentAffiliation = cached.currentAffiliation;
-                let institutionOverridden = false;
-
-                // Apply manual institution overrides to cached data
-                const manualColl = manualInstitutes.find(i => i.name.toLowerCase() === collaborationAffiliation.name.toLowerCase());
-                if (manualColl) {
-                    collaborationAffiliation = { ...manualColl };
-                    institutionOverridden = true;
-                }
-                const manualCurr = manualInstitutes.find(i => i.name.toLowerCase() === currentAffiliation.name.toLowerCase());
-                if (manualCurr) {
-                    currentAffiliation = { ...manualCurr };
-                    institutionOverridden = true;
-                }
-
-                let finalData = {
-                    id: c.id,
-                    name: cached.name,
-                    orcid: c.orcid,
-                    collaborations: c.collaborations,
-                    dois: c.dois,
-                    latestPaperYear: c.latestPaperYear,
-                    collaborationAffiliation,
-                    currentAffiliation,
-                    updatedManually: (cached.updatedManually || institutionOverridden) || false
-                };
-
-                // Apply manual collaborator overrides
-                if (c.id) {
-                    const manualOverride = manualCollaborators.find(mc => mc.id === c.id);
-                    if (manualOverride) {
-                        // Name override
-                        if (manualOverride.name === "") {
-                            finalData.name = null;
-                        } else if (manualOverride.name !== null && manualOverride.name !== undefined) {
-                            finalData.name = manualOverride.name;
-                        }
-
-                        // ORCID override
-                        if (manualOverride.orcid === "") {
-                            finalData.orcid = null;
-                        } else if (manualOverride.orcid !== null && manualOverride.orcid !== undefined) {
-                            finalData.orcid = manualOverride.orcid;
-                        }
-
-                        // Collaborations override
-                        if (manualOverride.collaborations === "") {
-                            finalData.collaborations = null;
-                        } else if (manualOverride.collaborations !== null && manualOverride.collaborations !== undefined) {
-                            finalData.collaborations = manualOverride.collaborations;
-                        }
-
-                        // LatestPaperYear override
-                        if (manualOverride.latestPaperYear === "") {
-                            finalData.latestPaperYear = null;
-                        } else if (manualOverride.latestPaperYear !== null && manualOverride.latestPaperYear !== undefined) {
-                            finalData.latestPaperYear = manualOverride.latestPaperYear;
-                        }
-                        
-                        // Affiliation overrides
-                        if (manualOverride.collaborationAffiliation === "") {
-                            finalData.collaborationAffiliation = { name: null, city: null, country: null, latitude: null, longitude: null, manual: true };
-                        } else if (manualOverride.collaborationAffiliation !== null && manualOverride.collaborationAffiliation !== undefined) {
-                            finalData.collaborationAffiliation = await getInstitutionalDetails(manualOverride.collaborationAffiliation);
-                        }
-
-                        if (manualOverride.currentAffiliation === "") {
-                            finalData.currentAffiliation = { name: null, city: null, country: null, latitude: null, longitude: null, manual: true };
-                        } else if (manualOverride.currentAffiliation !== null && manualOverride.currentAffiliation !== undefined) {
-                            finalData.currentAffiliation = await getInstitutionalDetails(manualOverride.currentAffiliation);
-                        }
-
-                        finalData.updatedManually = true;
-                    }
-                }
-
-                finalProcessed.push(finalData);
-                continue;
-            }
-
-            const { bestName, currentAffiliations } = await determineLatestAffiliations(c.orcid, c.id);
-            const finalName = bestName || c.name;
-
-            let collaborationAffiliation = null;
-            let currentAffiliation = null;
-            let institutionOverridden = false;
-
-            // 1. Handle Collaboration Affiliation
-            const collAffName = c.openAlexAffiliation;
-            if (collAffName && collAffName !== 'Unknown') {
-                const details = await getInstitutionalDetails(collAffName);
-                collaborationAffiliation = details;
-                if (details.manual) institutionOverridden = true;
-            }
-
-            // 2. Handle Current Affiliation
-            if (currentAffiliations && currentAffiliations.length > 0) {
-                for (const affOpt of currentAffiliations) {
-                    const affName = typeof affOpt === 'string' ? affOpt : affOpt.name;
-                    const countryCode = typeof affOpt === 'object' ? affOpt.countryCode : null;
-                    const details = await getInstitutionalDetails(affName, countryCode);
-                    if (details && details.latitude) {
-                        currentAffiliation = details;
-                        if (details.manual) institutionOverridden = true;
-                        break;
-                    }
-                }
-            }
-
-            if (!currentAffiliation && collaborationAffiliation) {
-                currentAffiliation = { ...collaborationAffiliation };
-            }
-
-            if (collaborationAffiliation) {
-                let collaboratorData = {
-                    id: c.id,
-                    name: finalName,
-                    orcid: c.orcid,
-                    collaborations: c.collaborations,
-                    dois: c.dois,
-                    latestPaperYear: c.latestPaperYear,
-                    collaborationAffiliation,
-                    currentAffiliation,
-                    updatedManually: institutionOverridden
-                };
-
-                // Apply manual collaborator overrides
-                if (c.id) {
-                    const manualOverride = manualCollaborators.find(mc => mc.id === c.id);
-                    if (manualOverride) {
-                        // Name override
-                        if (manualOverride.name === "") {
-                            collaboratorData.name = null;
-                        } else if (manualOverride.name !== null && manualOverride.name !== undefined) {
-                            collaboratorData.name = manualOverride.name;
-                        }
-
-                        // ORCID override
-                        if (manualOverride.orcid === "") {
-                            collaboratorData.orcid = null;
-                        } else if (manualOverride.orcid !== null && manualOverride.orcid !== undefined) {
-                            collaboratorData.orcid = manualOverride.orcid;
-                        }
-
-                        // Collaborations override
-                        if (manualOverride.collaborations === "") {
-                            collaboratorData.collaborations = null;
-                        } else if (manualOverride.collaborations !== null && manualOverride.collaborations !== undefined) {
-                            collaboratorData.collaborations = manualOverride.collaborations;
-                        }
-
-                        // LatestPaperYear override
-                        if (manualOverride.latestPaperYear === "") {
-                            collaboratorData.latestPaperYear = null;
-                        } else if (manualOverride.latestPaperYear !== null && manualOverride.latestPaperYear !== undefined) {
-                            collaboratorData.latestPaperYear = manualOverride.latestPaperYear;
-                        }
-
-                        // Affiliation overrides
-                        if (manualOverride.collaborationAffiliation === "") {
-                            collaboratorData.collaborationAffiliation = { name: null, city: null, country: null, latitude: null, longitude: null, manual: true };
-                        } else if (manualOverride.collaborationAffiliation !== null && manualOverride.collaborationAffiliation !== undefined) {
-                            collaboratorData.collaborationAffiliation = await getInstitutionalDetails(manualOverride.collaborationAffiliation);
-                        }
-
-                        if (manualOverride.currentAffiliation === "") {
-                            collaboratorData.currentAffiliation = { name: null, city: null, country: null, latitude: null, longitude: null, manual: true };
-                        } else if (manualOverride.currentAffiliation !== null && manualOverride.currentAffiliation !== undefined) {
-                            collaboratorData.currentAffiliation = await getInstitutionalDetails(manualOverride.currentAffiliation);
-                        }
-
-                        collaboratorData.updatedManually = true;
-                    }
-                }
-
-                finalProcessed.push(collaboratorData);
-            }
-        }
-
-        const sorted = finalProcessed.sort((a, b) => b.collaborations - a.collaborations);
-        saveToLocalStorage(sorted);
-        renderCollaborators(sorted, container, loader);
+        renderCollaborators(collaborators, container, loader);
     } catch (e) {
+        console.error('Error displaying collaborators:', e);
         loader.style.display = 'none';
         container.innerHTML = '<p class="error-message">Unable to load collaborators.</p>';
     }
@@ -545,7 +63,11 @@ async function fetchCollaborators() {
 
 function renderCollaborators(list, container, loader) {
     const fragment = document.createDocumentFragment();
-    list.forEach(c => fragment.appendChild(createCollaboratorCard(c)));
+    list.forEach(c => {
+        if (c.name) {
+            fragment.appendChild(createCollaboratorCard(c));
+        }
+    });
     
     container.innerHTML = '';
     container.appendChild(fragment);
@@ -583,8 +105,8 @@ function createCollaboratorCard(c) {
 }
 
 function getCountryFlag(code) {
-    if (!code) return '';
+    if (!code || code.length !== 2) return '';
     return String.fromCodePoint(...code.toUpperCase().split('').map(c => 127397 + c.charCodeAt()));
 }
 
-document.addEventListener('DOMContentLoaded', fetchCollaborators);
+document.addEventListener('DOMContentLoaded', displayCollaborators);
