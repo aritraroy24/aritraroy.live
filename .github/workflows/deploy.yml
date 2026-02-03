@@ -6,7 +6,7 @@ on:
       - main
   schedule:
     # Runs at 00:00 UTC every Sunday to update publications and collaborators
-    - cron: '0 0 * * 0'
+    - cron: "0 0 * * 0"
   workflow_dispatch: # Allows manual trigger from GitHub UI
 
 jobs:
@@ -19,8 +19,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
+          node-version: "20"
+          cache: "npm"
 
       - name: Install Dependencies
         run: npm install --legacy-peer-deps
@@ -31,13 +31,13 @@ jobs:
           # If you have any environment variables for your build script, add them here
           NODE_OPTIONS: "--max-old-space-size=4096"
 
-      - name: Sync Files via FTP
+      - name: Sync Files via SFTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./dist/
-          server-dir: public_html/
-          protocol: ftp
-          port: 21
+          server-dir: domains/aritraroy.live/public_html/
+          protocol: sftp
+          port: 65002
