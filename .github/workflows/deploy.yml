@@ -36,13 +36,14 @@ jobs:
 
       - name: Deploy via lftp (Resilient Batch Mode)
         run: |
-          lftp -c "
-          set ftp:ssl-allow no;
-          set ssl:verify-certificate no;
-          set net:connection-limit 1;
-          set net:max-retries 3;
-          set net:timeout 20;
-          open -u ${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }} -p 21 ${{ secrets.FTP_SERVER }};
-          mirror -R ./dist/ public_html/ --parallel=1 --verbose;
+          lftp <<EOF
+          set ftp:ssl-allow no
+          set ssl:verify-certificate no
+          set net:connection-limit 1
+          set net:max-retries 3
+          set net:timeout 20
+          open ${{ secrets.FTP_SERVER }}
+          user "${{ secrets.FTP_USERNAME }}" "${{ secrets.FTP_PASSWORD }}"
+          mirror -R ./dist/ public_html/ --parallel=1 --verbose
           quit
-          "
+          EOF
