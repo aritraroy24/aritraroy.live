@@ -31,13 +31,18 @@ jobs:
           # If you have any environment variables for your build script, add them here
           NODE_OPTIONS: "--max-old-space-size=4096"
 
-      - name: Sync Files via SFTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./dist/
-          server-dir: domains/aritraroy.live/public_html/
-          protocol: sftp
-          port: 65002
+      - name: Install lftp
+        run: sudo apt-get update && sudo apt-get install -y lftp
+
+      - name: Deploy via lftp (Resilient Batch Mode)
+        run: |
+          lftp -c "
+          set ftp:ssl-force true;
+          set ftp:ssl-verify-certificate no;
+          set net:connection-limit 1;
+          set net:max-retries 3;
+          set net:timeout 20;
+          open -u ${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }} -p 21 ${{ secrets.FTP_SERVER }};
+          mirror -R ./dist/ public_html/ --parallel=1 --verbose;
+          quit
+          "
