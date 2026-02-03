@@ -15,23 +15,19 @@ function getPublications() {
         const localCached = localStorage.getItem(CACHE_KEY);
         const localTimestamp = localStorage.getItem(CACHE_TIMESTAMP_KEY);
 
-        // If we have local data and it's not older than our static data, use it
         if (localCached && localTimestamp) {
             const localDate = new Date(localTimestamp);
             const staticDate = new Date(generationDate);
 
             if (localDate >= staticDate) {
-                console.log('✓ Loaded publications from localStorage');
                 return JSON.parse(localCached);
             }
         }
 
-        // Otherwise use static data and save it to localStorage for next time
-        console.log('✓ Loaded publications from static cache');
-        saveToCache(publicationsStatic);
+        // Save to cache asynchronously to avoid blocking the initial render
+        setTimeout(() => saveToCache(publicationsStatic), 100);
         return publicationsStatic;
     } catch (error) {
-        console.error('Error reading cache:', error);
         return publicationsStatic || [];
     }
 }
@@ -41,9 +37,8 @@ function saveToCache(works) {
     try {
         localStorage.setItem(CACHE_KEY, JSON.stringify(works));
         localStorage.setItem(CACHE_TIMESTAMP_KEY, generationDate || new Date().toISOString());
-        console.log(`✓ Cached ${works.length} publications to localStorage`);
     } catch (error) {
-        console.warn('Error saving to cache (likely quota exceeded):', error);
+        // Silently fail if quota exceeded
     }
 }
 
@@ -54,91 +49,71 @@ function displayPublications() {
 
     if (!loader || !container) return;
 
-    try {
-        const works = getPublications();
+    // Ensure loader is visible at the start
+    loader.style.display = 'flex';
 
-        // Convert works to work summaries format if needed (already processed in script)
-        const sortedWorks = works
-            .sort((a, b) => {
-                const dateA = a.processedInfo.year;
-                const dateB = b.processedInfo.year;
-                const monthA = Number(a.processedInfo.month) || 0;
-                const monthB = Number(b.processedInfo.month) || 0;
+    // Use a tiny timeout to allow the browser to paint the loader before heavy processing
+    setTimeout(() => {
+        try {
+            const works = getPublications();
+            if (!works || works.length === 0) {
+                loader.style.display = 'none';
+                container.innerHTML = '<p class="no-publications">No publications found.</p>';
+                return;
+            }
 
-                if (dateB !== dateA) return Number(dateB) - Number(dateA);
-                return monthB - monthA;
+            const sortedWorks = works.sort((a, b) => {
+                const yearA = Number(a.processedInfo.year) || 0;
+                const yearB = Number(b.processedInfo.year) || 0;
+                if (yearB !== yearA) return yearB - yearA;
+                return (Number(b.processedInfo.month) || 0) - (Number(a.processedInfo.month) || 0);
             });
 
-        // Limit publications for homepage
-        const publicationsToShow = IS_HOMEPAGE
-            ? sortedWorks.slice(0, MAX_PUBLICATIONS_HOMEPAGE)
-            : sortedWorks;
+            const publicationsToShow = IS_HOMEPAGE ? sortedWorks.slice(0, MAX_PUBLICATIONS_HOMEPAGE) : sortedWorks;
+            const totalCount = publicationsToShow.length;
 
-        // Assign display numbers (Highest for newest)
-        const totalCount = publicationsToShow.length;
-        publicationsToShow.forEach((work, index) => {
-            work._displayNumber = totalCount - index;
-        });
+            // Group by year first
+            const groupedByYear = {};
+            publicationsToShow.forEach((work, index) => {
+                const year = work.processedInfo.year || 'Unknown';
+                if (!groupedByYear[year]) groupedByYear[year] = [];
+                work._displayNumber = totalCount - index;
+                groupedByYear[year].push(work);
+            });
 
-        if (publicationsToShow.length === 0) {
+            const sortedYears = Object.keys(groupedByYear).sort((a, b) => Number(b) - Number(a));
+            const fragment = document.createDocumentFragment();
+
+            // Render in a single pass to minimize reflows
+            sortedYears.forEach(year => {
+                const yearTitle = document.createElement('h2');
+                yearTitle.className = 'year-title';
+                yearTitle.textContent = year;
+                yearTitle.style.gridColumn = "2";
+                fragment.appendChild(yearTitle);
+
+                groupedByYear[year].forEach(work => {
+                    const numberDiv = document.createElement('div');
+                    numberDiv.className = 'publication-number';
+                    numberDiv.textContent = `${work._displayNumber}.`;
+                    fragment.appendChild(numberDiv);
+                    fragment.appendChild(createPublicationItem(work));
+                });
+            });
+
+            // Final DOM update
+            requestAnimationFrame(() => {
+                loader.style.display = 'none';
+                container.innerHTML = '';
+                container.appendChild(fragment);
+                initializeCollapseButtons();
+            });
+
+        } catch (error) {
+            console.error('Error displaying publications:', error);
             loader.style.display = 'none';
-            container.innerHTML = '<p class="no-publications">No publications found.</p>';
-            return;
         }
-
-        // Process all publications (now synchronous)
-        const processedPublications = publicationsToShow.map((work) => {
-            const item = createPublicationItem(work);
-            return {
-                year: work.processedInfo.year || 'Unknown',
-                displayNumber: work._displayNumber,
-                item: item
-            };
-        });
-
-        // Group processed publications by year
-        const groupedPublications = {};
-        processedPublications.forEach((pub) => {
-            if (!groupedPublications[pub.year]) {
-                groupedPublications[pub.year] = [];
-            }
-            groupedPublications[pub.year].push(pub);
-        });
-
-        const fragment = document.createDocumentFragment();
-        const sortedYears = Object.keys(groupedPublications).sort((a, b) => Number(b) - Number(a));
-
-        // Render grouped publications to fragment
-        for (const year of sortedYears) {
-            const yearTitle = document.createElement('h2');
-            yearTitle.className = 'year-title';
-            yearTitle.textContent = year;
-            yearTitle.style.gridColumn = "2";
-            fragment.appendChild(yearTitle);
-
-            for (const pub of groupedPublications[year]) {
-                const numberDiv = document.createElement('div');
-                numberDiv.className = 'publication-number';
-                numberDiv.textContent = (pub.displayNumber || '') + '.';
-
-                fragment.appendChild(numberDiv);
-                fragment.appendChild(pub.item);
-            }
-        }
-
-        // Hide loader and render all at once
-        loader.style.display = 'none';
-        container.innerHTML = '';
-        container.appendChild(fragment);
-
-        // Initialize collapse functionality
-        initializeCollapseButtons();
-
-    } catch (error) {
-        console.error('Error displaying publications:', error);
-        loader.style.display = 'none';
-        container.innerHTML = '<p class="error-message">Unable to load publications. Please try again later.</p>';
-    }
+    });
 }
 
 // Format authors list with highlight for user's name

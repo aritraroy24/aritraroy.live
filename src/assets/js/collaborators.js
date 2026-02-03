@@ -15,16 +15,14 @@ function getCollaborators() {
             const staticDate = new Date(generationDate);
 
             if (localDate >= staticDate) {
-                console.log('✓ Loaded collaborators from localStorage');
                 return JSON.parse(localCached);
             }
         }
 
-        console.log('✓ Loaded collaborators from static cache');
-        saveToLocalStorage(collaboratorsDataStatic);
+        // Save to cache asynchronously
+        setTimeout(() => saveToLocalStorage(collaboratorsDataStatic), 100);
         return collaboratorsDataStatic;
     } catch (e) {
-        console.error('Error reading cache:', e);
         return collaboratorsDataStatic || [];
     }
 }
@@ -35,7 +33,7 @@ function saveToLocalStorage(collaborators) {
         localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(collaborators));
         localStorage.setItem(TIMESTAMP_KEY, generationDate || new Date().toISOString());
     } catch (e) {
-        console.warn('Error saving to cache (likely quota exceeded):', e);
+        // Silently fail if quota exceeded
     }
 }
 
@@ -44,21 +42,37 @@ async function displayCollaborators() {
     const container = document.getElementById('collaborators-container');
     if (!loader || !container) return;
 
-    try {
-        const collaborators = getCollaborators();
-        
-        if (!collaborators || collaborators.length === 0) {
-            loader.style.display = 'none';
-            container.innerHTML = '<p class="no-data">No collaborators found.</p>';
-            return;
-        }
+    // Ensure loader is visible
+    loader.style.display = 'flex';
 
-        renderCollaborators(collaborators, container, loader);
-    } catch (e) {
-        console.error('Error displaying collaborators:', e);
-        loader.style.display = 'none';
-        container.innerHTML = '<p class="error-message">Unable to load collaborators.</p>';
-    }
+    // Start processing as soon as possible but allow loader to paint
+    setTimeout(() => {
+        try {
+            const collaborators = getCollaborators();
+            
+            if (!collaborators || collaborators.length === 0) {
+                loader.style.display = 'none';
+                container.innerHTML = '<p class="no-data">No collaborators found.</p>';
+                return;
+            }
+
+            const fragment = document.createDocumentFragment();
+            collaborators.forEach(c => {
+                if (c.name) {
+                    fragment.appendChild(createCollaboratorCard(c));
+                }
+            });
+
+            requestAnimationFrame(() => {
+                container.innerHTML = '';
+                container.appendChild(fragment);
+                loader.style.display = 'none';
+            });
+        } catch (e) {
+            console.error('Error displaying collaborators:', e);
+            loader.style.display = 'none';
+        }
+    });
 }
 
 function renderCollaborators(list, container, loader) {
