@@ -39,12 +39,13 @@ jobs:
           lftp <<EOF
           set ftp:ssl-allow no
           set ssl:verify-certificate no
+          set ftp:passive-mode on
           set net:connection-limit 1
-          set net:max-retries 3
-          set net:timeout 20
+          set net:max-retries 20
+          set net:timeout 60
+          set net:reconnect-interval-base 5
           open ${{ secrets.FTP_SERVER }}
           user "${{ secrets.FTP_USERNAME }}" "${{ secrets.FTP_PASSWORD }}"
-          # Use "." because the FTP account is already restricted to the public_html folder
           mirror -R ./dist/ . --parallel=1 --verbose
           quit
           EOF
