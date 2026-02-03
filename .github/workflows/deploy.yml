@@ -38,6 +38,6 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./dist/
-          server-dir: ./ # Adjust this if you want to upload to a specific subfolder
-          protocol: ftp # Or ftps if supported by your Hostinger plan
+          server-dir: public_html/
+          protocol: ftp
           port: 21
