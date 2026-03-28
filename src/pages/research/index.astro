@@ -57,7 +57,9 @@ const imgData = [
       {
         imgData.map((img: any) => (
           <a class="projectSectionLinks" href={img.url}>
-            <Image src={img.src} alt={img.alt} width={300} />
+            <div class="projectImageFrame">
+              <Image src={img.src} alt={img.alt} width={300} />
+            </div>
             <p>{img.text}</p>
           </a>
         ))

@@ -1,0 +1,66 @@
+﻿name: Security Audit Auto Fix
+
+on:
+  schedule:
+    - cron: "30 0 * * 0"
+  workflow_dispatch:
+    inputs:
+      force_fix:
+        description: "Run npm audit fix --force (manual use only)"
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  audit-fix:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Audit fix (safe)
+        if: ${{ github.event_name == 'schedule' || github.event.inputs.force_fix != 'true' }}
+        run: npm audit fix --package-lock-only --audit-level=moderate || true
+
+      - name: Audit fix (force/manual)
+        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.force_fix == 'true' }}
+        run: npm audit fix --force || true
+
+      - name: Create pull request
+        id: cpr
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "chore(security): automated npm audit fixes"
+          branch: chore/security-audit-fixes
+          delete-branch: true
+          title: "chore(security): automated dependency vulnerability fixes"
+          body: |
+            Automated weekly dependency security updates.
+
+            - Schedule: Every Sunday
+            - Safe mode: `npm audit fix --package-lock-only --audit-level=moderate`
+            - Optional manual force mode: `npm audit fix --force`
+          labels: |
+            dependencies
+            security
+
+      - name: Enable auto-merge (squash)
+        if: ${{ steps.cpr.outputs.pull-request-number }}
+        uses: peter-evans/enable-pull-request-automerge@v3
+        with:
+          pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
+          merge-method: squash

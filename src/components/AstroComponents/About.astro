@@ -12,6 +12,40 @@ import headshot from "@images/about/headshot.jpg";
 
 // style import
 import "./styles/About.scss";
+
+type ToolLink = {
+  id: number;
+  url: string;
+  iconName: string;
+  title: string;
+};
+
+const allToolsByTitle: Record<string, ToolLink> = {};
+programmingTools.forEach((group: Record<string, ToolLink[]>) => {
+  Object.values(group).forEach((tools) => {
+    tools.forEach((tool) => {
+      allToolsByTitle[tool.title] = tool;
+    });
+  });
+});
+
+const focusedStacks = [
+  {
+    title: "Web Stack",
+    description: "Core stack I use most for modern web experiences.",
+    tools: ["Astro", "React", "JavaScript", "TypeScript", "Node.js", "Tailwind CSS"],
+  },
+  {
+    title: "AI Workflow",
+    description: "Tools that power my LLM-assisted research and prototyping flow.",
+    tools: ["Python", "PyTorch", "LangChain", "LangGraph", "CrewAI", "Hugging Face"],
+  },
+  {
+    title: "Research Computing",
+    description: "Numerical and scientific stack for chemistry/materials workflows.",
+    tools: ["NumPy", "pandas", "scikit-learn", "Linux", "Docker", "GitHub"],
+  },
+];
 ---
 
 <main class="AboutMe" id="about" data-name="AboutMe">
@@ -206,36 +240,35 @@ import "./styles/About.scss";
     </section>
   </section>
   <div class="iconsContainer">
-    {
-      programmingTools.map((item: any) => {
-        const typeMapping: { [key: string]: string } = {
-          language: "Language",
-          library: "Library/Framework",
-          backend: "Backend",
-          tools: "Tools",
-          os: "Operating System",
-          ui: "UI/UX",
-          blog: "Blog Writing",
-          assistant: "AI Assistants",
-        };
-
-        const itemType = Object.keys(item)[0];
-        const displayName = typeMapping[itemType as keyof typeof typeMapping];
-
-        return (
+    <div class="stackIntro">
+      <h2>Technologies that shape how I build</h2>
+      <p>
+        A focused snapshot of the tools I rely on most for research, engineering,
+        and AI-enabled workflows.
+      </p>
+    </div>
+    <div class="stackGrid">
+      {
+        focusedStacks.map((stack) => (
           <div class="langIcons">
-            <p>{displayName}:</p>
+            <p>{stack.title}</p>
+            <span class="stackDescription">{stack.description}</span>
             <div>
-              {item[itemType].map((itemElement: any) => (
-                <a href={itemElement.url} class="iconLink">
-                  <Icon name={itemElement.iconName} title={itemElement.title} />
-                  <span class="iconTitle">{itemElement.title}</span>
-                </a>
-              ))}
+              {
+                stack.tools
+                  .map((name) => allToolsByTitle[name])
+                  .filter(Boolean)
+                  .map((tool) => (
+                    <a href={tool.url} class="iconLink" target="_blank" rel="noopener noreferrer">
+                      <Icon name={tool.iconName} title={tool.title} />
+                      <span class="iconTitle">{tool.title}</span>
+                    </a>
+                  ))
+              }
             </div>
           </div>
-        );
-      })
-    }
+        ))
+      }
+    </div>
   </div>
 </main>

@@ -78,28 +78,49 @@
   .iconsContainer {
     margin-top: 50px;
     padding: 30px;
-    background-color: rgba(45, 52, 65, 0.5);
+    background: linear-gradient(160deg, rgba(45, 52, 65, 0.62), rgba(35, 42, 54, 0.72));
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     justify-content: center;
-    gap: 30px;
+    gap: 24px;
     max-width: 950px;
     width: 100%;
     border-radius: 4px;
+    border: 1px solid rgba(100, 255, 218, 0.2);
+
+    .stackIntro {
+      text-align: center;
+      h2 {
+        margin: 0 0 10px 0;
+        font-size: 22px;
+        color: rgba(255, 255, 255, 0.95);
+      }
+      p {
+        margin: 0;
+        font-size: 15px;
+        color: rgba(228, 243, 255, 0.82);
+      }
+    }
+
+    .stackGrid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+    }
 
     .langIcons {
       display: flex;
-      align-items: center;
       flex-direction: column;
+      align-items: flex-start;
       padding: 20px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(100, 255, 218, 0.1);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(100, 255, 218, 0.2);
       border-radius: 8px;
       transition: all 300ms ease-out;
-      min-width: 180px;
+      min-height: 245px;
 
       &:hover {
-        background: rgba(255, 255, 255, 0.06);
+        background: rgba(255, 255, 255, 0.08);
         border-color: rgba(100, 255, 218, 0.4);
         transform: translateY(-5px);
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
@@ -112,15 +133,23 @@
         color: var(--green);
         text-transform: uppercase;
         letter-spacing: 1px;
-        text-align: center;
+        text-align: left;
         opacity: 0.8;
       }
 
+      .stackDescription {
+        font-size: 13px;
+        line-height: 1.45;
+        color: rgba(201, 218, 228, 0.86);
+        margin-bottom: 14px;
+        font-family: "Overpass", Verdana, Geneva, Tahoma, sans-serif;
+      }
+
       div {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 20px;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        width: 100%;
+        gap: 14px;
         a {
           display: flex;
           flex-direction: column;
@@ -293,11 +322,23 @@
     margin-top: 40px;
     padding: 20px;
     gap: 20px;
+    .stackGrid {
+      grid-template-columns: 1fr;
+    }
 
     .langIcons {
       div {
         gap: 15px;
-        flex-wrap: wrap;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .AboutMe {
+    .iconsContainer {
+      .stackGrid {
+        grid-template-columns: 1fr;
       }
     }
   }

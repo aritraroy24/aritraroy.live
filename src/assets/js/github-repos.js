@@ -1,5 +1,17 @@
 // GitHub API Configuration
 const GITHUB_USERNAME = 'aritraroy24';
+const FORK_ORGANIZATIONS = ['slimeslab'];
+const CONTRIBUTION_THRESHOLD = 0.5;
+
+async function githubFetch(url) {
+    const response = await fetch(url, {
+        headers: { Accept: 'application/vnd.github+json' }
+    });
+    if (!response.ok) {
+        throw new Error(`GitHub API failed: ${response.status}`);
+    }
+    return response.json();
+}
 
 // Fetch all GitHub repositories (handles pagination)
 async function fetchAllGitHubRepos() {
@@ -8,15 +20,9 @@ async function fetchAllGitHubRepos() {
     let hasMore = true;
 
     while (hasMore) {
-        const response = await fetch(
+        const repos = await githubFetch(
             `https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100&page=${page}&type=all`
         );
-
-        if (!response.ok) {
-            throw new Error('Failed to fetch GitHub repositories');
-        }
-
-        const repos = await response.json();
 
         if (repos.length === 0) {
             hasMore = false;
@@ -27,6 +33,87 @@ async function fetchAllGitHubRepos() {
     }
 
     return allRepos;
+}
+
+function getRepoSlug(repo) {
+    return repo?.full_name || `${repo?.owner?.login}/${repo?.name}`;
+}
+
+async function fetchRepoContributors(repo) {
+    try {
+        const slug = getRepoSlug(repo);
+        return await githubFetch(`https://api.github.com/repos/${slug}/contributors?per_page=100`);
+    } catch (error) {
+        return [];
+    }
+}
+
+function getContributionShare(contributors, username) {
+    if (!Array.isArray(contributors) || contributors.length === 0) return 0;
+
+    const total = contributors.reduce((sum, contributor) => sum + (contributor.contributions || 0), 0);
+    if (!total) return 0;
+
+    const mine = contributors.find((contributor) => contributor.login?.toLowerCase() === username.toLowerCase());
+    return mine ? (mine.contributions || 0) / total : 0;
+}
+
+async function fetchForkFromOrganization(repoName, org) {
+    try {
+        return await githubFetch(`https://api.github.com/repos/${org}/${repoName}`);
+    } catch (error) {
+        return null;
+    }
+}
+
+async function pickShowcaseRepo(personalRepo) {
+    const candidates = [personalRepo];
+
+    // Case 1: org fork of personal repo with more stars
+    for (const org of FORK_ORGANIZATIONS) {
+        const orgRepo = await fetchForkFromOrganization(personalRepo.name, org);
+        if (
+            orgRepo &&
+            orgRepo.fork &&
+            orgRepo.parent &&
+            getRepoSlug(orgRepo.parent).toLowerCase() === getRepoSlug(personalRepo).toLowerCase()
+        ) {
+            candidates.push(orgRepo);
+        }
+    }
+
+    // Case 2: personal repo is fork -> consider parent if >50% contribution and parent has more stars
+    if (personalRepo.fork && personalRepo.parent) {
+        try {
+            const parentRepo = await githubFetch(`https://api.github.com/repos/${personalRepo.parent.full_name}`);
+            const contributors = await fetchRepoContributors(parentRepo);
+            const contributionShare = getContributionShare(contributors, GITHUB_USERNAME);
+
+            if (
+                contributionShare > CONTRIBUTION_THRESHOLD &&
+                (parentRepo.stargazers_count || 0) > (personalRepo.stargazers_count || 0)
+            ) {
+                candidates.push(parentRepo);
+            }
+        } catch (error) {
+            // no-op: keep personal repo
+        }
+    }
+
+    const bestRepo = candidates.reduce((best, current) => {
+        if ((current.stargazers_count || 0) > (best.stargazers_count || 0)) return current;
+        return best;
+    }, personalRepo);
+
+    // Use personal description when showcased repo has no description
+    if ((!bestRepo.description || bestRepo.description.trim() === '') && personalRepo.description) {
+        return {
+            ...bestRepo,
+            description: personalRepo.description,
+        };
+    }
+
+    return bestRepo;
 }
 
 // Fetch GitHub repositories
@@ -44,25 +131,28 @@ async function fetchGitHubRepos() {
             repo.topics && repo.topics.includes('research')
         );
 
-        console.log(`Found ${researchRepos.length} research repositories out of ${repos.length} total repos`);
-
-        // Sort by last push date (most recently modified first)
-        const sortedRepos = researchRepos.sort((a, b) => {
-            const dateA = new Date(a.pushed_at);
-            const dateB = new Date(b.pushed_at);
-            return dateB - dateA; // Descending order (newest first)
-        });
-
-        console.log('Repositories sorted by last push date:', sortedRepos.map(r => ({
-            name: r.name,
-            pushed_at: r.pushed_at
-        })));
-
-        if (sortedRepos.length === 0) {
+        if (researchRepos.length === 0) {
             loader.style.display = 'none';
             container.innerHTML = '<p class="no-repos">No research repositories found.</p>';
             return;
         }
+
+        // Resolve showcase repo for each personal repo
+        const showcasedRepos = await Promise.all(researchRepos.map((repo) => pickShowcaseRepo(repo)));
+
+        // De-duplicate by full_name after substitutions
+        const dedupedMap = new Map();
+        showcasedRepos.forEach((repo) => {
+            dedupedMap.set(repo.full_name, repo);
+        });
+        const dedupedRepos = Array.from(dedupedMap.values());
+
+        // Sort by last push date (most recently modified first)
+        const sortedRepos = dedupedRepos.sort((a, b) => {
+            const dateA = new Date(a.pushed_at);
+            const dateB = new Date(b.pushed_at);
+            return dateB - dateA;
+        });
 
         // Prepare all repo cards in parallel
         const repoCardPromises = sortedRepos.map(repo => createRepoCard(repo));
@@ -119,7 +209,6 @@ async function createRepoCard(repo) {
     const stars = repo.stargazers_count || 0;
     const forks = repo.forks_count || 0;
     const repoUrl = repo.html_url || '#';
-    const homepage = repo.homepage || null;
 
     // Get language color (common programming languages)
     const languageColor = getLanguageColor(language);

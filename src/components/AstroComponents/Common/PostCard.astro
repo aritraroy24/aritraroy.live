@@ -21,14 +21,13 @@ import "./styles/PostCard.scss";
     <a href={`${urlPrefix}${url}`}>
       <Image alt={title} src={image} width={300} height={150} />
     </a>
-    <div>
+    <div class="postCardContent">
       <a href={`${urlPrefix}${url}`}>
         <h2>{title}</h2>
       </a>
       <div>
         <p class="dateDurationPostCard">
-          {formatDate(pubDate)}
-          • {duration}
+          {formatDate(pubDate)} &bull; {duration}
         </p>
       </div>
       <p>

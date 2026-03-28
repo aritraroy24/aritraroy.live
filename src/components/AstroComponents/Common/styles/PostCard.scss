@@ -2,60 +2,81 @@
   width: 350px;
   margin: 20px;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   flex-direction: column;
   background: #2d344157;
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.24);
   transition: all 200ms ease-out;
-  padding: 0 15px 15px 15px;
+  padding: 0;
   border-radius: 4px;
+
+  > a {
+    display: block;
+    width: 100%;
+  }
+
   img {
-    width: 350px;
+    width: 100%;
     height: 200px;
     object-fit: cover;
     object-position: center center;
     border-radius: 4px 4px 0 0;
     margin-bottom: 10px;
     filter: brightness(70%);
+    display: block;
   }
+
   img:hover {
     filter: brightness(100%);
     transition: all 200ms ease-out;
   }
-  div {
+
+  .postCardContent {
     display: flex;
     flex-direction: column;
     width: 100%;
+    height: 100%;
+    padding: 0 15px 15px 15px;
+
     .dateDurationPostCard {
       font-size: 16px;
       margin-bottom: 8px !important;
     }
+
     a h2 {
       font-size: 20px;
       margin-top: 0;
     }
+
     a h2:hover {
       color: var(--green) !important;
       transition: all 200ms ease-out;
     }
+
     p a {
       margin: 0 10px 0 0;
     }
+
+    .button-link {
+      margin-top: auto;
+    }
   }
 }
+
 @media only screen and (max-width: 1230px) {
   .postCard {
     width: 265px;
     margin: 17.5px;
+
     img {
-      width: 265px;
       height: 160px;
     }
   }
 }
+
 @media only screen and (max-width: 450px) {
   .postCard {
-    div {
+    .postCardContent {
       a h2 {
         font-size: 18px;
       }
@@ -65,11 +86,11 @@
     }
   }
 }
+
 @media only screen and (max-width: 300px) {
   .postCard {
     width: 240px;
     img {
-      width: 240px;
       height: 130px;
     }
   }

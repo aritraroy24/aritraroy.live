@@ -1,7 +1,7 @@
 import React, { useRef, useState, useMemo } from 'react';
 import Globe, { type GlobeMethods } from 'react-globe.gl';
 import { FaUniversity, FaMapMarkerAlt, FaOrcid } from 'react-icons/fa';
-import collaborators, { generationDate } from '../../assets/js/data/collaborations-cache.js';
+import collaborators from '../../assets/js/data/collaborations-cache.js';
 import './styles/CollaboratorsGlobe.scss';
 
 const PIN_COLOR = 'rgba(254, 62, 85, 0.7)';

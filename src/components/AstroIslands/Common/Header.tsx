@@ -12,7 +12,7 @@ import NavLogo from '@images/NavLogo.webp'
 
 const Header: React.FC = () => {
     const [isActive, handleIsActive] = useState(false);
-    const [hasAnimated, setHasAnimated] = useState(false);
+    const [animateHeader, setAnimateHeader] = useState(false);
 
     useEffect(() => {
         const preloader = document.getElementById('preloader');
@@ -24,15 +24,50 @@ const Header: React.FC = () => {
             delayedContent.style.display = 'grid';
         }
 
-        // Check if the header animation has already been shown
-        const animationShown = sessionStorage.getItem('headerAnimationShown');
-        if (animationShown === 'true') {
-            setHasAnimated(true);
-        } else {
-            // Mark that animation has been shown
-            sessionStorage.setItem('headerAnimationShown', 'true');
-        }
+        setAnimateHeader(window.location.pathname === '/');
     }, []);
+
+    const navMarkup = (
+        <nav className='navContainer'>
+            <div
+                className={`hamburger-menu ${isActive &&
+                    'hamburger-menu-active'}`}
+                onClick={() => handleIsActive(!isActive)}>
+                <div className='bar-1'></div>
+                <div className='bar-2'></div>
+                <div className='bar-3'></div>
+            </div>
+            <div className='logo'>
+                <a href="/">
+                    <img src={NavLogo.src} alt="NavLogo" className='navLogo' />
+                </a>
+            </div>
+            <ul
+                className={`navigation-ul ${isActive &&
+                    'navigation-ul-active'}`}>
+                <li onClick={() => handleIsActive(false)}>
+                    <a href="/about">About</a>
+                </li>
+                <li onClick={() => handleIsActive(false)} className='projects-menu'>
+                    <a href="/research">Research</a>
+                </li>
+                <li onClick={() => handleIsActive(false)}>
+                    <a href="/portfolio">Portfolio</a>
+                </li>
+                <li onClick={() => handleIsActive(false)} className='projects-menu'>
+                    <a href="/tutorial">Tutorials</a>
+                </li>
+                <li onClick={() => handleIsActive(false)}>
+                    <a href="/contact">Contact</a>
+                </li>
+                <li>
+                    <a href='/search' title='Search Posts'>
+                        <FaSearch id='searchIcon' title="Search Posts" />
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    );
 
     return (
         <>
@@ -42,92 +77,12 @@ const Header: React.FC = () => {
             <div className={`nav-wrapper-mobile`}></div>
             <div className='nav-wrapper'>
                 <Headroom disableInlineStyles>
-                    {hasAnimated ? (
-                        // No animation for subsequent page loads
-                        <nav className='navContainer'>
-                            <div
-                                className={`hamburger-menu ${isActive &&
-                                    'hamburger-menu-active'}`}
-                                onClick={() => handleIsActive(!isActive)}>
-                                <div className='bar-1'></div>
-                                <div className='bar-2'></div>
-                                <div className='bar-3'></div>
-                            </div>
-                            <div className='logo'>
-                                <a href="/">
-                                    <img src={NavLogo.src} alt="NavLogo" className='navLogo' />
-                                </a>
-                            </div>
-                            <ul
-                                className={`navigation-ul ${isActive &&
-                                    'navigation-ul-active'}`}>
-                                <li onClick={() => handleIsActive(false)}>
-                                    <a href="/about">About</a>
-                                </li>
-                                <li onClick={() => handleIsActive(false)} className='projects-menu'>
-                                    <a href="/research">Research</a>
-                                </li>
-                                <li onClick={() => handleIsActive(false)}>
-                                    <a href="/portfolio">Portfolio</a>
-                                </li>
-                                <li onClick={() => handleIsActive(false)} className='projects-menu'>
-                                    <a href="/tutorial">Tutorials</a>
-                                </li>
-                                <li onClick={() => handleIsActive(false)}>
-                                    <a href="/contact">Contact</a>
-                                </li>
-                                <li>
-                                    <a href='/search' title='Search Posts'>
-                                        <FaSearch id='searchIcon' title="Search Posts" />
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                    ) : (
-                        // Animation only for first page load
+                    {animateHeader ? (
                         <Fade triggerOnce>
-                            <nav className='navContainer'>
-                                <div
-                                    className={`hamburger-menu ${isActive &&
-                                        'hamburger-menu-active'}`}
-                                    onClick={() => handleIsActive(!isActive)}>
-                                    <div className='bar-1'></div>
-                                    <div className='bar-2'></div>
-                                    <div className='bar-3'></div>
-                                </div>
-                                <div className='logo'>
-                                    <a href="/">
-                                        <img src={NavLogo.src} alt="NavLogo" className='navLogo' />
-                                    </a>
-                                </div>
-                                <Fade direction='down' cascade delay={300} triggerOnce>
-                                    <ul
-                                        className={`navigation-ul ${isActive &&
-                                            'navigation-ul-active'}`}>
-                                        <li onClick={() => handleIsActive(false)}>
-                                            <a href="/about">About</a>
-                                        </li>
-                                        <li onClick={() => handleIsActive(false)} className='projects-menu'>
-                                            <a href="/research">Research</a>
-                                        </li>
-                                        <li onClick={() => handleIsActive(false)}>
-                                            <a href="/portfolio">Portfolio</a>
-                                        </li>
-                                        <li onClick={() => handleIsActive(false)} className='projects-menu'>
-                                            <a href="/tutorial">Tutorials</a>
-                                        </li>
-                                        <li onClick={() => handleIsActive(false)}>
-                                            <a href="/contact">Contact</a>
-                                        </li>
-                                        <li>
-                                            <a href='/search' title='Search Posts'>
-                                                <FaSearch id='searchIcon' title="Search Posts" />
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </Fade>
-                            </nav>
+                            {navMarkup}
                         </Fade>
+                    ) : (
+                        navMarkup
                     )}
                 </Headroom>
             </div>

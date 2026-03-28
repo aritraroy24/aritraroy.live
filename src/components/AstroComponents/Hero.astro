@@ -72,3 +72,22 @@ import FullereneImage from "@images/fullerene.webp";
     />
   </div>
 </div>
+
+<script is:inline>
+  (() => {
+    if (typeof window === "undefined") return;
+
+    const HOME_ENTRY_KEY = "home-entry-animation-played";
+    const heroSection = document.querySelector(".home-title-section");
+    if (!heroSection) return;
+
+    const hasPlayed = sessionStorage.getItem(HOME_ENTRY_KEY) === "true";
+
+    if (hasPlayed) {
+      heroSection.classList.remove("entryAnimation");
+      return;
+    }
+
+    sessionStorage.setItem(HOME_ENTRY_KEY, "true");
+  })();
+</script>

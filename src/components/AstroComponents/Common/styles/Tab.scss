@@ -6,19 +6,7 @@
     align-items: flex-start;
     position: relative;
     opacity: 1;
-    animation: tabs-animation 1000ms both 0s 1;
     min-height: 240px;
-}
-
-@keyframes tabs-animation {
-    0% {
-        opacity: 0;
-        transform: translate3d(0px, 100%, 0px);
-    }
-    100% {
-        opacity: 1;
-        transform: none;
-    }
 }
 
 .listLeft,

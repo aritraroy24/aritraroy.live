@@ -16,7 +16,7 @@
 
   h1 {
     color: rgba(255, 255, 255, 0.932);
-    margin-bottom: 5px;
+    margin-bottom: 18px;
     font-family: "Overpass", Verdana, Geneva, Tahoma, sans-serif;
     font-size: 30px;
     position: relative;
@@ -72,6 +72,14 @@
       }
     }
 
+    .projectImageFrame {
+      width: 300px;
+      min-height: 240px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
     .noDataFoundContainer {
       display: flex;
       flex-direction: column;
@@ -81,9 +89,40 @@
   }
 }
 
-// Special overrides for postsNavigationDiv to maintain min-height if needed
 .postsNavigationDiv {
   min-height: 100vh;
+
+  .allPostsContainer {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 32px;
+    align-items: stretch;
+    justify-content: center;
+    width: min(1200px, 100%);
+
+    .projectSectionLinks {
+      margin: 0;
+    }
+
+    .postCard {
+      height: 100%;
+      margin: 0;
+    }
+  }
+}
+
+.postsNavigationDiv.tagPostsPage {
+  .allPostsContainer {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 350px));
+    justify-content: center;
+  }
+}
+
+.Tutorials {
+  .allPostsContainer:has(.projectSectionLinks:nth-child(2):last-child) {
+    grid-template-columns: repeat(2, minmax(250px, 320px));
+    justify-content: center;
+  }
 }
 
 @media only screen and (max-width: 1250px) {
@@ -100,12 +139,26 @@
   .postsNavigationDiv {
     padding: 150px 80px 0 80px;
   }
+
+  .postsNavigationDiv {
+    .allPostsContainer {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 34px;
+    }
+  }
 }
 
 @media only screen and (max-width: 900px) {
   .allPostsContainer {
     .projectSectionLinks {
       margin: 30px 20px 10px 20px !important;
+    }
+  }
+
+  .postsNavigationDiv {
+    .allPostsContainer {
+      grid-template-columns: 1fr;
+      gap: 36px;
     }
   }
 }

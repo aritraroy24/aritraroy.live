@@ -53,9 +53,12 @@ h2 {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  animation: 2s ease-out 0s 1 slideInFromBottom;
   position: relative;
   z-index: 10;
+}
+
+.home-title-section.entryAnimation {
+  animation: 2s ease-out 0s 1 slideInFromBottom;
 }
 @keyframes slideInFromBottom {
   0% {
