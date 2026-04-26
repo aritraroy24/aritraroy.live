@@ -8,6 +8,42 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json");
 
+function loadSecretsFile()
+{
+    $paths = [
+        __DIR__ . '/../private/secrets.php',
+        __DIR__ . '/../secrets.php',
+    ];
+
+    foreach ($paths as $path) {
+        if (file_exists($path)) {
+            $data = require $path;
+            if (is_array($data)) {
+                return $data;
+            }
+        }
+    }
+
+    return [];
+}
+
+function getSecret($key, $default = '')
+{
+    $value = getenv($key);
+    if ($value !== false && $value !== '') return $value;
+
+    static $fileSecrets = null;
+    if ($fileSecrets === null) {
+        $fileSecrets = loadSecretsFile();
+    }
+
+    if (isset($fileSecrets[$key]) && $fileSecrets[$key] !== '') {
+        return $fileSecrets[$key];
+    }
+
+    return $default;
+}
+
 // Get form data - match field names from React frontend
 $timestamp = date('Y-m-d H:i:s');
 $name = isset($_POST['Name']) ? htmlspecialchars($_POST['Name']) : '';
@@ -36,7 +72,7 @@ $firstName = explode(' ', $name)[0];
 $smtp_host = 'smtp.hostinger.com';
 $smtp_port = 465; // SSL connection
 $smtp_username = 'contact@aritraroy.live';
-$smtp_password = 'SMTP_PASSWORD';
+$smtp_password = getSecret('SMTP_PASSWORD', 'SMTP_PASSWORD');
 $from_email = 'contact@aritraroy.live';
 $from_name = 'Aritra Roy Contact Form';
 $admin_email = 'contact@aritraroy.live'; // Admin email
