@@ -153,6 +153,18 @@ import "../../../assets/styles/collaborators.scss";
   // Handle globe loader on desktop
   let globeShown = false;
 
+  function showDesktopCardsFallback() {
+    const cardsWrapper = document.querySelector('.collaborators-cards-only');
+    const cardsLoader = document.getElementById('collaborators-loader');
+    const cardsContainer = document.getElementById('collaborators-container');
+    const globeLoader = document.getElementById('globe-loader');
+
+    if (globeLoader) globeLoader.style.display = 'none';
+    if (cardsWrapper) cardsWrapper.style.display = 'block';
+    if (cardsLoader) cardsLoader.style.display = 'none';
+    if (cardsContainer) cardsContainer.style.display = 'grid';
+  }
+
   function showGlobeContent() {
     if (globeShown) return;
     globeShown = true;
@@ -191,8 +203,18 @@ import "../../../assets/styles/collaborators.scss";
   // Fallback: show globe after 5 seconds even if event doesn't fire
   setTimeout(() => {
     if (!globeShown && window.innerWidth > 768) {
-      console.warn('Globe initialization timeout - showing content anyway');
+      console.warn('Globe initialization timeout - forcing globe reveal');
       showGlobeContent();
+
+      // Secondary fallback: if globe container is still not visible, show cards.
+      setTimeout(() => {
+        const globeContainer = document.getElementById('globe-container');
+        const globeVisible = globeContainer && globeContainer.style.display !== 'none';
+        if (!globeVisible) {
+          console.warn('Globe still not visible - showing cards fallback');
+          showDesktopCardsFallback();
+        }
+      }, 3000);
     }
   }, 5000);
 </script>

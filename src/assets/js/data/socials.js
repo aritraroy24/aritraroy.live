@@ -39,36 +39,24 @@ const socials = [
     },
     {
         id: 7,
-        title: 'Twitter',
-        url: 'https://twitter.com/aritraroy24',
-        name: 'socials/twitter'
+        title: 'X',
+        url: 'https://x.com/aritraroy24',
+        name: 'socials/x'
     },
     {
         id: 8,
-        title: 'Mastodon',
-        url: 'https://mastodon.social/@aritraroy24',
-        name: 'socials/mastodon'
-    },
-    {
-        id: 9,
-        title: 'Discord',
-        url: 'https://discordapp.com/users/756481409836646461',
-        name: 'socials/baseline-discord'
-    },
-    {
-        id: 10,
         title: 'YouTube',
         url: 'https://www.youtube.com/@CompChemStudio',
         name: 'socials/youtube'
     },
     {
-        id: 11,
+        id: 9,
         title: 'Facebook',
         url: 'https://www.facebook.com/aritraroy24',
         name: 'socials/facebook'
     },
     {
-        id: 12,
+        id: 10,
         title: 'Instagram',
         url: 'https://www.instagram.com/royaritra24/',
         name: 'socials/instagram'

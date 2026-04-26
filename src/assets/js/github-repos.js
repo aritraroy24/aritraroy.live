@@ -42,7 +42,24 @@ function getRepoSlug(repo) {
 async function fetchRepoContributors(repo) {
     try {
         const slug = getRepoSlug(repo);
-        return await githubFetch(`https://api.github.com/repos/${slug}/contributors?per_page=100`);
+        let allContributors = [];
+        let page = 1;
+        let hasMore = true;
+
+        while (hasMore) {
+            const contributors = await githubFetch(
+                `https://api.github.com/repos/${slug}/contributors?per_page=100&page=${page}`
+            );
+
+            if (!Array.isArray(contributors) || contributors.length === 0) {
+                hasMore = false;
+            } else {
+                allContributors = allContributors.concat(contributors);
+                page++;
+            }
+        }
+
+        return allContributors;
     } catch (error) {
         return [];
     }
@@ -68,6 +85,8 @@ async function fetchForkFromOrganization(repoName, org) {
 
 async function pickShowcaseRepo(personalRepo) {
     const candidates = [personalRepo];
+    let derivedStarCount = null;
+    let forkRepoForContribution = personalRepo;
 
     // Case 1: org fork of personal repo with more stars
     for (const org of FORK_ORGANIZATIONS) {
@@ -82,18 +101,27 @@ async function pickShowcaseRepo(personalRepo) {
         }
     }
 
-    // Case 2: personal repo is fork -> consider parent if >50% contribution and parent has more stars
-    if (personalRepo.fork && personalRepo.parent) {
+    // Case 2: personal repo is fork -> if contribution share is >50%, display stars from the higher-star repo in the fork network
+    if (personalRepo.fork) {
         try {
-            const parentRepo = await githubFetch(`https://api.github.com/repos/${personalRepo.parent.full_name}`);
-            const contributors = await fetchRepoContributors(parentRepo);
-            const contributionShare = getContributionShare(contributors, GITHUB_USERNAME);
+            // Repository list API may omit parent/source for forks; fetch full repo details to ensure parent is available.
+            const fullForkRepo = await githubFetch(`https://api.github.com/repos/${getRepoSlug(personalRepo)}`);
+            if (fullForkRepo?.parent) {
+                forkRepoForContribution = fullForkRepo;
+            }
 
-            if (
-                contributionShare > CONTRIBUTION_THRESHOLD &&
-                (parentRepo.stargazers_count || 0) > (personalRepo.stargazers_count || 0)
-            ) {
-                candidates.push(parentRepo);
+            const parentFullName = forkRepoForContribution.parent?.full_name;
+            if (parentFullName) {
+                const parentRepo = await githubFetch(`https://api.github.com/repos/${parentFullName}`);
+                const contributors = await fetchRepoContributors(forkRepoForContribution);
+                const contributionShare = getContributionShare(contributors, GITHUB_USERNAME);
+
+                if (contributionShare > CONTRIBUTION_THRESHOLD) {
+                    derivedStarCount = Math.max(
+                        forkRepoForContribution.stargazers_count || personalRepo.stargazers_count || 0,
+                        parentRepo.stargazers_count || 0
+                    );
+                }
             }
         } catch (error) {
             // no-op: keep personal repo
@@ -110,6 +138,14 @@ async function pickShowcaseRepo(personalRepo) {
         return {
             ...bestRepo,
             description: personalRepo.description,
+            ...(derivedStarCount !== null ? { display_stargazers_count: derivedStarCount } : {}),
+        };
+    }
+
+    if (derivedStarCount !== null) {
+        return {
+            ...bestRepo,
+            display_stargazers_count: derivedStarCount,
         };
     }
 
@@ -206,7 +242,7 @@ async function createRepoCard(repo) {
     }
 
     language = language || 'N/A';
-    const stars = repo.stargazers_count || 0;
+    const stars = repo.display_stargazers_count ?? repo.stargazers_count ?? 0;
     const forks = repo.forks_count || 0;
     const repoUrl = repo.html_url || '#';
 

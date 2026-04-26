@@ -14,19 +14,27 @@ function getPublications() {
     try {
         const localCached = localStorage.getItem(CACHE_KEY);
         const localTimestamp = localStorage.getItem(CACHE_TIMESTAMP_KEY);
+        const staticPublications = publicationsStatic || [];
+        const staticDate = new Date(generationDate);
 
         if (localCached && localTimestamp) {
             const localDate = new Date(localTimestamp);
-            const staticDate = new Date(generationDate);
+            const parsedLocal = JSON.parse(localCached);
+
+            // Guard against stale empty cache overriding valid static data.
+            if (Array.isArray(parsedLocal) && parsedLocal.length === 0 && staticPublications.length > 0) {
+                setTimeout(() => saveToCache(staticPublications), 100);
+                return staticPublications;
+            }
 
             if (localDate >= staticDate) {
-                return JSON.parse(localCached);
+                return parsedLocal;
             }
         }
 
         // Save to cache asynchronously to avoid blocking the initial render
-        setTimeout(() => saveToCache(publicationsStatic), 100);
-        return publicationsStatic;
+        setTimeout(() => saveToCache(staticPublications), 100);
+        return staticPublications;
     } catch (error) {
         return publicationsStatic || [];
     }
@@ -62,7 +70,9 @@ function displayPublications() {
                 return;
             }
 
-            const sortedWorks = works.sort((a, b) => {
+            const dedupedWorks = dedupePublicationsByTitlePreferJournal(works);
+
+            const sortedWorks = dedupedWorks.sort((a, b) => {
                 const yearA = Number(a.processedInfo.year) || 0;
                 const yearB = Number(b.processedInfo.year) || 0;
                 if (yearB !== yearA) return yearB - yearA;
@@ -114,6 +124,68 @@ function displayPublications() {
             loader.style.display = 'none';
         }
     });
+}
+
+function normalizeTitleForCompare(value) {
+    if (!value || typeof value !== 'string') return '';
+
+    return value
+        .toLowerCase()
+        .replace(/<[^>]*>/g, ' ') // Strip HTML tags
+        .replace(/[^\p{L}\p{N}\s]/gu, ' ') // Remove punctuation/symbols
+        .replace(/\s+/g, ' ')
+        .trim();
+}
+
+function getWorkTitle(work) {
+    return work?.title?.title?.value || '';
+}
+
+function isLikelyArxivPublication(work) {
+    const info = work?.processedInfo || {};
+    const journalTitle = (info.journalTitle || '').toLowerCase();
+
+    return Boolean(
+        info.arxivId ||
+        info.isArxivDoi ||
+        (work?.metadata?.type && String(work.metadata.type).toLowerCase() === 'arxiv') ||
+        journalTitle.includes('arxiv')
+    );
+}
+
+function pickPreferredPublication(current, candidate) {
+    const currentIsArxiv = isLikelyArxivPublication(current);
+    const candidateIsArxiv = isLikelyArxivPublication(candidate);
+
+    // Always prefer non-arXiv (journal) version over arXiv for same title.
+    if (currentIsArxiv && !candidateIsArxiv) return candidate;
+    if (!currentIsArxiv && candidateIsArxiv) return current;
+
+    // If both are same category, prefer the one with richer metadata.
+    const currentScore = (current?.processedInfo?.doi ? 1 : 0) + (current?.processedInfo?.journalTitle ? 1 : 0);
+    const candidateScore = (candidate?.processedInfo?.doi ? 1 : 0) + (candidate?.processedInfo?.journalTitle ? 1 : 0);
+    if (candidateScore > currentScore) return candidate;
+
+    return current;
+}
+
+function dedupePublicationsByTitlePreferJournal(works) {
+    const byTitle = new Map();
+
+    works.forEach((work) => {
+        const normalizedTitle = normalizeTitleForCompare(getWorkTitle(work));
+        if (!normalizedTitle) return;
+
+        const existing = byTitle.get(normalizedTitle);
+        if (!existing) {
+            byTitle.set(normalizedTitle, work);
+            return;
+        }
+
+        byTitle.set(normalizedTitle, pickPreferredPublication(existing, work));
+    });
+
+    return Array.from(byTitle.values());
 }
 
 // Format authors list with highlight for user's name

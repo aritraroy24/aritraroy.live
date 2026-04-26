@@ -1,8 +1,1023 @@
 // Auto-generated publications data
-// Last updated: 2026-02-03T00:52:36.135Z
-const generationDate = '2026-02-03T00:52:36.135Z';
+// Last updated: 2026-04-26T17:22:32.740Z
+const generationDate = '2026-04-26T17:22:32.740Z';
 
 const publications = [
+  {
+    "put-code": 210456540,
+    "created-date": {
+      "value": 1775066834530
+    },
+    "last-modified-date": {
+      "value": 1775066834530
+    },
+    "source": {
+      "source-orcid": null,
+      "source-client-id": {
+        "uri": "https://orcid.org/client/0000-0001-9884-1913",
+        "path": "0000-0001-9884-1913",
+        "host": "orcid.org"
+      },
+      "source-name": {
+        "value": "Crossref"
+      },
+      "assertion-origin-orcid": null,
+      "assertion-origin-client-id": null,
+      "assertion-origin-name": null
+    },
+    "title": {
+      "title": {
+        "value": "ComProScanner: a multi-agent based framework for composition-property structured data extraction from scientific literature"
+      },
+      "subtitle": null,
+      "translated-title": null
+    },
+    "external-ids": {
+      "external-id": [
+        {
+          "external-id-type": "doi",
+          "external-id-value": "10.1039/D5DD00521C",
+          "external-id-normalized": {
+            "value": "10.1039/d5dd00521c",
+            "transient": true
+          },
+          "external-id-normalized-error": null,
+          "external-id-url": {
+            "value": "https://doi.org/10.1039/D5DD00521C"
+          },
+          "external-id-relationship": "self"
+        }
+      ]
+    },
+    "url": {
+      "value": "https://doi.org/10.1039/D5DD00521C"
+    },
+    "type": "journal-article",
+    "publication-date": {
+      "year": {
+        "value": "2026"
+      },
+      "month": null,
+      "day": null
+    },
+    "journal-title": {
+      "value": "Digital Discovery"
+    },
+    "visibility": "public",
+    "path": "/0000-0003-0243-9124/work/210456540",
+    "display-index": "1",
+    "metadata": {
+      "indexed": {
+        "date-parts": [
+          [
+            2026,
+            4,
+            22
+          ]
+        ],
+        "date-time": "2026-04-22T16:57:40Z",
+        "timestamp": 1776877060687,
+        "version": "3.51.2"
+      },
+      "reference-count": 75,
+      "publisher": "Royal Society of Chemistry (RSC)",
+      "issue": "4",
+      "license": [
+        {
+          "start": {
+            "date-parts": [
+              [
+                2026,
+                3,
+                25
+              ]
+            ],
+            "date-time": "2026-03-25T00:00:00Z",
+            "timestamp": 1774396800000
+          },
+          "content-version": "vor",
+          "delay-in-days": 83,
+          "URL": "http://creativecommons.org/licenses/by/3.0/"
+        }
+      ],
+      "funder": [
+        {
+          "DOI": "10.13039/501100000266",
+          "name": "Engineering and Physical Sciences Research Council",
+          "doi-asserted-by": "publisher",
+          "award": [
+            "UKRI132"
+          ],
+          "award-info": [
+            {
+              "award-number": [
+                "UKRI132"
+              ]
+            }
+          ],
+          "id": [
+            {
+              "id": "10.13039/501100000266",
+              "id-type": "DOI",
+              "asserted-by": "publisher"
+            }
+          ]
+        }
+      ],
+      "content-domain": {
+        "domain": [
+          "rsc.org"
+        ],
+        "crossmark-restriction": true
+      },
+      "short-container-title": [
+        "Digital Discovery"
+      ],
+      "abstract": "<jats:p>\n                    ComProScanner is an end-to-end multi-agentic autonomous platform that extracts, validates and visualises machine-readable compositions, properties and synthesis data from journal articles\n                    <jats:italic>via</jats:italic>\n                    Text and Data Mining APIs for database creation.\n                  </jats:p>",
+      "DOI": "10.1039/d5dd00521c",
+      "type": "journal-article",
+      "created": {
+        "date-parts": [
+          [
+            2026,
+            3,
+            25
+          ]
+        ],
+        "date-time": "2026-03-25T16:00:57Z",
+        "timestamp": 1774454457000
+      },
+      "page": "1794-1808",
+      "update-policy": "https://doi.org/10.1039/rsc_crossmark_policy",
+      "source": "Crossref",
+      "is-referenced-by-count": 0,
+      "title": [
+        "ComProScanner: a multi-agent based framework for composition-property structured data extraction from scientific literature"
+      ],
+      "prefix": "10.1039",
+      "volume": "5",
+      "author": [
+        {
+          "ORCID": "https://orcid.org/0000-0003-0243-9124",
+          "authenticated-orcid": false,
+          "given": "Aritra",
+          "family": "Roy",
+          "sequence": "first",
+          "affiliation": [
+            {
+              "name": "Energy, Materials and Environment Research Centre, London South Bank University, London SE1 0AA, UK"
+            },
+            {
+              "name": "School of Engineering and Design, London South Bank University, London SE1 0AA, UK"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0002-7365-5652",
+          "authenticated-orcid": false,
+          "given": "Enrico",
+          "family": "Grisan",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "Bioscience and Bioengineering Research Centre, London South Bank University, London SE1 0AA, UK"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0002-2537-5082",
+          "authenticated-orcid": false,
+          "given": "John",
+          "family": "Buckeridge",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "Energy, Materials and Environment Research Centre, London South Bank University, London SE1 0AA, UK"
+            },
+            {
+              "name": "School of Engineering and Design, London South Bank University, London SE1 0AA, UK"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0002-3376-6374",
+          "authenticated-orcid": false,
+          "given": "Chiara",
+          "family": "Gattinoni",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "Department of Physics, King's College London, London WC2R 2LS, UK"
+            }
+          ]
+        }
+      ],
+      "member": "292",
+      "published-online": {
+        "date-parts": [
+          [
+            2026
+          ]
+        ]
+      },
+      "reference": [
+        {
+          "key": "D5DD00521C/cit1/1",
+          "doi-asserted-by": "crossref",
+          "first-page": "011002",
+          "DOI": "10.1063/1.4812323",
+          "volume": "1",
+          "author": "Jain",
+          "year": "2013",
+          "journal-title": "APL Mater."
+        },
+        {
+          "key": "D5DD00521C/cit2/1",
+          "doi-asserted-by": "crossref",
+          "first-page": "173",
+          "DOI": "10.1038/s41524-020-00440-1",
+          "volume": "6",
+          "author": "Choudhary",
+          "year": "2020",
+          "journal-title": "npj Comput. Mater."
+        },
+        {
+          "key": "D5DD00521C/cit3/1",
+          "doi-asserted-by": "crossref",
+          "first-page": "1",
+          "DOI": "10.1038/sdata.2018.62",
+          "volume": "5",
+          "author": "Ghahremanpour",
+          "year": "2018",
+          "journal-title": "Sci. Data"
+        },
+        {
+          "key": "D5DD00521C/cit4/1",
+          "doi-asserted-by": "crossref",
+          "first-page": "1501",
+          "DOI": "10.1007/s11837-013-0755-4",
+          "volume": "65",
+          "author": "Saal",
+          "year": "2013",
+          "journal-title": "Jom"
+        },
+        {
+          "key": "D5DD00521C/cit5/1",
+          "first-page": "380",
+          "volume": "58",
+          "author": "Allen",
+          "year": "2002",
+          "journal-title": "Sci. Data"
+        },
+        {
+          "key": "D5DD00521C/cit6/1",
+          "doi-asserted-by": "crossref",
+          "first-page": "1",
+          "DOI": "10.1038/sdata.2018.53",
+          "volume": "5",
+          "author": "Zakutayev",
+          "year": "2018",
+          "journal-title": "Sci. Data"
+        },
+        {
+          "key": "D5DD00521C/cit7/1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.48550/arXiv.2505.12534",
+          "author": "Mirza",
+          "year": "2025",
+          "unstructured": "A.Mirza ,  N.Alampara ,  M.Ríos-García ,  M.Abdelalim ,  J.Butler ,  B.Connolly ,  T.Dogan ,  M.Nezhurina ,  B.Şen ,  S.Tirunagari ,  M.Worrall ,  A.Young ,  P.Schwaller ,  M.Pieler  and  K. M.Jablonka ,  ChemPile: A 250GB Diverse and Curated Dataset for Chemical Foundation Models ,  arXiv ,  2025 , preprint, arXiv:2505.12534,  10.48550/arXiv.2505.12534 ,  https://arxiv.org/abs/2505.12534"
+        },
+        {
+          "key": "D5DD00521C/cit8/1",
+          "doi-asserted-by": "crossref",
+          "first-page": "1894",
+          "DOI": "10.1021/acs.jcim.6b00207",
+          "volume": "56",
+          "author": "Swain",
+          "year": "2016",
+          "journal-title": "J. Chem. Inf. Model."
+        },
+        {
+          "key": "D5DD00521C/cit9/1",
+          "doi-asserted-by": "crossref",
+          "first-page": "41",
+          "DOI": "10.1186/1758-2946-3-41",
+          "volume": "3",
+          "author": "Jessop",
+          "year": "2011",
+          "journal-title": "J. Cheminf."
+        },
+        {
+          "key": "D5DD00521C/cit10/1",
+          "doi-asserted-by": "crossref",
+          "first-page": "1",
+          "DOI": "10.1186/1758-2946-3-17",
+          "volume": "3",
+          "author": "Hawizy",
+          "year": "2011",
+          "journal-title": "J. Cheminf."
+        },
+        {
+          "key": "D5DD00521C/cit11/1",
+          "doi-asserted-by": "crossref",
+          "first-page": "6365",
+          "DOI": "10.1021/acs.jcim.2c00035",
+          "volume": "62",
+          "author": "Huang",
+          "year": "2022",
+          "journal-title": "J. Chem. Inf. Model."
+        },
+        {
+          "key": "D5DD00521C/cit12/1",
+          "doi-asserted-by": "crossref",
+          "first-page": "9436",
+          "DOI": "10.1021/acs.chemmater.7b03500",
+          "volume": "29",
+          "author": "Kim",
+          "year": "2017",
+          "journal-title": "Chem. Mater."
+        },
+        {
+          "key": "D5DD00521C/cit13/1",
+          "doi-asserted-by": "crossref",
+          "first-page": "203",
+          "DOI": "10.1038/s41597-019-0224-1",
+          "volume": "6",
+          "author": "Kononova",
+          "year": "2019",
+          "journal-title": "Sci. Data"
+        },
+        {
+          "key": "D5DD00521C/cit14/1",
+          "doi-asserted-by": "crossref",
+          "first-page": "260",
+          "DOI": "10.1038/s41597-020-00602-2",
+          "volume": "7",
+          "author": "Huang",
+          "year": "2020",
+          "journal-title": "Sci. Data"
+        },
+        {
+          "key": "D5DD00521C/cit15/1",
+          "doi-asserted-by": "crossref",
+          "first-page": "648",
+          "DOI": "10.1038/s41597-022-01752-1",
+          "volume": "9",
+          "author": "Sierepeklis",
+          "year": "2022",
+          "journal-title": "Sci. Data"
+        },
+        {
+          "key": "D5DD00521C/cit16/1",
+          "doi-asserted-by": "crossref",
+          "first-page": "193",
+          "DOI": "10.1038/s41597-022-01294-6",
+          "volume": "9",
+          "author": "Dong",
+          "year": "2022",
+          "journal-title": "Sci. Data"
+        },
+        {
+          "key": "D5DD00521C/cit17/1",
+          "doi-asserted-by": "crossref",
+          "first-page": "234",
+          "DOI": "10.1038/s41597-022-01321-6",
+          "volume": "9",
+          "author": "Cruse",
+          "year": "2022",
+          "journal-title": "Sci. Data"
+        },
+        {
+          "key": "D5DD00521C/cit18/1",
+          "doi-asserted-by": "crossref",
+          "first-page": "329",
+          "DOI": "10.1038/s41597-022-01355-w",
+          "volume": "9",
+          "author": "Beard",
+          "year": "2022",
+          "journal-title": "Sci. Data"
+        },
+        {
+          "key": "D5DD00521C/cit19/1",
+          "doi-asserted-by": "crossref",
+          "first-page": "100488",
+          "DOI": "10.1016/j.patter.2022.100488",
+          "volume": "3",
+          "author": "Trewartha",
+          "year": "2022",
+          "journal-title": "Patterns"
+        },
+        {
+          "key": "D5DD00521C/cit20/1",
+          "first-page": "2153633",
+          "volume": "3",
+          "author": "Foppiano",
+          "year": "2023",
+          "journal-title": "Sci. Technol. Adv. Mater.:Methods"
+        },
+        {
+          "key": "D5DD00521C/cit21/1",
+          "year": "2025",
+          "unstructured": "re — Regular expression operations ,  https://docs.python.org/3/library/re.html ,  2025 , Accessed: 2025-03-19"
+        },
+        {
+          "key": "D5DD00521C/cit22/1",
+          "first-page": "1",
+          "volume-title": "2018 International conference on Bangla speech and language processing (ICBSLP)",
+          "author": "Sharfuddin",
+          "year": "2018",
+          "unstructured": "A. A.Sharfuddin ,  M. N.Tihami  and  M. S.Islam ,  2018 International conference on Bangla speech and language processing (ICBSLP) ,  2018 , pp. ,  pp. 1–4"
+        },
+        {
+          "key": "D5DD00521C/cit23/1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.48550/arXiv.1810.04805",
+          "author": "Devlin",
+          "year": "2019",
+          "unstructured": "J.Devlin ,  M.-W.Chang ,  K.Lee  and  K.Toutanova ,  BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding ,  arXiv ,  2019 , preprint, arXiv:1810.04805,  10.48550/arXiv.1810.04805"
+        },
+        {
+          "key": "D5DD00521C/cit24/1",
+          "volume-title": "A Sequence-to-Sequence Approach for Document-Level Relation Extraction",
+          "author": "Giorgi",
+          "year": "2022",
+          "unstructured": "J.Giorgi ,  G. D.Bader  and  B.Wang ,  A Sequence-to-Sequence Approach for Document-Level Relation Extraction ,  2022"
+        },
+        {
+          "key": "D5DD00521C/cit25/1",
+          "doi-asserted-by": "crossref",
+          "first-page": "2370",
+          "DOI": "10.18653/v1/2021.findings-emnlp.204",
+          "volume-title": "Findings of the Association for Computational Linguistics: EMNLP 2021",
+          "author": "Cabot",
+          "year": "2021",
+          "unstructured": "P.-L. H.Cabot  and  R.Navigli ,  Findings of the Association for Computational Linguistics: EMNLP 2021 ,  2021 ,  pp. 2370–2381"
+        },
+        {
+          "key": "D5DD00521C/cit26/1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.48550/arXiv.2105.07510",
+          "author": "Townsend",
+          "year": "2021",
+          "unstructured": "B.Townsend ,  E.Ito-Fisher ,  L.Zhang  and  M.May ,  Doc2Dict: Information Extraction as Text Generation ,  arXiv ,  2021 , preprint, arXiv:2105.07510,  10.48550/arXiv.2105.07510 ,  https://arxiv.org/abs/2105.07510"
+        },
+        {
+          "key": "D5DD00521C/cit27/1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.48550/arXiv.2412.09560",
+          "author": "Mishra",
+          "year": "2025",
+          "unstructured": "V.Mishra ,  S.Singh ,  D.Ahlawat ,  M.Zaki ,  V.Bihani ,  H. S.Grover ,  B.Mishra ,  S.Miret ,  Mausam  and  N. M. A.Krishnan ,  Foundational Large Language Models for Materials Research ,  arXiv ,  2025 , preprint, arXiv:2412.09560,  10.48550/arXiv.2412.09560 ,  https://arxiv.org/abs/2412.09560"
+        },
+        {
+          "key": "D5DD00521C/cit28/1",
+          "doi-asserted-by": "crossref",
+          "first-page": "1418",
+          "DOI": "10.1038/s41467-024-45563-x",
+          "volume": "15",
+          "author": "Dagdelen",
+          "year": "2024",
+          "journal-title": "Nat. Commun."
+        },
+        {
+          "key": "D5DD00521C/cit29/1",
+          "first-page": "2356506",
+          "volume": "4",
+          "author": "Foppiano",
+          "year": "2024",
+          "journal-title": "Sci. Technol. Adv. Mater.:Methods"
+        },
+        {
+          "key": "D5DD00521C/cit30/1",
+          "doi-asserted-by": "crossref",
+          "first-page": "1221",
+          "DOI": "10.1039/D4DD00016A",
+          "volume": "3",
+          "author": "Polak",
+          "year": "2024",
+          "journal-title": "Digital Discovery"
+        },
+        {
+          "key": "D5DD00521C/cit31/1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.48550/arXiv.2404.03080",
+          "author": "Ye",
+          "year": "2024",
+          "unstructured": "Y.Ye ,  J.Ren ,  S.Wang ,  Y.Wan ,  H.Wang ,  I.Razzak ,  B.Hoex ,  T.Xie  and  W.Zhang ,  Construction and Application of Materials Knowledge Graph in Multidisciplinary Materials Science via Large Language Model ,  arXiv ,  2024 , preprint, arXiv:2404.03080,  10.48550/arXiv.2404.03080 ,  https://arxiv.org/abs/2404.03080"
+        },
+        {
+          "key": "D5DD00521C/cit32/1",
+          "doi-asserted-by": "crossref",
+          "first-page": "1233",
+          "DOI": "10.1039/D3DD00113J",
+          "volume": "2",
+          "author": "Jablonka",
+          "year": "2023",
+          "journal-title": "Digital Discovery"
+        },
+        {
+          "key": "D5DD00521C/cit33/1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.48550/arXiv.2411.15221",
+          "author": "Zimmermann",
+          "year": "2025",
+          "unstructured": "Y.Zimmermann ,  A.Bazgir  and  Z.Afzal ,  Reflections from the 2024 Large Language Model (LLM) Hackathon for Applications in Materials Science and Chemistry ,  arXiv ,  2025 , preprint, arXiv:2411.15221,  10.48550/arXiv.2411.15221 ,  https://arxiv.org/abs/2411.15221"
+        },
+        {
+          "key": "D5DD00521C/cit34/1",
+          "doi-asserted-by": "crossref",
+          "first-page": "1569",
+          "DOI": "10.1038/s41467-024-45914-8",
+          "volume": "15",
+          "author": "Polak",
+          "year": "2024",
+          "journal-title": "Nat. Commun."
+        },
+        {
+          "key": "D5DD00521C/cit35/1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.48550/arXiv.2411.16955",
+          "author": "Alampara",
+          "year": "2025",
+          "unstructured": "N.Alampara ,  M.Schilling-Wilhelmi ,  M.Ríos-García ,  I.Mandal ,  P.Khetarpal ,  H. S.Grover ,  N. M. A.Krishnan  and  K. M.Jablonka ,  Probing the limitations of multimodal language models for chemistry and materials research ,  arXiv ,  2025 , preprint, arXiv:2411.16955,  10.48550/arXiv.2411.16955 ,  https://arxiv.org/abs/2411.16955"
+        },
+        {
+          "key": "D5DD00521C/cit36/1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.48550/arXiv.2402.11323",
+          "author": "Prasad",
+          "year": "2024",
+          "unstructured": "D.Prasad ,  M.Pimpude  and  A.Alankar ,  Towards Development of Automated Knowledge Maps and Databases for Materials Engineering using Large Language Models ,  arXiv ,  2024 , preprint, arXiv:2402.11323,  10.48550/arXiv.2402.11323 ,  https://arxiv.org/abs/2402.11323"
+        },
+        {
+          "key": "D5DD00521C/cit37/1",
+          "doi-asserted-by": "crossref",
+          "first-page": "269",
+          "DOI": "10.1038/s43246-024-00708-9",
+          "volume": "5",
+          "author": "Gupta",
+          "year": "2024",
+          "journal-title": "Commun. Mater."
+        },
+        {
+          "key": "D5DD00521C/cit38/1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.48550/arXiv.2405.10448",
+          "author": "Ekuma",
+          "year": "2024",
+          "unstructured": "C.Ekuma ,  Dynamic In-context Learning with Conversational Models for Data Extraction and Materials Property Prediction ,  arXiv ,  2024 , preprint, arXiv:2405.10448,  10.48550/arXiv.2405.10448"
+        },
+        {
+          "key": "D5DD00521C/cit39/1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.48550/arXiv.2312.07559",
+          "author": "Lála",
+          "year": "2023",
+          "unstructured": "J.Lála ,  O.O'Donoghue ,  A.Shtedritski ,  S.Cox ,  S. G.Rodriques  and  A. D.White ,  PaperQA: Retrieval-Augmented Generative Agent for Scientific Research ,  arXiv ,  2023 , preprint, arXiv:2312.07559,  10.48550/arXiv.2312.07559"
+        },
+        {
+          "key": "D5DD00521C/cit40/1",
+          "first-page": "035006",
+          "volume": "8",
+          "author": "Maharana",
+          "year": "2025",
+          "journal-title": "J. Phys."
+        },
+        {
+          "key": "D5DD00521C/cit41/1",
+          "doi-asserted-by": "crossref",
+          "first-page": "525",
+          "DOI": "10.1038/s42256-024-00832-8",
+          "volume": "6",
+          "author": "Bran",
+          "year": "2024",
+          "journal-title": "Nat. Mach. Intell."
+        },
+        {
+          "key": "D5DD00521C/cit42/1",
+          "doi-asserted-by": "crossref",
+          "first-page": "2607",
+          "DOI": "10.1039/D4DD00252K",
+          "volume": "3",
+          "author": "Ansari",
+          "year": "2024",
+          "journal-title": "Digital Discovery"
+        },
+        {
+          "key": "D5DD00521C/cit43/1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.48550/arXiv.2409.00135",
+          "author": "Zhang",
+          "year": "2024",
+          "unstructured": "H.Zhang ,  Y.Song ,  Z.Hou ,  S.Miret  and  B.Liu ,  HoneyComb: A Flexible LLM-Based Agent System for Materials Science ,  arXiv ,  2024 , preprint, arXiv:2409.00135,  10.48550/arXiv.2409.00135 ,  https://arxiv.org/abs/2409.00135"
+        },
+        {
+          "key": "D5DD00521C/cit44/1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.48550/arXiv.2409.13740",
+          "author": "Skarlinski",
+          "year": "2024",
+          "unstructured": "M. D.Skarlinski ,  S.Cox ,  J. M.Laurent ,  J. D.Braza ,  M.Hinks ,  M. J.Hammerling ,  M.Ponnapati ,  S. G.Rodriques  and  A. D.White ,  Language agents achieve superhuman synthesis of scientific knowledge ,  arXiv ,  2024 , preprint, arXiv:2409.13740,  10.48550/arXiv.2409.13740 ,  https://arxiv.org/abs/2409.13740"
+        },
+        {
+          "key": "D5DD00521C/cit45/1",
+          "volume-title": "Agentic Assistant for Material Scientists",
+          "author": "Feng",
+          "year": "2025",
+          "unstructured": "R.Feng ,  Y.Liang ,  T.Yin ,  P.Gao  and  W.Wang ,  Agentic Assistant for Material Scientists ,  2025"
+        },
+        {
+          "key": "D5DD00521C/cit46/1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.48550/arXiv.2401.17244",
+          "author": "Chiang",
+          "year": "2024",
+          "unstructured": "Y.Chiang ,  E.Hsieh ,  C.-H.Chou  and  J.Riebesell ,  LLaMP: Large Language Model Made Powerful for High-fidelity Materials Knowledge Retrieval and Distillation ,  arXiv ,  2024 , preprint, arXiv:2401.17244,  10.48550/arXiv.2401.17244 ,  https://arxiv.org/abs/2401.17244"
+        },
+        {
+          "key": "D5DD00521C/cit47/1",
+          "doi-asserted-by": "crossref",
+          "first-page": "570",
+          "DOI": "10.1038/s41586-023-06792-0",
+          "volume": "624",
+          "author": "Boiko",
+          "year": "2023",
+          "journal-title": "Nature"
+        },
+        {
+          "key": "D5DD00521C/cit48/1",
+          "doi-asserted-by": "crossref",
+          "first-page": "114521",
+          "DOI": "10.1016/j.commatsci.2026.114521",
+          "volume": "265",
+          "author": "Ghosh",
+          "year": "2026",
+          "journal-title": "Comput. Mater. Sci."
+        },
+        {
+          "key": "D5DD00521C/cit49/1",
+          "doi-asserted-by": "crossref",
+          "first-page": "194",
+          "DOI": "10.1038/s41524-025-01674-7",
+          "volume": "11",
+          "author": "Odobesku",
+          "year": "2025",
+          "journal-title": "npj Comput. Mater."
+        },
+        {
+          "key": "D5DD00521C/cit50/1",
+          "doi-asserted-by": "crossref",
+          "first-page": "1125",
+          "DOI": "10.1039/D4CS00913D",
+          "author": "Schilling-Wilhelmi",
+          "year": "2025",
+          "journal-title": "Chem. Soc. Rev."
+        },
+        {
+          "key": "D5DD00521C/cit51/1",
+          "year": "2025",
+          "unstructured": "JSON: A Lightweight data-interchange format ,  2025 ,  https://www.json.org/json-en.html , Accessed: 2025-05-12"
+        },
+        {
+          "key": "D5DD00521C/cit52/1",
+          "year": "2025",
+          "unstructured": "crewAI: Framework for orchestrating role-playing, autonomous AI agents ,  2025 ,  https://docs.crewai.com/ , Accessed: 2025-05-12"
+        },
+        {
+          "key": "D5DD00521C/cit53/1",
+          "year": "2025",
+          "unstructured": "Scopus Search API ,  https://dev.elsevier.com/documentation/ScopusSearchAPI.wadl ,  2025 , Accessed: 2025-03-02"
+        },
+        {
+          "key": "D5DD00521C/cit54/1",
+          "year": "2025",
+          "unstructured": "MySQL ,  https://www.mysql.com/ ,  2025 , Accessed: March 4, 2025"
+        },
+        {
+          "key": "D5DD00521C/cit55/1",
+          "year": "2025",
+          "unstructured": "Chroma ,  https://www.trychroma.com/ ,  2025 , Accessed: March 4, 2025"
+        },
+        {
+          "key": "D5DD00521C/cit56/1",
+          "year": "2025",
+          "unstructured": "ScienceDirect Article Metadata API ,  https://dev.elsevier.com/documentation/ArticleMetadataAPI.wadl ,  2025 , Accessed: 2025-03-07"
+        },
+        {
+          "key": "D5DD00521C/cit57/1",
+          "year": "2025",
+          "unstructured": "Open Access Button Metadata API ,  https://openaccessbutton.org/api ,  2025 , Accessed: 2025-03-07"
+        },
+        {
+          "key": "D5DD00521C/cit58/1",
+          "year": "2025",
+          "unstructured": "OA.Works ,  https://oa.works/ ,  2025 , Accessed: 2025-03-07"
+        },
+        {
+          "key": "D5DD00521C/cit59/1",
+          "first-page": "1",
+          "volume": "2",
+          "author": "De Jong",
+          "year": "2015",
+          "journal-title": "Sci. Data"
+        },
+        {
+          "key": "D5DD00521C/cit60/1",
+          "author": "Roy",
+          "year": "2025",
+          "unstructured": "A.Roy ,  ComProScanner ,  https://github.com/slimeslab/ComProScanner ,  2025 , Accessed: 2025-10-26"
+        },
+        {
+          "key": "D5DD00521C/cit61/1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.48550/arXiv.2408.09574",
+          "author": "Hellert",
+          "year": "2024",
+          "unstructured": "T.Hellert ,  J.Montenegro  and  A.Pollastro ,  PhysBERT: A Text Embedding Model for Physics Scientific Literature , arXiv,  2024 , preprint, arXiv:2408.09574,  10.48550/arXiv.2408.09574 ,  https://arxiv.org/abs/2408.09574"
+        },
+        {
+          "key": "D5DD00521C/cit62/1",
+          "year": "2021",
+          "unstructured": "sentence-transformers, sentence-transformers/all-mpnet-base-v2 ,  2021 ,  https://huggingface.co/sentence-transformers/all-mpnet-base-v2 ,  https://huggingface.co/sentence-transformers/all-mpnet-base-v2 , Accessed: 2025-07-22"
+        },
+        {
+          "key": "D5DD00521C/cit63/1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.48550/arXiv.2503.19786",
+          "author": "Team",
+          "year": "2025",
+          "unstructured": "G.Team ,  A.Kamath  and  J.Ferret ,  Gemma 3 Technical Report , arXiv,  2025 , preprint, arXiv:2503.19786,  10.48550/arXiv.2503.19786 ,  https://arxiv.org/abs/2503.19786"
+        },
+        {
+          "key": "D5DD00521C/cit64/1",
+          "volume-title": "DeepSeek-V3-0324 Release",
+          "year": "2025",
+          "unstructured": "DeepSeek-V3-0324 Release ,  https://api-docs.deepseek.com/news/news250325 ,  2025 , Accessed: 2025-05-16"
+        },
+        {
+          "key": "D5DD00521C/cit65/1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.48550/arXiv.2407.21783",
+          "author": "Grattafiori",
+          "year": "2024",
+          "unstructured": "A.Grattafiori ,  A.Dubey ,  A.Jauhri ,  et al., The Llama 3 Herd of Models ,  arXiv ,  2024 , preprint, arXiv:2407.21783,  10.48550/arXiv.2407.21783 ,  https://arxiv.org/abs/2407.21783"
+        },
+        {
+          "key": "D5DD00521C/cit66/1",
+          "year": "2025",
+          "unstructured": "The Llama 4 herd: The beginning of a new era of natively multimodal AI innovation ,  2025 ,  https://ai.meta.com/blog/llama-4-multimodal-intelligence/ , Accessed: 2025-05-16"
+        },
+        {
+          "key": "D5DD00521C/cit67/1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.48550/arXiv.2505.09388",
+          "author": "Team",
+          "year": "2025",
+          "unstructured": "Q.Team ,  Qwen3 Technical Report ,  arXiv ,  2025 , preprint, arXiv:2505.09388,  10.48550/arXiv.2505.09388 ,  https://arxiv.org/abs/2505.09388"
+        },
+        {
+          "key": "D5DD00521C/cit68/1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.48550/arXiv.2412.15115",
+          "volume-title": "arXiv",
+          "author": "Yang",
+          "year": "2025",
+          "unstructured": "A.Yang ,  B.Yang ,  B.Zhang ,  B.Hui ,  B.Zheng ,  B.Yu ,  C.Li ,  D.Liu ,  F.Huang ,  H.Wei ,  H.Lin ,  J.Yang ,  J.Tu ,  J.Zhang ,  J.Yang ,  J.Yang ,  J.Zhou ,  J.Lin ,  K.Dang ,  K.Lu ,  K.Bao ,  K.Yang ,  L.Yu ,  M.Li ,  M.Xue ,  P.Zhang ,  Q.Zhu ,  R.Men ,  R.Lin ,  T.Li ,  T.Tang ,  T.Xia ,  X.Ren ,  X.Ren ,  Y.Fan ,  Y.Su ,  Y.Zhang ,  Y.Wan ,  Y.Liu ,  Z.Cui ,  Z.Zhang  and  Z.Qiu ,  Qwen2.5 Technical Report ,  arXiv ,  2025 , preprint, arXiv:2412.15115,  10.48550/arXiv.2412.15115 ,  https://arxiv.org/abs/2412.15115"
+        },
+        {
+          "key": "D5DD00521C/cit69/1",
+          "year": "2024",
+          "unstructured": "Google, Introducing Gemini 2.0: our new AI model for the agentic era ,  2024 ,  https://blog.google/technology/google-deepmind/google-gemini-ai-update-december-2024/ ,  https://blog.google/technology/google-deepmind/google-gemini-ai-update-december-2024/ , Accessed: 2025-08-11"
+        },
+        {
+          "key": "D5DD00521C/cit70/1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.48550/arXiv.2507.06261",
+          "author": "Comanici",
+          "year": "2025",
+          "unstructured": "G.Comanici ,  E.Bieber ,  M.Schaekermann ,  et al., Gemini 2.5: Pushing the Frontier with Advanced Reasoning, Multimodality, Long Context, and Next Generation Agentic Capabilities ,  arXiv ,  2025 , preprint, arXiv:2507.06261,  10.48550/arXiv.2507.06261 ,  https://arxiv.org/abs/2507.06261"
+        },
+        {
+          "key": "D5DD00521C/cit71/1",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.48550/arXiv.2303.08774",
+          "author": "OpenAI",
+          "year": "2024",
+          "unstructured": "J. A.OpenAI ,  S.Adler ,  S.Agarwal ,  et al., GPT-4 Technical Report ,  arXiv ,  2024 , preprint, arXiv:2303.08774,  10.48550/arXiv.2303.08774 ,  https://arxiv.org/abs/2303.08774"
+        },
+        {
+          "key": "D5DD00521C/cit72/1",
+          "year": "2025",
+          "unstructured": "OpenAI, Introducing GPT-4.1 in the API ,  2025 ,  https://openai.com/index/gpt-4-1/ , Accessed: 22 July 2025"
+        },
+        {
+          "key": "D5DD00521C/cit73/1",
+          "volume-title": "Chatbot Arena: An Open Platform for Evaluating LLMs by Human Preference",
+          "author": "Chiang",
+          "year": "2024",
+          "unstructured": "W. L.Chiang ,  L.Zheng ,  Y.Sheng ,  A. N.Angelopoulos ,  T.Li ,  D.Li ,  H.Zhang ,  B.Zhu ,  M.Jordan ,  J. E.Gonzalez  and  I.Stoica ,  Chatbot Arena: An Open Platform for Evaluating LLMs by Human Preference ,  2024"
+        },
+        {
+          "key": "D5DD00521C/cit74/1",
+          "year": "2025",
+          "unstructured": "Neo4j, Inc., Neo4j ,  2025 ,  https://neo4j.com/ ,  https://neo4j.com/ , Accessed: 2025-08-11"
+        },
+        {
+          "key": "D5DD00521C/cit75/1",
+          "year": "2025",
+          "unstructured": "Neo4j, Inc., Cypher Manual: Introduction ,  2025 ,  https://neo4j.com/docs/cypher-manual/current/introduction/ ,  https://neo4j.com/docs/cypher-manual/current/introduction/ , Accessed: 2025-08-11"
+        }
+      ],
+      "container-title": [
+        "Digital Discovery"
+      ],
+      "original-title": [],
+      "language": "en",
+      "link": [
+        {
+          "URL": "http://pubs.rsc.org/en/content/articlepdf/2026/DD/D5DD00521C",
+          "content-type": "unspecified",
+          "content-version": "vor",
+          "intended-application": "similarity-checking"
+        }
+      ],
+      "deposited": {
+        "date-parts": [
+          [
+            2026,
+            4,
+            22
+          ]
+        ],
+        "date-time": "2026-04-22T16:22:41Z",
+        "timestamp": 1776874961000
+      },
+      "score": 1,
+      "resource": {
+        "primary": {
+          "URL": "https://xlink.rsc.org/?DOI=D5DD00521C"
+        }
+      },
+      "subtitle": [],
+      "short-title": [],
+      "issued": {
+        "date-parts": [
+          [
+            2026
+          ]
+        ]
+      },
+      "references-count": 75,
+      "journal-issue": {
+        "issue": "4",
+        "published-print": {
+          "date-parts": [
+            [
+              2026,
+              4,
+              22
+            ]
+          ]
+        }
+      },
+      "URL": "https://doi.org/10.1039/d5dd00521c",
+      "relation": {
+        "has-review": [
+          {
+            "id-type": "doi",
+            "id": "10.1039/D5DD00521C/v2/response1",
+            "asserted-by": "object"
+          },
+          {
+            "id-type": "doi",
+            "id": "10.1039/D5DD00521C/v3/decision1",
+            "asserted-by": "object"
+          },
+          {
+            "id-type": "doi",
+            "id": "10.1039/D5DD00521C/v2/review2",
+            "asserted-by": "object"
+          },
+          {
+            "id-type": "doi",
+            "id": "10.1039/D5DD00521C/v2/decision1",
+            "asserted-by": "object"
+          },
+          {
+            "id-type": "doi",
+            "id": "10.1039/D5DD00521C/v2/review1",
+            "asserted-by": "object"
+          },
+          {
+            "id-type": "doi",
+            "id": "10.1039/D5DD00521C/v1/decision1",
+            "asserted-by": "object"
+          },
+          {
+            "id-type": "doi",
+            "id": "10.1039/D5DD00521C/v1/review2",
+            "asserted-by": "object"
+          },
+          {
+            "id-type": "doi",
+            "id": "10.1039/D5DD00521C/v3/response1",
+            "asserted-by": "object"
+          },
+          {
+            "id-type": "doi",
+            "id": "10.1039/D5DD00521C/v1/review1",
+            "asserted-by": "object"
+          },
+          {
+            "id-type": "doi",
+            "id": "10.1039/D5DD00521C/v1/review3",
+            "asserted-by": "object"
+          }
+        ]
+      },
+      "ISSN": [
+        "2635-098X"
+      ],
+      "issn-type": [
+        {
+          "value": "2635-098X",
+          "type": "electronic"
+        }
+      ],
+      "subject": [],
+      "published": {
+        "date-parts": [
+          [
+            2026
+          ]
+        ]
+      }
+    },
+    "processedInfo": {
+      "doi": "10.1039/D5DD00521C",
+      "arxivId": null,
+      "isArxivDoi": false,
+      "journalTitle": "Digital Discovery",
+      "year": "2026",
+      "month": "",
+      "authors": [
+        {
+          "ORCID": "https://orcid.org/0000-0003-0243-9124",
+          "authenticated-orcid": false,
+          "given": "Aritra",
+          "family": "Roy",
+          "sequence": "first",
+          "affiliation": [
+            {
+              "name": "Energy, Materials and Environment Research Centre, London South Bank University, London SE1 0AA, UK"
+            },
+            {
+              "name": "School of Engineering and Design, London South Bank University, London SE1 0AA, UK"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0002-7365-5652",
+          "authenticated-orcid": false,
+          "given": "Enrico",
+          "family": "Grisan",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "Bioscience and Bioengineering Research Centre, London South Bank University, London SE1 0AA, UK"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0002-2537-5082",
+          "authenticated-orcid": false,
+          "given": "John",
+          "family": "Buckeridge",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "Energy, Materials and Environment Research Centre, London South Bank University, London SE1 0AA, UK"
+            },
+            {
+              "name": "School of Engineering and Design, London South Bank University, London SE1 0AA, UK"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0002-3376-6374",
+          "authenticated-orcid": false,
+          "given": "Chiara",
+          "family": "Gattinoni",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "Department of Physics, King's College London, London WC2R 2LS, UK"
+            }
+          ]
+        }
+      ]
+    }
+  },
   {
     "put-code": 199011786,
     "created-date": {
@@ -71,13 +1086,13 @@ const publications = [
         "date-parts": [
           [
             2026,
-            1,
-            5
+            2,
+            26
           ]
         ],
-        "date-time": "2026-01-05T16:58:37Z",
-        "timestamp": 1767632317693,
-        "version": "3.48.0"
+        "date-time": "2026-02-26T20:15:42Z",
+        "timestamp": 1772136942020,
+        "version": "3.50.1"
       },
       "reference-count": 84,
       "publisher": "Royal Society of Chemistry (RSC)",
@@ -272,8 +1287,8 @@ const publications = [
           "unstructured": "S.Studer ,  S.Stucki  and  J. D.Speight ,  Hydrogen as a Future Energy Carrier ,  John Wiley & Sons, Ltd ,  2008 ,  pp. 23–69"
         },
         {
-          "year": "2024",
           "key": "D5NJ04215A/cit2/1",
+          "year": "2024",
           "unstructured": "Energy White Paper: Our Energy Future: Creating a Low Carbon Economy ,  2024 ,  https://assets.publishing.service.gov.uk/media/5a7c1f5940f0b645ba3c6d4f/5761.pdf"
         },
         {
@@ -315,8 +1330,8 @@ const publications = [
           "unstructured": "R. A.Varin ,  T.Czujko  and  Z. S.Wronski ,  Nanomaterials for Solid State Hydrogen Storage ,  Springer Science & Business Media ,  2009"
         },
         {
-          "author": "Birol",
           "key": "D5NJ04215A/cit7/1",
+          "author": "Birol",
           "unstructured": "F.Birol ,  International Energy Agency , The Future of Hydrogen, IEA technical report, 2019"
         },
         {
@@ -1130,19 +2145,37 @@ const publications = [
         }
       },
       "URL": "https://doi.org/10.1039/d5nj04215a",
-      "relation": {},
+      "relation": {
+        "has-review": [
+          {
+            "id-type": "doi",
+            "id": "10.1039/D5NJ04215A/v1/review2",
+            "asserted-by": "object"
+          },
+          {
+            "id-type": "doi",
+            "id": "10.1039/D5NJ04215A/v1/review1",
+            "asserted-by": "object"
+          },
+          {
+            "id-type": "doi",
+            "id": "10.1039/D5NJ04215A/v1/decision1",
+            "asserted-by": "object"
+          }
+        ]
+      },
       "ISSN": [
         "1144-0546",
         "1369-9261"
       ],
       "issn-type": [
         {
-          "type": "print",
-          "value": "1144-0546"
+          "value": "1144-0546",
+          "type": "print"
         },
         {
-          "type": "electronic",
-          "value": "1369-9261"
+          "value": "1369-9261",
+          "type": "electronic"
         }
       ],
       "subject": [],
@@ -2106,14 +3139,14 @@ const publications = [
       "indexed": {
         "date-parts": [
           [
-            2025,
-            12,
-            24
+            2026,
+            4,
+            26
           ]
         ],
-        "date-time": "2025-12-24T18:17:54Z",
-        "timestamp": 1766600274176,
-        "version": "build-2065373602"
+        "date-time": "2026-04-26T03:43:24Z",
+        "timestamp": 1777175004857,
+        "version": "3.51.4"
       },
       "reference-count": 125,
       "publisher": "IOP Publishing",
@@ -2233,7 +3266,7 @@ const publications = [
       "page": "030701",
       "update-policy": "https://doi.org/10.1088/crossmark-policy",
       "source": "Crossref",
-      "is-referenced-by-count": 2,
+      "is-referenced-by-count": 9,
       "title": [
         "32 examples of LLM applications in materials science and chemistry: towards automation, assistants, agents, and accelerated scientific discovery"
       ],
@@ -2583,10 +3616,10 @@ const publications = [
           "journal-title": "Nat. Mach. Intell."
         },
         {
-          "article-title": "A review of large language models and autonomous agents in chemistry",
-          "year": "2024",
-          "author": "Ramos",
           "key": "mlstae011abib6",
+          "article-title": "A review of large language models and autonomous agents in chemistry",
+          "author": "Ramos",
+          "year": "2024",
           "type": "preprint"
         },
         {
@@ -2614,17 +3647,17 @@ const publications = [
           "journal-title": "J. Chem. Inf. Model."
         },
         {
-          "article-title": "Advancing the scientific method with large language models: from hypothesis to discovery",
-          "year": "2025",
-          "author": "Zhang",
           "key": "mlstae011abib9",
+          "article-title": "Advancing the scientific method with large language models: from hypothesis to discovery",
+          "author": "Zhang",
+          "year": "2025",
           "type": "preprint"
         },
         {
-          "article-title": "A survey on hypothesis generation for scientific discovery in the era of large language models",
-          "year": "2025",
-          "author": "Alkan",
           "key": "mlstae011abib10",
+          "article-title": "A survey on hypothesis generation for scientific discovery in the era of large language models",
+          "author": "Alkan",
+          "year": "2025",
           "type": "preprint"
         },
         {
@@ -2636,10 +3669,10 @@ const publications = [
           "year": "2024"
         },
         {
-          "article-title": "Training a scientific reasoning model for chemistry",
-          "year": "2025",
-          "author": "Narayanan",
           "key": "mlstae011abib12",
+          "article-title": "Training a scientific reasoning model for chemistry",
+          "author": "Narayanan",
+          "year": "2025",
           "type": "preprint"
         },
         {
@@ -2655,17 +3688,17 @@ const publications = [
           "journal-title": "npj Comput. Mater."
         },
         {
-          "article-title": "Alchembert: exploring lightweight language models for materials informatics",
-          "year": "2025",
-          "author": "Liu",
           "key": "mlstae011abib14",
+          "article-title": "Alchembert: exploring lightweight language models for materials informatics",
+          "author": "Liu",
+          "year": "2025",
           "type": "other"
         },
         {
-          "article-title": "Llm-prop: predicting physical and electronic properties of crystalline solids from their text descriptions",
-          "year": "2023",
-          "author": "Rubungo",
           "key": "mlstae011abib15",
+          "article-title": "Llm-prop: predicting physical and electronic properties of crystalline solids from their text descriptions",
+          "author": "Rubungo",
+          "year": "2023",
           "type": "preprint"
         },
         {
@@ -2717,31 +3750,31 @@ const publications = [
           "journal-title": "Sci. Data"
         },
         {
-          "article-title": "Matagent: a human-in-the-loop multi-agent llm framework for accelerating the material science discovery cycle",
-          "year": "2025",
-          "author": "Bazgir",
           "key": "mlstae011abib20",
+          "article-title": "Matagent: a human-in-the-loop multi-agent llm framework for accelerating the material science discovery cycle",
+          "author": "Bazgir",
+          "year": "2025",
           "type": "other"
         },
         {
-          "article-title": "Regression with large language models for materials and molecular property prediction",
-          "year": "2024",
-          "author": "Jacobs",
           "key": "mlstae011abib21",
+          "article-title": "Regression with large language models for materials and molecular property prediction",
+          "author": "Jacobs",
+          "year": "2024",
           "type": "other"
         },
         {
-          "article-title": "Llm4mat-bench: benchmarking large language models for materials property prediction",
-          "year": "2024",
-          "author": "Rubungo",
           "key": "mlstae011abib22",
+          "article-title": "Llm4mat-bench: benchmarking large language models for materials property prediction",
+          "author": "Rubungo",
+          "year": "2024",
           "type": "preprint"
         },
         {
-          "article-title": "Can large language models empower molecular property prediction?",
-          "year": "2023",
-          "author": "Qian",
           "key": "mlstae011abib23",
+          "article-title": "Can large language models empower molecular property prediction?",
+          "author": "Qian",
+          "year": "2023",
           "type": "other"
         },
         {
@@ -2765,10 +3798,10 @@ const publications = [
           "year": "2025"
         },
         {
-          "article-title": "Language agents achieve superhuman synthesis of scientific knowledge",
-          "year": "2024",
-          "author": "Skarlinski",
           "key": "mlstae011abib26",
+          "article-title": "Language agents achieve superhuman synthesis of scientific knowledge",
+          "author": "Skarlinski",
+          "year": "2024",
           "type": "preprint"
         },
         {
@@ -2781,52 +3814,52 @@ const publications = [
           "year": "2024"
         },
         {
-          "article-title": "The llama 3 herd of models",
-          "year": "2024",
-          "author": "Grattafiori",
           "key": "mlstae011abib28",
+          "article-title": "The llama 3 herd of models",
+          "author": "Grattafiori",
+          "year": "2024",
           "type": "other"
         },
         {
-          "article-title": "Phi-3 technical report: a highly capable language model locally on your phone",
-          "year": "2024",
-          "author": "Abdin",
           "key": "mlstae011abib29",
+          "article-title": "Phi-3 technical report: a highly capable language model locally on your phone",
+          "author": "Abdin",
+          "year": "2024",
           "type": "other"
         },
         {
-          "article-title": "The claude 3 model family: opus, sonnet, haiku",
-          "year": "2024",
-          "author": "Anthropic",
           "key": "mlstae011abib30",
+          "article-title": "The claude 3 model family: opus, sonnet, haiku",
+          "author": "Anthropic",
+          "year": "2024",
           "type": "other"
         },
         {
-          "article-title": "Mixtral of experts",
-          "year": "2024",
-          "author": "Jiang",
           "key": "mlstae011abib31",
-          "type": "other"
-        },
-        {
-          "article-title": "Gpt-4-turbo and gpt-4",
-          "year": "2023",
-          "author": "OpenAI",
-          "key": "mlstae011abib32",
-          "type": "other"
-        },
-        {
-          "article-title": "Gpt-3.5-turbo",
-          "year": "2023",
-          "author": "OpenAI",
-          "key": "mlstae011abib33",
-          "type": "other"
-        },
-        {
-          "article-title": "OpenAI",
+          "article-title": "Mixtral of experts",
+          "author": "Jiang",
           "year": "2024",
-          "author": "Achiam",
+          "type": "other"
+        },
+        {
+          "key": "mlstae011abib32",
+          "article-title": "Gpt-4-turbo and gpt-4",
+          "author": "OpenAI",
+          "year": "2023",
+          "type": "other"
+        },
+        {
+          "key": "mlstae011abib33",
+          "article-title": "Gpt-3.5-turbo",
+          "author": "OpenAI",
+          "year": "2023",
+          "type": "other"
+        },
+        {
           "key": "mlstae011abib34",
+          "article-title": "OpenAI",
+          "author": "Achiam",
+          "year": "2024",
           "type": "other"
         },
         {
@@ -2871,24 +3904,24 @@ const publications = [
           "journal-title": "Dig. Discovery"
         },
         {
-          "article-title": "Reflections from the 2024 large language model (LLM) hackathon for applications in materials science and chemistry",
-          "year": "2025",
-          "author": "Zimmermann",
           "key": "mlstae011abib39",
+          "article-title": "Reflections from the 2024 large language model (LLM) hackathon for applications in materials science and chemistry",
+          "author": "Zimmermann",
+          "year": "2025",
           "type": "other"
         },
         {
-          "article-title": "Language models are few-shot learners",
-          "year": "2020",
-          "author": "Brown",
           "key": "mlstae011abib40",
+          "article-title": "Language models are few-shot learners",
+          "author": "Brown",
+          "year": "2020",
           "type": "other"
         },
         {
-          "article-title": "From words to numbers: Your large language model is secretly a capable regressor when given in-context examples",
-          "year": "2024",
-          "author": "Vacareanu",
           "key": "mlstae011abib41",
+          "article-title": "From words to numbers: Your large language model is secretly a capable regressor when given in-context examples",
+          "author": "Vacareanu",
+          "year": "2024",
           "type": "conference-proceedings"
         },
         {
@@ -2916,17 +3949,17 @@ const publications = [
           "journal-title": "J. Open Source Softw."
         },
         {
-          "article-title": "A quantum-chemical bonding database for solid-state materials (JSONS: Part 1)",
-          "year": "2023",
-          "author": "Naik",
           "key": "mlstae011abib44",
+          "article-title": "A quantum-chemical bonding database for solid-state materials (JSONS: Part 1)",
+          "author": "Naik",
+          "year": "2023",
           "type": "other"
         },
         {
-          "article-title": "The matbench test suite, phonon dataset",
-          "year": "2024",
-          "author": "Matbench",
           "key": "mlstae011abib45",
+          "article-title": "The matbench test suite, phonon dataset",
+          "author": "Matbench",
+          "year": "2024",
           "type": "other"
         },
         {
@@ -2940,31 +3973,31 @@ const publications = [
           "journal-title": "J. Mach. Learn. Res."
         },
         {
-          "article-title": "The unsloth package",
-          "year": "2024",
-          "author": "Han",
           "key": "mlstae011abib47",
+          "article-title": "The unsloth package",
+          "author": "Han",
+          "year": "2024",
           "type": "other"
         },
         {
-          "article-title": "Multimodal large language models for inverse molecular design with retrosynthetic planning",
-          "year": "2024",
-          "author": "Liu",
           "key": "mlstae011abib48",
-          "type": "other"
-        },
-        {
-          "article-title": "Llmatdesign: Autonomous materials discovery with large language models",
+          "article-title": "Multimodal large language models for inverse molecular design with retrosynthetic planning",
+          "author": "Liu",
           "year": "2024",
-          "author": "Jia",
-          "key": "mlstae011abib49",
           "type": "other"
         },
         {
-          "article-title": "Can llms generate diverse molecules? towards alignment with structural diversity",
-          "year": "2025",
-          "author": "Jang",
+          "key": "mlstae011abib49",
+          "article-title": "Llmatdesign: Autonomous materials discovery with large language models",
+          "author": "Jia",
+          "year": "2024",
+          "type": "other"
+        },
+        {
           "key": "mlstae011abib50",
+          "article-title": "Can llms generate diverse molecules? towards alignment with structural diversity",
+          "author": "Jang",
+          "year": "2025",
           "type": "other"
         },
         {
@@ -2986,10 +4019,10 @@ const publications = [
           "year": "2024"
         },
         {
-          "article-title": "Are llms ready for real-world materials discovery?",
-          "year": "2024",
-          "author": "Miret",
           "key": "mlstae011abib53",
+          "article-title": "Are llms ready for real-world materials discovery?",
+          "author": "Miret",
+          "year": "2024",
           "type": "other"
         },
         {
@@ -3004,10 +4037,10 @@ const publications = [
           "journal-title": "Renew. Sustain. Energy Rev."
         },
         {
-          "article-title": "ReAct: synergizing reasoning and acting in language models",
-          "year": "2023",
-          "author": "Yao",
           "key": "mlstae011abib55",
+          "article-title": "ReAct: synergizing reasoning and acting in language models",
+          "author": "Yao",
+          "year": "2023",
           "type": "conference-proceedings"
         },
         {
@@ -3047,10 +4080,10 @@ const publications = [
           "journal-title": "J. Chem. Inf. Comput. Sci."
         },
         {
-          "article-title": "dziner: rational inverse design of materials with ai agents",
-          "year": "2024",
-          "author": "Ansari",
           "key": "mlstae011abib59",
+          "article-title": "dziner: rational inverse design of materials with ai agents",
+          "author": "Ansari",
+          "year": "2024",
           "type": "preprint"
         },
         {
@@ -3137,10 +4170,10 @@ const publications = [
           "journal-title": "Inorg. Chem."
         },
         {
-          "article-title": "New and improved embedding model",
-          "year": "2022",
-          "author": "Greene",
           "key": "mlstae011abib67",
+          "article-title": "New and improved embedding model",
+          "author": "Greene",
+          "year": "2022",
           "type": "other"
         },
         {
@@ -3229,10 +4262,10 @@ const publications = [
           "year": "2022"
         },
         {
-          "article-title": "Restgpt: connecting large language models with real-world restful apis",
-          "year": "2023",
-          "author": "Song",
           "key": "mlstae011abib76",
+          "article-title": "Restgpt: connecting large language models with real-world restful apis",
+          "author": "Song",
+          "year": "2023",
           "type": "other"
         },
         {
@@ -3247,10 +4280,10 @@ const publications = [
           "journal-title": "Matter"
         },
         {
-          "article-title": "Langsim",
-          "year": "2024",
-          "author": "Project",
           "key": "mlstae011abib78",
+          "article-title": "Langsim",
+          "author": "Project",
+          "year": "2024",
           "type": "other"
         },
         {
@@ -3278,10 +4311,10 @@ const publications = [
           "journal-title": "Comput. Mater. Sci."
         },
         {
-          "article-title": "A foundation model for atomistic materials chemistry",
-          "year": "2023",
-          "author": "Batatia",
           "key": "mlstae011abib81",
+          "article-title": "A foundation model for atomistic materials chemistry",
+          "author": "Batatia",
+          "year": "2023",
           "type": "preprint"
         },
         {
@@ -3296,10 +4329,10 @@ const publications = [
           "journal-title": "Modelling Simul. Mater. Sci. Eng."
         },
         {
-          "article-title": "Leveraging large language models and social media for automation in scanning probe microscopy",
-          "year": "2024",
-          "author": "Diao",
           "key": "mlstae011abib83",
+          "article-title": "Leveraging large language models and social media for automation in scanning probe microscopy",
+          "author": "Diao",
+          "year": "2024",
           "type": "preprint"
         },
         {
@@ -3351,10 +4384,10 @@ const publications = [
           "journal-title": "Br. J. Educ. Technol."
         },
         {
-          "article-title": "Large language models for education: a survey and outlook",
-          "year": "2024",
-          "author": "Wang",
           "key": "mlstae011abib88",
+          "article-title": "Large language models for education: a survey and outlook",
+          "author": "Wang",
+          "year": "2024",
           "type": "other"
         },
         {
@@ -3393,17 +4426,17 @@ const publications = [
           "journal-title": "Dig. Discovery"
         },
         {
-          "article-title": "Benchmarking large language models for math reasoning tasks",
-          "year": "2024",
-          "author": "Seßler",
           "key": "mlstae011abib92",
+          "article-title": "Benchmarking large language models for math reasoning tasks",
+          "author": "Seßler",
+          "year": "2024",
           "type": "preprint"
         },
         {
-          "article-title": "Self-consistency improves chain of thought reasoning in language models",
-          "year": "2022",
-          "author": "Wang",
           "key": "mlstae011abib93",
+          "article-title": "Self-consistency improves chain of thought reasoning in language models",
+          "author": "Wang",
+          "year": "2022",
           "type": "conference-proceedings"
         },
         {
@@ -3416,10 +4449,10 @@ const publications = [
           "year": "2020"
         },
         {
-          "article-title": "Foundational large language models for materials research",
-          "year": "2024",
-          "author": "Mishra",
           "key": "mlstae011abib95",
+          "article-title": "Foundational large language models for materials research",
+          "author": "Mishra",
+          "year": "2024",
           "type": "preprint"
         },
         {
@@ -3434,10 +4467,10 @@ const publications = [
           "journal-title": "J. Phys. Mater."
         },
         {
-          "article-title": "datalab",
-          "year": "2024",
-          "author": "Evans",
           "key": "mlstae011abib97",
+          "article-title": "datalab",
+          "author": "Evans",
+          "year": "2024",
           "type": "other"
         },
         {
@@ -3453,24 +4486,24 @@ const publications = [
           "journal-title": "J. Open Source Softw."
         },
         {
-          "article-title": "Retrieval-augmented generation for large language models: a survey",
-          "year": "2023",
-          "author": "Gao",
           "key": "mlstae011abib99",
-          "type": "preprint"
-        },
-        {
-          "article-title": "Llama: open and efficient foundation language models",
+          "article-title": "Retrieval-augmented generation for large language models: a survey",
+          "author": "Gao",
           "year": "2023",
-          "author": "Touvron",
-          "key": "mlstae011abib100",
           "type": "preprint"
         },
         {
-          "article-title": "Scientific hypothesis generation by a large language model: laboratory validation in breast cancer treatment",
-          "year": "2024",
-          "author": "Abdel-Rehim",
+          "key": "mlstae011abib100",
+          "article-title": "Llama: open and efficient foundation language models",
+          "author": "Touvron",
+          "year": "2023",
+          "type": "preprint"
+        },
+        {
           "key": "mlstae011abib101",
+          "article-title": "Scientific hypothesis generation by a large language model: laboratory validation in breast cancer treatment",
+          "author": "Abdel-Rehim",
+          "year": "2024",
           "type": "other"
         },
         {
@@ -3486,24 +4519,24 @@ const publications = [
           "journal-title": "Human. Soc. Sci. Commun."
         },
         {
-          "article-title": "Harnessing the power of adversarial prompting and large language models for robust hypothesis generation in astronomy",
-          "year": "2023",
-          "author": "Ciucă",
           "key": "mlstae011abib103",
+          "article-title": "Harnessing the power of adversarial prompting and large language models for robust hypothesis generation in astronomy",
+          "author": "Ciucă",
+          "year": "2023",
           "type": "other"
         },
         {
-          "article-title": "Proteinhypothesis: a physics-aware chain of multi-agent rag llm for hypothesis generation in protein science",
-          "year": "2025",
-          "author": "Bazgir",
           "key": "mlstae011abib104",
+          "article-title": "Proteinhypothesis: a physics-aware chain of multi-agent rag llm for hypothesis generation in protein science",
+          "author": "Bazgir",
+          "year": "2025",
           "type": "conference-proceedings"
         },
         {
-          "article-title": "Beyond designer’s knowledge: generating materials design hypotheses via large language models",
-          "year": "2024",
-          "author": "Liu",
           "key": "mlstae011abib105",
+          "article-title": "Beyond designer’s knowledge: generating materials design hypotheses via large language models",
+          "author": "Liu",
+          "year": "2024",
           "type": "other"
         },
         {
@@ -3516,10 +4549,10 @@ const publications = [
           "year": "2024"
         },
         {
-          "article-title": "Agentichypothesis: a survey on hypothesis generation using llm systems",
-          "year": "2025",
-          "author": "Bazgir",
           "key": "mlstae011abib107",
+          "article-title": "Agentichypothesis: a survey on hypothesis generation using llm systems",
+          "author": "Bazgir",
+          "year": "2025",
           "type": "conference-proceedings"
         },
         {
@@ -3541,10 +4574,10 @@ const publications = [
           "year": "2023"
         },
         {
-          "article-title": "Large language models for scientific information extraction: an empirical study for virology",
-          "year": "2024",
-          "author": "Shamsabadi",
           "key": "mlstae011abib110",
+          "article-title": "Large language models for scientific information extraction: an empirical study for virology",
+          "author": "Shamsabadi",
+          "year": "2024",
           "type": "other"
         },
         {
@@ -3593,65 +4626,65 @@ const publications = [
           "type": "other"
         },
         {
+          "key": "mlstae011abib116",
           "article-title": "Neo4j",
           "year": "2024",
-          "key": "mlstae011abib116",
           "type": "other"
         },
         {
-          "article-title": "Dspy: Compiling declarative language model calls into self-improving pipelines",
-          "year": "2023",
-          "author": "Khattab",
           "key": "mlstae011abib117",
+          "article-title": "Dspy: Compiling declarative language model calls into self-improving pipelines",
+          "author": "Khattab",
+          "year": "2023",
           "type": "other"
         },
         {
-          "article-title": "Chain-of-thought prompting elicits reasoning in large language models",
-          "year": "2023",
-          "author": "Wei",
           "key": "mlstae011abib118",
-          "type": "other"
-        },
-        {
-          "article-title": "Graph maker",
-          "year": "2024",
-          "author": "Maker",
-          "key": "mlstae011abib119",
-          "type": "other"
-        },
-        {
-          "article-title": "Gradio",
-          "year": "2024",
-          "author": "Gradio",
-          "key": "mlstae011abib120",
-          "type": "other"
-        },
-        {
-          "article-title": "Isobench: benchmarking multimodal foundation models on isomorphic representations",
-          "year": "2024",
-          "author": "Fu",
-          "key": "mlstae011abib121",
-          "type": "other"
-        },
-        {
-          "article-title": "What can large language models do in chemistry? a comprehensive benchmark on eight tasks",
+          "article-title": "Chain-of-thought prompting elicits reasoning in large language models",
+          "author": "Wei",
           "year": "2023",
-          "author": "Guo",
+          "type": "other"
+        },
+        {
+          "key": "mlstae011abib119",
+          "article-title": "Graph maker",
+          "author": "Maker",
+          "year": "2024",
+          "type": "other"
+        },
+        {
+          "key": "mlstae011abib120",
+          "article-title": "Gradio",
+          "author": "Gradio",
+          "year": "2024",
+          "type": "other"
+        },
+        {
+          "key": "mlstae011abib121",
+          "article-title": "Isobench: benchmarking multimodal foundation models on isomorphic representations",
+          "author": "Fu",
+          "year": "2024",
+          "type": "other"
+        },
+        {
           "key": "mlstae011abib122",
+          "article-title": "What can large language models do in chemistry? a comprehensive benchmark on eight tasks",
+          "author": "Guo",
+          "year": "2023",
           "type": "other"
         },
         {
-          "article-title": "Chemqa: a multimodal question-and-answering dataset on chemistry reasoning",
-          "year": "2024",
-          "author": "Zhu",
           "key": "mlstae011abib123",
+          "article-title": "Chemqa: a multimodal question-and-answering dataset on chemistry reasoning",
+          "author": "Zhu",
+          "year": "2024",
           "type": "other"
         },
         {
-          "article-title": "Gemini: a family of highly capable multimodal models",
-          "year": "2024",
-          "author": "Team",
           "key": "mlstae011abib124",
+          "article-title": "Gemini: a family of highly capable multimodal models",
+          "author": "Team",
+          "year": "2024",
           "type": "other"
         },
         {
@@ -3771,8 +4804,8 @@ const publications = [
       ],
       "issn-type": [
         {
-          "type": "electronic",
-          "value": "2632-2153"
+          "value": "2632-2153",
+          "type": "electronic"
         }
       ],
       "subject": [],
@@ -4190,12 +5223,12 @@ const publications = [
         "date-parts": [
           [
             2026,
-            1,
-            8
+            2,
+            6
           ]
         ],
-        "date-time": "2026-01-08T22:04:51Z",
-        "timestamp": 1767909891762,
+        "date-time": "2026-02-06T06:34:46Z",
+        "timestamp": 1770359686623,
         "version": "3.49.0"
       },
       "reference-count": 111,
@@ -4354,7 +5387,7 @@ const publications = [
       "page": "116154",
       "update-policy": "https://doi.org/10.1016/elsevier_cm_policy",
       "source": "Crossref",
-      "is-referenced-by-count": 6,
+      "is-referenced-by-count": 7,
       "special_numbering": "C",
       "title": [
         "A copper complex receptor for nanomolar sulfide sensing and applications in DNA/BSA binding"
@@ -5784,7 +6817,7 @@ const publications = [
       "value": 1761346765301
     },
     "last-modified-date": {
-      "value": 1761346765301
+      "value": 1773535575736
     },
     "source": {
       "source-orcid": {
@@ -5901,7 +6934,7 @@ const publications = [
       "value": 1732640351773
     },
     "last-modified-date": {
-      "value": 1733911444771
+      "value": 1773535575736
     },
     "source": {
       "source-orcid": null,
@@ -5967,13 +7000,13 @@ const publications = [
         "date-parts": [
           [
             2026,
-            1,
-            31
+            4,
+            14
           ]
         ],
-        "date-time": "2026-01-31T02:17:36Z",
-        "timestamp": 1769825856976,
-        "version": "3.49.0"
+        "date-time": "2026-04-14T02:08:22Z",
+        "timestamp": 1776132502350,
+        "version": "3.50.1"
       },
       "reference-count": 62,
       "publisher": "American Chemical Society (ACS)",
@@ -6109,7 +7142,7 @@ const publications = [
       },
       "page": "33536-33542",
       "source": "Crossref",
-      "is-referenced-by-count": 5,
+      "is-referenced-by-count": 8,
       "title": [
         "A Discrete Trialane with a Near-Linear Al<sub>3</sub> Axis"
       ],
@@ -8063,14 +9096,14 @@ const publications = [
       "indexed": {
         "date-parts": [
           [
-            2025,
-            12,
-            11
+            2026,
+            3,
+            6
           ]
         ],
-        "date-time": "2025-12-11T21:03:01Z",
-        "timestamp": 1765486981480,
-        "version": "3.37.3"
+        "date-time": "2026-03-06T01:26:31Z",
+        "timestamp": 1772760391729,
+        "version": "3.50.1"
       },
       "reference-count": 115,
       "publisher": "Royal Society of Chemistry (RSC)",
@@ -9418,8 +10451,8 @@ const publications = [
       ],
       "issn-type": [
         {
-          "type": "electronic",
-          "value": "2635-0998"
+          "value": "2635-0998",
+          "type": "electronic"
         }
       ],
       "subject": [],

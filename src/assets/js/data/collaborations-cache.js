@@ -1,6 +1,6 @@
 // Auto-generated collaborator data
-// Last updated: 2026-02-03T21:53:19.669Z
-const generationDate = '2026-02-03T21:53:19.669Z';
+// Last updated: 2026-04-26T17:22:27.826Z
+const generationDate = '2026-04-26T17:22:27.826Z';
 
 const collaborators = [
   {
@@ -10,20 +10,20 @@ const collaborators = [
     "collaborations": 5,
     "dois": [
       {
-        "doi": "https://doi.org/10.1016/j.jphotochem.2024.116154",
-        "title": "A copper complex receptor for nanomolar sulfide sensing and applications in DNA/BSA binding"
-      },
-      {
         "doi": "https://doi.org/10.1021/jacs.4c10967",
         "title": "A Discrete Trialane with a Near-Linear Al<sub>3</sub> Axis"
       },
       {
-        "doi": "https://doi.org/10.1021/acsanm.5c03716",
-        "title": "Pristine Nanostructured α-Ni(OH) <sub>2</sub> as a Nonenzymatic Electrochemical Strip Sensor for Trace Detection of Phenolic Compounds"
-      },
-      {
         "doi": "https://doi.org/10.1039/d3sd00183k",
         "title": "A simple copper(<scp>ii</scp>) dppy-based receptor for sensing of <scp>l</scp>-cysteine and <scp>l</scp>-histidine in aqueous acetonitrile medium"
+      },
+      {
+        "doi": "https://doi.org/10.1016/j.jphotochem.2024.116154",
+        "title": "A copper complex receptor for nanomolar sulfide sensing and applications in DNA/BSA binding"
+      },
+      {
+        "doi": "https://doi.org/10.1021/acsanm.5c03716",
+        "title": "Pristine Nanostructured α-Ni(OH) <sub>2</sub> as a Nonenzymatic Electrochemical Strip Sensor for Trace Detection of Phenolic Compounds"
       },
       {
         "doi": "https://doi.org/10.1039/d5nj04215a",
@@ -50,18 +50,18 @@ const collaborators = [
     "updatedManually": false
   },
   {
-    "id": "https://openalex.org/A5082064131",
+    "id": "https://openalex.org/A5101960351",
     "name": "Dipankar Das",
-    "orcid": "https://orcid.org/0000-0001-9298-6871",
+    "orcid": "https://orcid.org/0000-0001-7842-8179",
     "collaborations": 2,
     "dois": [
       {
-        "doi": "https://doi.org/10.1016/j.jphotochem.2024.116154",
-        "title": "A copper complex receptor for nanomolar sulfide sensing and applications in DNA/BSA binding"
-      },
-      {
         "doi": "https://doi.org/10.1039/d3sd00183k",
         "title": "A simple copper(<scp>ii</scp>) dppy-based receptor for sensing of <scp>l</scp>-cysteine and <scp>l</scp>-histidine in aqueous acetonitrile medium"
+      },
+      {
+        "doi": "https://doi.org/10.1016/j.jphotochem.2024.116154",
+        "title": "A copper complex receptor for nanomolar sulfide sensing and applications in DNA/BSA binding"
       }
     ],
     "latestPaperYear": 2024,
@@ -77,7 +77,8 @@ const collaborators = [
       "city": "Silchar",
       "country": "India",
       "latitude": 24.7552219,
-      "longitude": 92.7874485
+      "longitude": 92.7874485,
+      "manual": true
     },
     "updatedManually": true
   },
@@ -88,12 +89,12 @@ const collaborators = [
     "collaborations": 2,
     "dois": [
       {
-        "doi": "https://doi.org/10.1016/j.jphotochem.2024.116154",
-        "title": "A copper complex receptor for nanomolar sulfide sensing and applications in DNA/BSA binding"
-      },
-      {
         "doi": "https://doi.org/10.1039/d3sd00183k",
         "title": "A simple copper(<scp>ii</scp>) dppy-based receptor for sensing of <scp>l</scp>-cysteine and <scp>l</scp>-histidine in aqueous acetonitrile medium"
+      },
+      {
+        "doi": "https://doi.org/10.1016/j.jphotochem.2024.116154",
+        "title": "A copper complex receptor for nanomolar sulfide sensing and applications in DNA/BSA binding"
       }
     ],
     "latestPaperYear": 2024,
@@ -120,97 +121,9 @@ const collaborators = [
     "collaborations": 2,
     "dois": [
       {
-        "doi": "https://doi.org/10.1016/j.jphotochem.2024.116154",
-        "title": "A copper complex receptor for nanomolar sulfide sensing and applications in DNA/BSA binding"
-      },
-      {
         "doi": "https://doi.org/10.1039/d3sd00183k",
         "title": "A simple copper(<scp>ii</scp>) dppy-based receptor for sensing of <scp>l</scp>-cysteine and <scp>l</scp>-histidine in aqueous acetonitrile medium"
-      }
-    ],
-    "latestPaperYear": 2024,
-    "collaborationAffiliation": {
-      "name": "National Institute Of Technology Silchar",
-      "city": "Silchar",
-      "country": "India",
-      "latitude": 24.7552219,
-      "longitude": 92.7874485
-    },
-    "currentAffiliation": {
-      "name": "National Institute Of Technology Silchar",
-      "city": "Silchar",
-      "country": "India",
-      "latitude": 24.7552219,
-      "longitude": 92.7874485
-    },
-    "updatedManually": true
-  },
-  {
-    "id": "https://openalex.org/A5102757929",
-    "name": "Cauê Paula de Souza",
-    "orcid": "https://orcid.org/0000-0001-5545-004X",
-    "collaborations": 1,
-    "dois": [
-      {
-        "doi": "https://doi.org/10.1016/j.jphotochem.2024.116154",
-        "title": "A copper complex receptor for nanomolar sulfide sensing and applications in DNA/BSA binding"
-      }
-    ],
-    "latestPaperYear": 2024,
-    "collaborationAffiliation": {
-      "name": "University of Kent",
-      "city": "Canterbury",
-      "country": "United Kingdom",
-      "latitude": 51.2950874,
-      "longitude": 1.0673313,
-      "manual": false
-    },
-    "currentAffiliation": {
-      "name": "University of Kent",
-      "city": "Canterbury",
-      "country": "United Kingdom",
-      "latitude": 51.2950874,
-      "longitude": 1.0673313,
-      "manual": false
-    },
-    "updatedManually": false
-  },
-  {
-    "id": "https://openalex.org/A5006629330",
-    "name": "Somnath Mondal",
-    "orcid": null,
-    "collaborations": 1,
-    "dois": [
-      {
-        "doi": "https://doi.org/10.1016/j.jphotochem.2024.116154",
-        "title": "A copper complex receptor for nanomolar sulfide sensing and applications in DNA/BSA binding"
-      }
-    ],
-    "latestPaperYear": 2024,
-    "collaborationAffiliation": {
-      "name": "National Institute Of Technology Silchar",
-      "city": "Silchar",
-      "country": "India",
-      "latitude": 24.7552219,
-      "longitude": 92.7874485,
-      "manual": true
-    },
-    "currentAffiliation": {
-      "name": "National Institute Of Technology Silchar",
-      "city": "Silchar",
-      "country": "India",
-      "latitude": 24.7552219,
-      "longitude": 92.7874485,
-      "manual": true
-    },
-    "updatedManually": true
-  },
-  {
-    "id": "https://openalex.org/A5061029699",
-    "name": "Parnashabari Sarkar",
-    "orcid": null,
-    "collaborations": 1,
-    "dois": [
+      },
       {
         "doi": "https://doi.org/10.1016/j.jphotochem.2024.116154",
         "title": "A copper complex receptor for nanomolar sulfide sensing and applications in DNA/BSA binding"
@@ -381,119 +294,6 @@ const collaborators = [
       "manual": false
     },
     "updatedManually": false
-  },
-  {
-    "id": "https://openalex.org/A5033826823",
-    "name": "Suman Mondal",
-    "orcid": "https://orcid.org/0009-0004-2062-8644",
-    "collaborations": 1,
-    "dois": [
-      {
-        "doi": "https://doi.org/10.1021/acsanm.5c03716",
-        "title": "Pristine Nanostructured α-Ni(OH) <sub>2</sub> as a Nonenzymatic Electrochemical Strip Sensor for Trace Detection of Phenolic Compounds"
-      }
-    ],
-    "latestPaperYear": 2025,
-    "collaborationAffiliation": {
-      "name": "Pandit Deendayal Petroleum University",
-      "city": "Gandhinagar",
-      "country": "India",
-      "latitude": 23.1563544,
-      "longitude": 72.6652774
-    },
-    "currentAffiliation": {
-      "name": "Pandit Deendayal Petroleum University",
-      "city": "Gandhinagar",
-      "country": "India",
-      "latitude": 23.1563544,
-      "longitude": 72.6652774
-    },
-    "updatedManually": true
-  },
-  {
-    "id": "https://openalex.org/A5042882491",
-    "name": "Rene Pfeifer",
-    "orcid": "https://orcid.org/0000-0002-0750-1321",
-    "collaborations": 1,
-    "dois": [
-      {
-        "doi": "https://doi.org/10.1021/acsanm.5c03716",
-        "title": "Pristine Nanostructured α-Ni(OH) <sub>2</sub> as a Nonenzymatic Electrochemical Strip Sensor for Trace Detection of Phenolic Compounds"
-      }
-    ],
-    "latestPaperYear": 2025,
-    "collaborationAffiliation": {
-      "name": "Digital Research Alliance of Canada",
-      "city": "Toronto",
-      "country": "Canada",
-      "latitude": 43.6976648,
-      "longitude": -79.3989186
-    },
-    "currentAffiliation": {
-      "name": "CIC biomaGUNE",
-      "city": "San Sebastián",
-      "country": "Spain",
-      "latitude": 43.2888456,
-      "longitude": -1.9832498
-    },
-    "updatedManually": true
-  },
-  {
-    "id": "https://openalex.org/A5003314340",
-    "name": "Amitava Choudhury",
-    "orcid": null,
-    "collaborations": 1,
-    "dois": [
-      {
-        "doi": "https://doi.org/10.1021/acsanm.5c03716",
-        "title": "Pristine Nanostructured α-Ni(OH) <sub>2</sub> as a Nonenzymatic Electrochemical Strip Sensor for Trace Detection of Phenolic Compounds"
-      }
-    ],
-    "latestPaperYear": 2025,
-    "collaborationAffiliation": {
-      "name": "Pandit Deendayal Petroleum University",
-      "city": "Gandhinagar",
-      "country": "India",
-      "latitude": 23.1563544,
-      "longitude": 72.6652774
-    },
-    "currentAffiliation": {
-      "name": "Amrita Vishwa Vidyapeetham",
-      "city": "Bengaluru",
-      "country": "India",
-      "latitude": 12.8938021,
-      "longitude": 77.6759379,
-      "manual": false
-    },
-    "updatedManually": true
-  },
-  {
-    "id": "https://openalex.org/A5033973396",
-    "name": "Kalisadhan Mukherjee",
-    "orcid": "https://orcid.org/0000-0002-5431-4246",
-    "collaborations": 1,
-    "dois": [
-      {
-        "doi": "https://doi.org/10.1021/acsanm.5c03716",
-        "title": "Pristine Nanostructured α-Ni(OH) <sub>2</sub> as a Nonenzymatic Electrochemical Strip Sensor for Trace Detection of Phenolic Compounds"
-      }
-    ],
-    "latestPaperYear": 2025,
-    "collaborationAffiliation": {
-      "name": "Pandit Deendayal Petroleum University",
-      "city": "Gandhinagar",
-      "country": "India",
-      "latitude": 23.1563544,
-      "longitude": 72.6652774
-    },
-    "currentAffiliation": {
-      "name": "Pandit Deendayal Petroleum University",
-      "city": "Gandhinagar",
-      "country": "India",
-      "latitude": 23.1563544,
-      "longitude": 72.6652774
-    },
-    "updatedManually": true
   },
   {
     "id": "https://openalex.org/A5099022000",
@@ -969,8 +769,8 @@ const collaborators = [
       "name": "University of Toronto",
       "city": "Toronto",
       "country": "Canada",
-      "latitude": 43.6608141,
-      "longitude": -79.3960322,
+      "latitude": 43.5500842,
+      "longitude": -79.662716,
       "manual": false
     },
     "updatedManually": true
@@ -1511,6 +1311,207 @@ const collaborators = [
       "manual": false
     },
     "updatedManually": false
+  },
+  {
+    "id": "https://openalex.org/A5102757929",
+    "name": "Cauê Paula de Souza",
+    "orcid": "https://orcid.org/0000-0001-5545-004X",
+    "collaborations": 1,
+    "dois": [
+      {
+        "doi": "https://doi.org/10.1016/j.jphotochem.2024.116154",
+        "title": "A copper complex receptor for nanomolar sulfide sensing and applications in DNA/BSA binding"
+      }
+    ],
+    "latestPaperYear": 2024,
+    "collaborationAffiliation": {
+      "name": "University of Kent",
+      "city": "Canterbury",
+      "country": "United Kingdom",
+      "latitude": 51.2950874,
+      "longitude": 1.0673313,
+      "manual": false
+    },
+    "currentAffiliation": {
+      "name": "University of Kent",
+      "city": "Canterbury",
+      "country": "United Kingdom",
+      "latitude": 51.2950874,
+      "longitude": 1.0673313,
+      "manual": false
+    },
+    "updatedManually": false
+  },
+  {
+    "id": "https://openalex.org/A5006629330",
+    "name": "Somnath Mondal",
+    "orcid": null,
+    "collaborations": 1,
+    "dois": [
+      {
+        "doi": "https://doi.org/10.1016/j.jphotochem.2024.116154",
+        "title": "A copper complex receptor for nanomolar sulfide sensing and applications in DNA/BSA binding"
+      }
+    ],
+    "latestPaperYear": 2024,
+    "collaborationAffiliation": {
+      "name": "National Institute Of Technology Silchar",
+      "city": "Silchar",
+      "country": "India",
+      "latitude": 24.7552219,
+      "longitude": 92.7874485,
+      "manual": true
+    },
+    "currentAffiliation": {
+      "name": "National Institute Of Technology Silchar",
+      "city": "Silchar",
+      "country": "India",
+      "latitude": 24.7552219,
+      "longitude": 92.7874485,
+      "manual": true
+    },
+    "updatedManually": true
+  },
+  {
+    "id": "https://openalex.org/A5061029699",
+    "name": "Parnashabari Sarkar",
+    "orcid": null,
+    "collaborations": 1,
+    "dois": [
+      {
+        "doi": "https://doi.org/10.1016/j.jphotochem.2024.116154",
+        "title": "A copper complex receptor for nanomolar sulfide sensing and applications in DNA/BSA binding"
+      }
+    ],
+    "latestPaperYear": 2024,
+    "collaborationAffiliation": {
+      "name": "National Institute Of Technology Silchar",
+      "city": "Silchar",
+      "country": "India",
+      "latitude": 24.7552219,
+      "longitude": 92.7874485
+    },
+    "currentAffiliation": {
+      "name": "National Institute Of Technology Silchar",
+      "city": "Silchar",
+      "country": "India",
+      "latitude": 24.7552219,
+      "longitude": 92.7874485
+    },
+    "updatedManually": true
+  },
+  {
+    "id": null,
+    "name": "Suman Mondal",
+    "orcid": null,
+    "collaborations": 1,
+    "dois": [
+      {
+        "doi": "https://doi.org/10.1021/acsanm.5c03716",
+        "title": "Pristine Nanostructured α-Ni(OH) <sub>2</sub> as a Nonenzymatic Electrochemical Strip Sensor for Trace Detection of Phenolic Compounds"
+      }
+    ],
+    "latestPaperYear": 2025,
+    "collaborationAffiliation": {
+      "name": "Pandit Deendayal Petroleum University",
+      "city": "Gandhinagar",
+      "country": "India",
+      "latitude": 23.1563544,
+      "longitude": 72.6652774
+    },
+    "currentAffiliation": {
+      "name": "Pandit Deendayal Petroleum University",
+      "city": "Gandhinagar",
+      "country": "India",
+      "latitude": 23.1563544,
+      "longitude": 72.6652774
+    },
+    "updatedManually": true
+  },
+  {
+    "id": "https://openalex.org/A5042882491",
+    "name": "Rene Pfeifer",
+    "orcid": "https://orcid.org/0000-0002-0750-1321",
+    "collaborations": 1,
+    "dois": [
+      {
+        "doi": "https://doi.org/10.1021/acsanm.5c03716",
+        "title": "Pristine Nanostructured α-Ni(OH) <sub>2</sub> as a Nonenzymatic Electrochemical Strip Sensor for Trace Detection of Phenolic Compounds"
+      }
+    ],
+    "latestPaperYear": 2025,
+    "collaborationAffiliation": {
+      "name": "Digital Research Alliance of Canada",
+      "city": "Toronto",
+      "country": "Canada",
+      "latitude": 43.6976648,
+      "longitude": -79.3989186
+    },
+    "currentAffiliation": {
+      "name": "CIC biomaGUNE",
+      "city": "San Sebastián",
+      "country": "Spain",
+      "latitude": 43.2888456,
+      "longitude": -1.9832498
+    },
+    "updatedManually": true
+  },
+  {
+    "id": "https://openalex.org/A5003314340",
+    "name": "Amitava Choudhury",
+    "orcid": null,
+    "collaborations": 1,
+    "dois": [
+      {
+        "doi": "https://doi.org/10.1021/acsanm.5c03716",
+        "title": "Pristine Nanostructured α-Ni(OH) <sub>2</sub> as a Nonenzymatic Electrochemical Strip Sensor for Trace Detection of Phenolic Compounds"
+      }
+    ],
+    "latestPaperYear": 2025,
+    "collaborationAffiliation": {
+      "name": "Pandit Deendayal Petroleum University",
+      "city": "Gandhinagar",
+      "country": "India",
+      "latitude": 23.1563544,
+      "longitude": 72.6652774
+    },
+    "currentAffiliation": {
+      "name": "Amrita Vishwa Vidyapeetham",
+      "city": "Bengaluru",
+      "country": "India",
+      "latitude": 12.8938021,
+      "longitude": 77.6759379,
+      "manual": false
+    },
+    "updatedManually": true
+  },
+  {
+    "id": "https://openalex.org/A5033973396",
+    "name": "Kalisadhan Mukherjee",
+    "orcid": "https://orcid.org/0000-0002-5431-4246",
+    "collaborations": 1,
+    "dois": [
+      {
+        "doi": "https://doi.org/10.1021/acsanm.5c03716",
+        "title": "Pristine Nanostructured α-Ni(OH) <sub>2</sub> as a Nonenzymatic Electrochemical Strip Sensor for Trace Detection of Phenolic Compounds"
+      }
+    ],
+    "latestPaperYear": 2025,
+    "collaborationAffiliation": {
+      "name": "Pandit Deendayal Petroleum University",
+      "city": "Gandhinagar",
+      "country": "India",
+      "latitude": 23.1563544,
+      "longitude": 72.6652774
+    },
+    "currentAffiliation": {
+      "name": "Pandit Deendayal Petroleum University",
+      "city": "Gandhinagar",
+      "country": "India",
+      "latitude": 23.1563544,
+      "longitude": 72.6652774
+    },
+    "updatedManually": true
   },
   {
     "id": "https://openalex.org/A5036862851",

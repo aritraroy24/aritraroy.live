@@ -174,6 +174,12 @@ async function generate(forceMode = false) {
         }
 
         const freshWorks = await fetchFromORCID();
+
+        // Safety guard: don't wipe a previously valid cache when the API call fails/returns empty.
+        if (freshWorks.length === 0 && existingData.works.length > 0) {
+            console.log('⚠️ ORCID returned 0 works. Keeping existing publications cache to avoid data loss.');
+            return;
+        }
         
         if (!shouldUpdate && freshWorks.length <= existingData.works.length) {
             console.log(`📅 Cache is fresh (${Math.round(daysSinceLastGen)} days old) and counts match. Skipping update.`);

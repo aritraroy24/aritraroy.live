@@ -1,0 +1,91 @@
+﻿---
+isDraft: false
+title: "From Idea to Publication: The Story Behind ComProScanner"
+subtitle: A short story of how our paper moved from a practical pain point to a published framework
+description: The publication journey behind our Digital Discovery paper on ComProScanner, a multi-agent framework for extracting composition-property data from scientific literature.
+duration: 4 Min Read
+cover: ./comproscanner-publication-story.jpeg
+tags:
+  [
+    materials-science,
+    ai,
+    multi-agent,
+    llm,
+    text-mining,
+    publications,
+    data-extraction,
+  ]
+pubDate: 2026-03-27
+type: BlogPost
+---
+
+<div>
+
+_<span style="font-size:30px;">S</span>ome papers start from curiosity. This one started from frustration._
+
+For years, everyone working in materials science data has quietly acknowledged the same uncomfortable truth: the experimental data we need already exists. It has been measured, validated and written up thousands of times over. But it lives inside PDFs, scattered across publishers, locked in a format that machines cannot easily read or reuse. You can spend an afternoon reading the science. You cannot spend that same afternoon turning it into a dataset.
+
+ComProScanner was our attempt to actually do something about that.
+
+## Where the story began
+
+This was not the first time someone had tried. There had been earlier attempts using NLP pipelines, then LLM-based extraction and more recently agent-based approaches. Each moved the needle in its own way. But almost all of them shared the same quiet limitation: they worked on downloaded PDFs. The researcher had to acquire the articles themselves, organise them locally and feed them in. The pipeline started after the hard part.
+
+The few frameworks that did attempt automated text mining through publisher TDM APIs — the kind that let you programmatically access full-text articles at scale — largely stayed inside research labs. They were not packaged, not documented for external use and not accessible to the broader community. The automation existed (maybe with less accuracy!!!), but it did not travel.
+
+That gap was where ComProScanner began. The starting question was not particularly grand: could we build a practical workflow that an end user could actually run without a significant engineering setup, handling everything from article access to structured output with the data visualisation at a useful level of accuracy?
+
+That meant confronting real bottlenecks rather than idealised ones. Connecting directly to Elsevier, Springer, Wiley and IOP through their TDM APIs. Filtering out the majority of papers that mention a property in passing but never report a value. Handling variable compositions that do not follow a tidy formula. Validating the outputs and packaging everything into usable JSON. Each of these was a small problem that, left unsolved, made the whole thing unworkable.
+
+Gradually, what began as a fairly simple extraction idea grew into a multi-agent system with distinct stages for metadata retrieval, article collection, extraction, visualisation and evaluation and, crucially, one that anyone could install and run.
+
+## The turning point
+
+The clearest turning point came when we decided on the evaluation case. Rather than testing the framework on something easy, we chose piezoelectric ceramics and d₃₃ values extracted from 100 journal articles: a hard, realistic use case with genuinely messy literature.
+
+We also decided, almost as an afterthought that turned out to matter a great deal, to evaluate ten different LLMs in the same pipeline rather than committing to one. That decision changed the character of the paper entirely. It moved the work from a proof-of-concept into something that could actually inform model choices for researchers doing similar things. Seeing how different models behaved on the same extraction task, across the same corpus and under the same conditions was where the paper found its backbone.
+
+The most encouraging result was not any single top score. It was the consistency: the workflow could repeatedly produce structured, machine-learning-ready outputs from complex literature with minimal manual intervention, regardless of which model was in the driver's seat.
+
+## The publication milestone
+
+The paper was published in **Digital Discovery** (Royal Society of Chemistry) on **25 March 2026**, in Volume 5, Issue 4, pages 1794–1808.
+
+```bibtex
+@article{roy2026comproscanner,
+    author  = "Roy, Aritra and Grisan, Enrico and Buckeridge, John and Gattinoni, Chiara",
+    title   = "ComProScanner: a multi-agent based framework for composition-property structured data extraction from scientific literature",
+    journal = "Digital Discovery",
+    year    = "2026",
+    volume  = "5",
+    issue   = "4",
+    pages   = "1794-1808",
+    publisher = "RSC",
+    doi     = "10.1039/D5DD00521C",
+    url     = "http://dx.doi.org/10.1039/D5DD00521C"
+}
+```
+
+## What this publication means to me
+
+Honestly, this paper was never really about the framework itself. It was about a direction: the idea that the gap between published science and usable data is not some fundamental, unchangeable feature of research. It is an engineering problem, and one worth solving properly.
+
+ComProScanner is not the final answer. But it is a real step towards faster and more reproducible dataset creation from literature, and that matters because dataset creation is often the bottleneck that determines how quickly data-driven materials discovery can move.
+
+If this work saves even a few researchers from weeks of manual extraction and gives them that time back for actual scientific thinking, then it has already done more than enough.
+
+<p class="sectionDivider">- - -</p>
+
+<div class="citationBlockquote">
+Thank you for reading.
+
+If you would like to explore the paper and software:
+
+- Paper: <a href="https://doi.org/10.1039/D5DD00521C" target="_blank">https://doi.org/10.1039/D5DD00521C</a>
+- Code: <a href="https://github.com/slimeslab/ComProScanner" target="_blank">https://github.com/slimeslab/ComProScanner</a>
+- Documentation: <a href="https://slimeslab.github.io/ComProScanner" target="_blank">https://slimeslab.github.io/ComProScanner</a>
+- Package: <a href="https://pypi.org/project/comproscanner/" target="_blank">https://pypi.org/project/comproscanner/</a>
+
+</div>
+
+</div>
