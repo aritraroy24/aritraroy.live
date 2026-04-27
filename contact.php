@@ -44,12 +44,143 @@ function getSecret($key, $default = '')
     return $default;
 }
 
+function verifyTurnstileToken($secret, $token, $remoteIp)
+{
+    $verifyEndpoint = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
+    $payload = http_build_query([
+        'secret' => $secret,
+        'response' => $token,
+        'remoteip' => $remoteIp ?: '',
+    ]);
+
+    $ch = curl_init($verifyEndpoint);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 15);
+
+    $response = curl_exec($ch);
+    $curlError = curl_error($ch);
+    curl_close($ch);
+
+    if ($curlError) {
+        return ['success' => false, 'message' => 'Turnstile request failed'];
+    }
+
+    $decoded = json_decode($response, true);
+    if (!is_array($decoded)) {
+        return ['success' => false, 'message' => 'Invalid Turnstile response'];
+    }
+
+    return [
+        'success' => isset($decoded['success']) && $decoded['success'] === true,
+        'message' => $decoded['error-codes'][0] ?? 'turnstile_failed'
+    ];
+}
+
+function getRateLimitFilePath()
+{
+    $preferred = __DIR__ . '/../private/contact_rate_limits.json';
+    $fallback = sys_get_temp_dir() . '/contact_rate_limits.json';
+
+    $preferredDir = dirname($preferred);
+    if (is_dir($preferredDir) && is_writable($preferredDir)) {
+        return $preferred;
+    }
+
+    return $fallback;
+}
+
+function isRateLimited($ip, $maxRequests = 3, $windowSeconds = 600)
+{
+    $filePath = getRateLimitFilePath();
+    $now = time();
+    $records = [];
+
+    if (file_exists($filePath)) {
+        $raw = file_get_contents($filePath);
+        $decoded = json_decode($raw, true);
+        if (is_array($decoded)) {
+            $records = $decoded;
+        }
+    }
+
+    // Drop old records first.
+    foreach ($records as $k => $timestamps) {
+        if (!is_array($timestamps)) {
+            unset($records[$k]);
+            continue;
+        }
+        $records[$k] = array_values(array_filter($timestamps, function ($ts) use ($now, $windowSeconds) {
+            return is_int($ts) && ($now - $ts) <= $windowSeconds;
+        }));
+        if (count($records[$k]) === 0) {
+            unset($records[$k]);
+        }
+    }
+
+    $ipEntries = $records[$ip] ?? [];
+    $limited = count($ipEntries) >= $maxRequests;
+    if (!$limited) {
+        $ipEntries[] = $now;
+        $records[$ip] = $ipEntries;
+    }
+
+    @file_put_contents($filePath, json_encode($records), LOCK_EX);
+    return $limited;
+}
+
 // Get form data - match field names from React frontend
 $timestamp = date('Y-m-d H:i:s');
 $name = isset($_POST['Name']) ? htmlspecialchars($_POST['Name']) : '';
 $phone = isset($_POST['Phone']) ? htmlspecialchars($_POST['Phone']) : '';
 $email = isset($_POST['Email']) ? htmlspecialchars($_POST['Email']) : '';
 $message = isset($_POST['Message']) ? htmlspecialchars($_POST['Message']) : '';
+$honeypot = isset($_POST['Website']) ? trim($_POST['Website']) : '';
+$formStartedAt = isset($_POST['FormStartedAt']) ? trim($_POST['FormStartedAt']) : '';
+$turnstileToken = isset($_POST['cf-turnstile-response']) ? trim($_POST['cf-turnstile-response']) : '';
+$requestIp = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
+
+// Honeypot trap: hidden field should remain empty for real users.
+if (!empty($honeypot)) {
+    http_response_code(400);
+    echo json_encode(['result' => 'error', 'message' => 'Submission rejected']);
+    exit;
+}
+
+// Time-based bot check: reject unrealistically fast submissions (< 3 seconds).
+if (ctype_digit($formStartedAt)) {
+    $elapsed = (int) floor((microtime(true) * 1000 - (int)$formStartedAt) / 1000);
+    if ($elapsed < 3) {
+        http_response_code(400);
+        echo json_encode(['result' => 'error', 'message' => 'Please take a bit more time before submitting.']);
+        exit;
+    }
+}
+
+// Basic IP rate limiting: max 3 submissions per 10 minutes.
+if (isRateLimited($requestIp, 3, 600)) {
+    http_response_code(429);
+    echo json_encode(['result' => 'error', 'message' => 'Too many submissions. Please try again later.']);
+    exit;
+}
+
+// Verify Turnstile if configured.
+$turnstileSecret = getSecret('TURNSTILE_SECRET_KEY', '');
+if (!empty($turnstileSecret)) {
+    if (empty($turnstileToken)) {
+        http_response_code(400);
+        echo json_encode(['result' => 'error', 'message' => 'Security token missing']);
+        exit;
+    }
+
+    $turnstileResult = verifyTurnstileToken($turnstileSecret, $turnstileToken, $requestIp);
+    if (!$turnstileResult['success']) {
+        http_response_code(400);
+        echo json_encode(['result' => 'error', 'message' => 'Security verification failed']);
+        exit;
+    }
+}
 
 // Validate required fields
 if (empty($name) || empty($email) || empty($message)) {

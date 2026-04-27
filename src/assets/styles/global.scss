@@ -370,54 +370,6 @@ ol {
   width: 100vw;
   height: 100vh;
 }
-
-body.turnstile-locked {
-  overflow: hidden;
-}
-
-#turnstile-gate {
-  position: fixed;
-  inset: 0;
-  z-index: 99999;
-  background: rgba(1, 27, 67, 0.95);
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-
-  .turnstile-gate-card {
-    width: min(92vw, 420px);
-    border: 1px solid rgba(100, 255, 218, 0.3);
-    border-radius: 8px;
-    background: rgba(13, 35, 73, 0.95);
-    padding: 24px 18px;
-    text-align: center;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
-
-    h2 {
-      font-size: 24px;
-      margin-bottom: 8px;
-    }
-
-    p {
-      font-size: 15px;
-      margin-bottom: 16px !important;
-      color: #d5e6ff;
-    }
-  }
-
-  #turnstile-widget {
-    display: flex;
-    justify-content: center;
-  }
-
-  #turnstile-gate-error {
-    color: #fe3e55;
-    margin-top: 10px;
-    margin-bottom: 0 !important;
-    font-size: 14px;
-  }
-}
-
 @supports (scrollbar-color: red blue) {
   * {
     scrollbar-color: rgba(100, 255, 218, 0.65) transparent;

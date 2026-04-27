@@ -49,6 +49,5 @@ jobs:
           user "${{ secrets.FTP_USERNAME }}" "${{ secrets.FTP_PASSWORD }}"
           mirror -R ./dist/ . --parallel=1 --verbose
           put -O . ./contact.php
-          put -O . ./turnstile-verify.php
           quit
           EOF
