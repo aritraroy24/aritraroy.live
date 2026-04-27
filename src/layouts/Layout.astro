@@ -22,6 +22,7 @@ const {
   cover,
   frontmatter,
 } = Astro.props as LayoutProps;
+const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || "";
 ---
 
 <!doctype html>
@@ -45,6 +46,7 @@ const {
     <link rel="apple-touch-icon" href="/logo180.png" />
     <link rel="manifest" href="/manifest.json" />
     <link rel="sitemap" href="/sitemap-index.xml" />
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" defer></script>
     <title>{title}</title>
   </head>
   <body>
@@ -57,6 +59,14 @@ const {
     </div>
     <div id="root" style="display: none;">
       <slot />
+    </div>
+    <div id="turnstile-gate" data-site-key={turnstileSiteKey} style="display: none;">
+      <div class="turnstile-gate-card">
+        <h2>Security Check</h2>
+        <p>Please verify to continue browsing.</p>
+        <div id="turnstile-widget"></div>
+        <p id="turnstile-gate-error" style="display: none;"></p>
+      </div>
     </div>
     <script>
       (function (window) {
@@ -125,6 +135,96 @@ const {
       // London South Bank University, UK
       // `);
       // }, 5000);
+    </script>
+    <script is:inline>
+      (function () {
+        const gate = document.getElementById("turnstile-gate");
+        if (!gate) return;
+
+        const siteKey = gate.getAttribute("data-site-key") || "";
+        if (!siteKey) return;
+
+        const errorNode = document.getElementById("turnstile-gate-error");
+        const preloader = document.getElementById("preloader");
+
+        const showGate = () => {
+          gate.style.display = "flex";
+          document.body.classList.add("turnstile-locked");
+          if (preloader) preloader.style.display = "none";
+        };
+
+        const hideGate = () => {
+          gate.style.display = "none";
+          document.body.classList.remove("turnstile-locked");
+        };
+
+        const showError = (msg) => {
+          if (!errorNode) return;
+          errorNode.textContent = msg || "Verification failed. Please try again.";
+          errorNode.style.display = "block";
+        };
+
+        const clearError = () => {
+          if (!errorNode) return;
+          errorNode.textContent = "";
+          errorNode.style.display = "none";
+        };
+
+        if (sessionStorage.getItem("turnstile_passed") === "1") {
+          hideGate();
+          return;
+        }
+
+        showGate();
+
+        let widgetId = null;
+        const renderWidget = () => {
+          if (!window.turnstile || widgetId !== null) return;
+
+          widgetId = window.turnstile.render("#turnstile-widget", {
+            sitekey: siteKey,
+            theme: "dark",
+            callback: async (token) => {
+              clearError();
+              try {
+                const response = await fetch("/turnstile-verify.php", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ token }),
+                });
+                const result = await response.json();
+                if (response.ok && result.success) {
+                  sessionStorage.setItem("turnstile_passed", "1");
+                  hideGate();
+                  return;
+                }
+                showError(result.message || "Verification rejected. Please retry.");
+              } catch (error) {
+                showError("Unable to verify challenge. Please retry.");
+              }
+
+              if (window.turnstile && widgetId !== null) {
+                window.turnstile.reset(widgetId);
+              }
+            },
+            "error-callback": () => {
+              showError("Challenge failed to load. Please retry.");
+            },
+            "expired-callback": () => {
+              showError("Challenge expired. Please verify again.");
+            },
+          });
+        };
+
+        const checkTurnstileReady = setInterval(() => {
+          if (window.turnstile) {
+            clearInterval(checkTurnstileReady);
+            renderWidget();
+          }
+        }, 100);
+
+        setTimeout(() => clearInterval(checkTurnstileReady), 15000);
+      })();
     </script>
   </body>
 </html>

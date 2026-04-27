@@ -2,6 +2,7 @@
 /// <reference types="astro/client-image" />
 interface ImportMetaEnv {
   readonly GA_TRACKING_ID: string;
+  readonly PUBLIC_TURNSTILE_SITE_KEY?: string;
   // more env variables...
 }
 
