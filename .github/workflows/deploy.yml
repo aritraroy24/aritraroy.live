@@ -47,8 +47,8 @@ jobs:
           set net:reconnect-interval-base 5
           open ${{ secrets.FTP_SERVER }}
           user "${{ secrets.FTP_USERNAME }}" "${{ secrets.FTP_PASSWORD }}"
-          mirror -R ./dist/ ./public_html/ --parallel=1 --verbose
-          put -O ./public_html/ ./contact.php
-          put -O ./public_html/ ./turnstile-verify.php
+          mirror -R ./dist/ . --parallel=1 --verbose
+          put -O . ./contact.php
+          put -O . ./turnstile-verify.php
           quit
           EOF
