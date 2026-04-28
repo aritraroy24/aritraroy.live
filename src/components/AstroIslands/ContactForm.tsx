@@ -47,7 +47,9 @@ const ContactForm = () => {
             clearInterval(poll);
             const id = window.turnstile.render(turnstileHostRef.current, {
                 sitekey: siteKey,
-                size: 'invisible',
+                size: 'normal',
+                appearance: 'interaction-only',
+                execution: 'execute',
                 callback: (token: string) => {
                     turnstileTokenRef.current = token;
                 },

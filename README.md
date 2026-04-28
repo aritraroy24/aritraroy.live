@@ -67,7 +67,7 @@ npm run prebuild
 
 ## Copyright
 
-© 2025 Aritra Roy | All rights reserved.
+© 2026 Aritra Roy | All rights reserved.
 
 ---
 

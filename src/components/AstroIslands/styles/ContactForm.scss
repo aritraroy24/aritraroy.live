@@ -193,13 +193,10 @@
     }
 
     .turnstileHidden {
-        position: absolute !important;
-        opacity: 0 !important;
-        pointer-events: none !important;
-        width: 1px !important;
-        height: 1px !important;
-        overflow: visible !important;
-        z-index: -1 !important;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 8px;
     }
 }
 
