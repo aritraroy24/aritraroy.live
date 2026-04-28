@@ -182,14 +182,23 @@
         color: #6efcdb;
     }
 
-    .honeypotField,
-    .turnstileHidden {
+    .honeypotField {
         position: absolute !important;
         opacity: 0 !important;
         pointer-events: none !important;
         width: 0 !important;
         height: 0 !important;
         overflow: hidden !important;
+        z-index: -1 !important;
+    }
+
+    .turnstileHidden {
+        position: absolute !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+        width: 1px !important;
+        height: 1px !important;
+        overflow: visible !important;
         z-index: -1 !important;
     }
 }

@@ -1,5 +1,5 @@
 // library import
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 // style import 
 import './styles/ContactForm.scss';
@@ -16,7 +16,6 @@ const ContactForm = () => {
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
     const [submitError, setSubmitError] = useState('');
-    const [turnstileReady, setTurnstileReady] = useState(false);
     const [turnstileWidgetId, setTurnstileWidgetId] = useState<string | null>(null);
     const [startedAt] = useState(() => Date.now().toString());
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -26,13 +25,10 @@ const ContactForm = () => {
     const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '';
 
     useEffect(() => {
-        const isDisabled = !name || !email || !message || isSubmitted;
+        const isDisabled = !name || !email || !message || isSubmitted || isSubmitting;
         const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement | null;
         if (submitButton) {
             submitButton.disabled = isDisabled;
-            if (isSubmitting) {
-                submitButton.innerText = 'Submitting...';
-            }
         }
     }, [name, email, message, isSubmitting, isSubmitted]);
 
@@ -54,16 +50,14 @@ const ContactForm = () => {
                 size: 'invisible',
                 callback: (token: string) => {
                     turnstileTokenRef.current = token;
-                    setTurnstileReady(true);
                 },
                 'expired-callback': () => {
                     turnstileTokenRef.current = '';
-                    setTurnstileReady(false);
                 },
                 'error-callback': () => {
                     turnstileTokenRef.current = '';
-                    setTurnstileReady(false);
                     setSubmitError('Security check failed. Please retry.');
+                    setIsSubmitting(false);
                 },
             });
             setTurnstileWidgetId(id);
@@ -77,12 +71,14 @@ const ContactForm = () => {
         const form = event.target;
 
         setSubmitError('');
+        setIsSubmitting(true);
         const data = new FormData(form);
         data.set('FormStartedAt', startedAt);
 
         if (siteKey) {
             if (!turnstileWidgetId || !window.turnstile) {
                 setSubmitError('Security check is not ready yet. Please try again.');
+                setIsSubmitting(false);
                 return;
             }
 
@@ -107,12 +103,13 @@ const ContactForm = () => {
 
             if (!token) {
                 setSubmitError('Security verification failed. Please try again.');
+                setIsSubmitting(false);
+                if (window.turnstile) window.turnstile.reset(turnstileWidgetId);
                 return;
             }
             data.set('cf-turnstile-response', token);
         }
 
-        setIsSubmitting(true);
         setIsSubmitted(true);
         try {
             const res = await fetch('/contact.php', {
@@ -136,7 +133,6 @@ const ContactForm = () => {
             if (siteKey && turnstileWidgetId && window.turnstile) {
                 window.turnstile.reset(turnstileWidgetId);
                 turnstileTokenRef.current = '';
-                setTurnstileReady(false);
             }
         }
     }
