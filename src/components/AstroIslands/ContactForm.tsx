@@ -49,7 +49,7 @@ const ContactForm = () => {
         const interval = setInterval(() => {
             setSubmitMessage(shuffled[index % shuffled.length]);
             index++;
-        }, 3000);
+        }, 7500);
         return () => clearInterval(interval);
     }, [isSubmitting]);
 
