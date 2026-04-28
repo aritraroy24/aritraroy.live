@@ -47,7 +47,8 @@ jobs:
           set net:reconnect-interval-base 5
           open ${{ secrets.FTP_SERVER }}
           user "${{ secrets.FTP_USERNAME }}" "${{ secrets.FTP_PASSWORD }}"
-          mirror -R ./dist/ . --parallel=1 --verbose
+          mirror -R ./dist/_astro/ ./_astro/ --only-missing --parallel=1
+          mirror -R ./dist/ . --parallel=1 --verbose --exclude ^_astro/
           put -O . ./contact.php
           quit
           EOF
