@@ -10,6 +10,15 @@ declare global {
     }
 }
 
+const SUBMIT_MESSAGES = [
+    'Almost there...',
+    'Hang tight...',
+    'Just a moment...',
+    'On its way...',
+    'Bear with me...',
+    'Within moments...',
+];
+
 const ContactForm = () => {
     const [status, updateStatus] = useState('');
     const [name, setName] = useState('');
@@ -20,6 +29,7 @@ const ContactForm = () => {
     const [startedAt] = useState(() => Date.now().toString());
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const [submitMessage, setSubmitMessage] = useState('Submitting...');
     const turnstileHostRef = useRef<HTMLDivElement | null>(null);
     const turnstileTokenRef = useRef('');
     const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '';
@@ -31,6 +41,17 @@ const ContactForm = () => {
             submitButton.disabled = isDisabled;
         }
     }, [name, email, message, isSubmitting, isSubmitted]);
+
+    useEffect(() => {
+        if (!isSubmitting) return;
+        const shuffled = [...SUBMIT_MESSAGES].sort(() => Math.random() - 0.5);
+        let index = 0;
+        const interval = setInterval(() => {
+            setSubmitMessage(shuffled[index % shuffled.length]);
+            index++;
+        }, 3000);
+        return () => clearInterval(interval);
+    }, [isSubmitting]);
 
     useEffect(() => {
         if (status === 'SUCCESS') {
@@ -200,7 +221,7 @@ const ContactForm = () => {
                 <div className="success-message">Message sent successfully! Redirecting...</div>
             ) : (
                 <button id="subBtn" type='submit' disabled={isSubmitting || isSubmitted}>
-                    {isSubmitting ? 'Submitting...' : 'Send Message'}
+                    {isSubmitting ? submitMessage : 'Send Message'}
                 </button>
             )}
         </form>
