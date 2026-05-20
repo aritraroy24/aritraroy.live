@@ -107,6 +107,7 @@
     .postCard {
       height: 100%;
       margin: 0;
+      width: 100%;
     }
   }
 }
@@ -159,6 +160,11 @@
     .allPostsContainer {
       grid-template-columns: 1fr;
       gap: 36px;
+
+      .postCard {
+        max-width: 400px;
+        margin: 0 auto;
+      }
     }
   }
 }
