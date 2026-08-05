@@ -41,6 +41,16 @@ export default defineConfig({
     }
   },
   vite: {
+    server: {
+      fs: {
+        allow: [
+          // default allowed path (project root)
+          '..',
+          // custom node_modules path (optional)
+          'D:/environments/node/GitHub/astro-portfolio/node_modules'
+        ]
+      }
+    },
     define: {
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
     },
